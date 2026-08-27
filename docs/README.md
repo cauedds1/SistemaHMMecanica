@@ -1,13 +1,32 @@
-# Documentacao
+# Documentação — projeto HM Módulos
 
-- `escopo.html` — documento de escopo v0.1 (fonte da versao publicada).
-  Define as quatro operacoes, a matriz de permissoes, o registro de
-  operacoes, a integracao com a Ordem de Servico e as quatro fases de
-  entrega. Ainda aguardando aprovacao.
+Índice dos documentos. Estado do projeto: **ESTUDO / MAPEAMENTO** — reunindo
+o escopo completo antes de construir.
 
-Pendencias que travam entrega, detalhadas na secao 12 do escopo:
+## Comece por aqui
 
-- **P1** — dumps reais de BCCM e airbag com KM e VIN conhecidos.
-  Sem eles nao ha como levantar os perfis, e sem perfil o software nao le nada.
-- **P2** — definir se o SistemaHMMecanica existe em outro lugar
-  (e qual o schema) ou se o modelo da Ordem de Servico sera definido aqui.
+- **`base-conhecimento.md`** — memória do projeto. Todo o conhecimento técnico
+  levantado nos vídeos, as decisões já tomadas e os limites. É o primeiro
+  documento a ler ao retomar o projeto.
+- **`pendencias.md`** — perguntas em aberto e o que trava cada etapa.
+
+## Documentos de apresentação (HTML, para mostrar ao cliente)
+
+- `escopo.html` — escopo v0.1: as quatro operações de arquivo, matriz de
+  permissões, registro encadeado, integração com a OS e as fases de entrega.
+- `funcionalidades.html` — catálogo completo (92 funcionalidades em 15 áreas),
+  cada uma marcada por fase (F1–F4 / EST) e por núcleo/secundária.
+
+## O que trava a entrega (resumo — detalhe em `pendencias.md`)
+
+- **P1** — dumps reais de BCCM/airbag com KM e VIN conhecidos. Sem eles não há
+  perfil, e sem perfil o software não lê nada. Também decide a viabilidade do
+  eixo Chave.
+- **P2** — definir se o SistemaHMMecanica existe em outro lugar (e qual schema)
+  ou se o modelo da Ordem de Serviço é definido aqui.
+
+## Regra de dados
+
+Dumps de veículo carregam VIN e quilometragem reais de cliente. **Nunca**
+entram no repositório nem são colados no chat. `.gitignore` bloqueia `.bin`,
+`.eep`, `.hex` e a pasta `/dumps/`.

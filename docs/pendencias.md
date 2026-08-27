@@ -24,11 +24,14 @@
 
 ## Perguntas para trazer do mecânico
 
-- [ ] Ele consegue extrair os dumps? (o pré-requisito de tudo)
-- [ ] O serviço é o do vídeo (carro batido/alagado, troca de módulo) — confirmado?
-- [ ] Ele quer o eixo **Chave/imobilizador** no produto final? (dobra a complexidade, pode exigir hardware) — **já respondido: SIM, incluir tudo.**
+- [ ] Ele consegue extrair os dumps? (o pré-requisito de tudo) — **SIM, já mandou dumps reais.**
+- [x] O serviço é o do vídeo (carro batido/alagado, troca de módulo)? — **CONFIRMADO (27 ago):
+  "sistema parecido do vídeo", "se eu quiser trocar o módulo ou painel", "casar aqui as
+  informações, chassi e km". É exatamente a operação central mapeada.**
+- [x] Ele quer o eixo **Chave/imobilizador** no produto final? — **SIM, incluir tudo.**
 - [ ] Qual equipamento de bancada ele já tem? (Dash Tool / XProg / Orange5 / outro)
-- [ ] Vai haver mais de um operador na oficina? — **já respondido: dono + operadores com permissões.**
+- [x] Vai haver mais de um operador na oficina? — **dono + operadores com permissões.**
+- [ ] Fechar modelo de cobrança do desenvolvimento (ver `precos-mercado.md`).
 
 ## Eixo Chave — riscos a confirmar (área 15 do catálogo, "a estudar")
 

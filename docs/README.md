@@ -12,6 +12,7 @@ o escopo completo antes de construir.
   ficam VIN e KM no BCCM e no airbag, como estão codificados e o que falta para
   gravar. É a semente do primeiro perfil de módulo.
 - **`pendencias.md`** — perguntas em aberto e o que trava cada etapa.
+- **`precos-mercado.md`** — referência de preços do mercado e modelos de cobrança do desenvolvimento.
 
 ## Documentos de apresentação (HTML, para mostrar ao cliente)
 

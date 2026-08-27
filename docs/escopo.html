@@ -1,0 +1,1006 @@
+<title>Escopo HM Módulos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --fundo:      #EEF1F0;
+    --papel:      #F9FBFA;
+    --tinta:      #131A1C;
+    --tinta-fraca:#5B686C;
+    --linha:      #DCE2E1;
+    --linha-forte:#C2CBCA;
+    --petroleo:   #0F5E68;
+    --petroleo-fr:#0B4750;
+    --ambar:      #9C5C08;
+    --ambar-fundo:#F6EDDF;
+    --oxido:      #8B2A20;
+    --oxido-fundo:#F4E6E3;
+    --verde:      #2C6543;
+    --realce:     #E3EBEA;
+
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --grot:  "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fundo:      #0D1315;
+      --papel:      #151D1F;
+      --tinta:      #E3E9E8;
+      --tinta-fraca:#94A3A5;
+      --linha:      #253032;
+      --linha-forte:#38474A;
+      --petroleo:   #57BDC8;
+      --petroleo-fr:#8AD4DC;
+      --ambar:      #DFA044;
+      --ambar-fundo:#2A2116;
+      --oxido:      #D97A6C;
+      --oxido-fundo:#2C1A18;
+      --verde:      #6FBF8E;
+      --realce:     #1C2628;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --fundo:      #0D1315;
+    --papel:      #151D1F;
+    --tinta:      #E3E9E8;
+    --tinta-fraca:#94A3A5;
+    --linha:      #253032;
+    --linha-forte:#38474A;
+    --petroleo:   #57BDC8;
+    --petroleo-fr:#8AD4DC;
+    --ambar:      #DFA044;
+    --ambar-fundo:#2A2116;
+    --oxido:      #D97A6C;
+    --oxido-fundo:#2C1A18;
+    --verde:      #6FBF8E;
+    --realce:     #1C2628;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--fundo);
+    color: var(--tinta);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .folha {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 46px 26px 120px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 56px;
+  }
+
+  @media (min-width: 1040px) {
+    .folha { grid-template-columns: 196px minmax(0, 1fr); }
+    .indice { grid-column: 1; grid-row: 2; }
+    .cabecalho, .corpo, .rodape { grid-column: 2; }
+  }
+
+  /* ---------- cabeçalho de controle do documento ---------- */
+
+  .cabecalho { border-top: 3px solid var(--tinta); padding-top: 20px; }
+
+  .selo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0 0 18px;
+  }
+
+  .linha-fina {
+    font-family: var(--serif);
+    font-size: 1.16rem;
+    line-height: 1.55;
+    color: var(--tinta-fraca);
+    max-width: 62ch;
+    margin: 0 0 34px;
+  }
+
+  .controle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+    border-top: 1px solid var(--linha-forte);
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .controle div {
+    padding: 12px 16px 13px 0;
+    border-right: 1px solid var(--linha);
+  }
+  .controle div:last-child { border-right: 0; }
+  .controle dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    margin: 0 0 5px;
+  }
+  .controle dd {
+    font-family: var(--grot);
+    font-size: .93rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ---------- índice lateral ---------- */
+
+  .indice { padding-top: 46px; }
+  @media (min-width: 1040px) {
+    .indice { position: sticky; top: 26px; align-self: start; padding-top: 8px; }
+  }
+  .indice h2 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    font-weight: 500;
+    margin: 0 0 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .indice ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .indice a {
+    font-family: var(--grot);
+    font-size: .81rem;
+    line-height: 1.35;
+    color: var(--tinta-fraca);
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 6px;
+  }
+  .indice a span { font-family: var(--mono); font-size: .72rem; color: var(--petroleo); }
+  .indice a:hover, .indice a:focus-visible { color: var(--tinta); }
+
+  /* ---------- corpo ---------- */
+
+  .corpo { padding-top: 8px; }
+
+  section { padding-top: 52px; scroll-margin-top: 22px; }
+
+  h2.secao {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: 1.52rem;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0 0 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--linha-forte);
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 4px;
+  }
+  h2.secao em {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: .78rem;
+    font-weight: 400;
+    color: var(--petroleo);
+    letter-spacing: .04em;
+  }
+
+  h3 {
+    font-family: var(--grot);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.004em;
+    margin: 34px 0 10px;
+  }
+
+  p { margin: 0 0 15px; max-width: 68ch; }
+  .corpo > section > p { max-width: 68ch; }
+
+  strong { font-weight: 600; }
+  em.destaque { font-style: italic; color: var(--tinta); }
+
+  code {
+    font-family: var(--mono);
+    font-size: .84em;
+    background: var(--realce);
+    padding: 1px 5px;
+    color: var(--petroleo-fr);
+  }
+
+  ul.lista { margin: 0 0 16px; padding: 0; list-style: none; max-width: 68ch; display: flex; flex-direction: column; gap: 9px; }
+  ul.lista li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 8px; }
+  ul.lista li::before { content: "—"; color: var(--petroleo); font-family: var(--mono); font-size: .8rem; line-height: 1.9; }
+
+  /* ---------- blocos com legenda na borda ---------- */
+
+  .bloco {
+    position: relative;
+    border: 1px solid var(--linha-forte);
+    padding: 26px 24px 22px;
+    margin: 30px 0;
+    background: var(--papel);
+  }
+  .bloco > .legenda {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    transform: translateY(-50%);
+    background: var(--fundo);
+    padding: 0 9px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+  }
+  .bloco > :last-child { margin-bottom: 0; }
+
+  .bloco--op   { border-color: var(--petroleo); }
+  .bloco--op > .legenda { color: var(--petroleo); }
+  .bloco--restrito { border-color: var(--ambar); background: var(--ambar-fundo); }
+  .bloco--restrito > .legenda { color: var(--ambar); }
+  .bloco--veto { border-color: var(--oxido); background: var(--oxido-fundo); }
+  .bloco--veto > .legenda { color: var(--oxido); }
+
+  /* ---------- ficha de campos ---------- */
+
+  dl.ficha {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px 20px;
+    margin: 16px 0 0;
+  }
+  @media (min-width: 620px) {
+    dl.ficha { grid-template-columns: 126px minmax(0, 1fr); gap: 10px 20px; }
+  }
+  dl.ficha dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding-top: 6px;
+  }
+  dl.ficha dd { margin: 0; font-size: .96rem; line-height: 1.55; }
+  dl.ficha dd + dt { border-top: 1px solid var(--linha); }
+  dl.ficha dd { border-top: 1px solid var(--linha); padding-top: 6px; }
+  @media (max-width: 619px) {
+    dl.ficha dd { border-top: 0; padding-top: 0; padding-bottom: 12px; }
+    dl.ficha dt { border-top: 1px solid var(--linha); padding-top: 10px; }
+  }
+
+  /* ---------- tabelas ---------- */
+
+  .rolagem { overflow-x: auto; margin: 22px 0 26px; border-bottom: 1px solid var(--linha-forte); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-family: var(--grot);
+    font-size: .89rem;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding: 0 14px 10px 0;
+    border-bottom: 2px solid var(--tinta);
+    vertical-align: bottom;
+  }
+  tbody td, tbody th {
+    text-align: left;
+    font-weight: 400;
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--linha);
+    vertical-align: top;
+  }
+  tbody th { font-weight: 600; }
+  td.marca, th.marca { text-align: center; padding-right: 0; }
+  .sim { color: var(--verde); font-weight: 700; }
+  .nao { color: var(--tinta-fraca); }
+  .cond { color: var(--ambar); font-weight: 700; }
+
+  .pilula {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    padding: 3px 8px 2px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .p-livre { color: var(--verde); }
+  .p-restrito { color: var(--ambar); }
+  .p-veto { color: var(--oxido); }
+  .p-cond { color: var(--tinta-fraca); }
+
+  /* ---------- fluxo ---------- */
+
+  .fluxo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0 8px;
+    font-family: var(--grot);
+  }
+  .fluxo .passo {
+    border: 1px solid var(--linha-forte);
+    background: var(--papel);
+    padding: 11px 14px;
+    min-width: 132px;
+    flex: 1 1 132px;
+  }
+  .fluxo .passo b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .fluxo .passo span { font-size: .84rem; line-height: 1.4; display: block; }
+  .fluxo .seta {
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    color: var(--petroleo);
+    font-family: var(--mono);
+    font-size: .9rem;
+  }
+  @media (max-width: 700px) {
+    .fluxo { flex-direction: column; }
+    .fluxo .seta { padding: 5px 0 5px 16px; }
+  }
+
+  .nota {
+    font-size: .87rem;
+    color: var(--tinta-fraca);
+    font-family: var(--grot);
+    line-height: 1.55;
+    max-width: 66ch;
+    margin: 0 0 14px;
+  }
+
+  .rodape {
+    margin-top: 78px;
+    padding-top: 20px;
+    border-top: 3px solid var(--tinta);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--tinta-fraca);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+  }
+
+  a { color: var(--petroleo); }
+  a:focus-visible, .indice a:focus-visible {
+    outline: 2px solid var(--petroleo);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+
+<div class="folha">
+
+  <header class="cabecalho">
+    <p class="selo">Documento de escopo · versão 0.1 · em definição</p>
+    <h1>Ferramenta de sincronismo BCCM e airbag</h1>
+    <p class="linha-fina">
+      Aplicativo de bancada para leitura, diagnóstico, reparo e sincronização de arquivos de memória
+      dos módulos BCCM e airbag dos Citroën C3, Aircross e Basalt. Escrito para uma oficina que
+      precisa provar o que fez, não apenas fazer.
+    </p>
+    <dl class="controle">
+      <div><dt>Cliente</dt><dd>HM Mecânica</dd></div>
+      <div><dt>Data</dt><dd>27 ago 2026</dd></div>
+      <div><dt>Plataforma</dt><dd>Desktop (Windows)</dd></div>
+      <div><dt>Cobertura</dt><dd>PSA BCCM + airbag</dd></div>
+      <div><dt>Status</dt><dd>Aguardando dumps</dd></div>
+    </dl>
+  </header>
+
+  <nav class="indice" aria-label="Índice do documento">
+    <h2>Seções</h2>
+    <ol>
+      <li><a href="#s1"><span>01</span>Problema e contexto</a></li>
+      <li><a href="#s2"><span>02</span>Princípio de projeto</a></li>
+      <li><a href="#s3"><span>03</span>As quatro operações</a></li>
+      <li><a href="#s4"><span>04</span>Perfis de módulo</a></li>
+      <li><a href="#s5"><span>05</span>Acessos e permissões</a></li>
+      <li><a href="#s6"><span>06</span>Registro de operações</a></li>
+      <li><a href="#s7"><span>07</span>Laudo técnico</a></li>
+      <li><a href="#s8"><span>08</span>Integração com a OS</a></li>
+      <li><a href="#s9"><span>09</span>Fases de entrega</a></li>
+      <li><a href="#s10"><span>10</span>Arquitetura</a></li>
+      <li><a href="#s11"><span>11</span>Fora de escopo</a></li>
+      <li><a href="#s12"><span>12</span>Pendências</a></li>
+    </ol>
+  </nav>
+
+  <main class="corpo">
+
+    <section id="s1">
+      <h2 class="secao"><em>01</em>Problema e contexto</h2>
+      <p>
+        Nos Citroën C3, Aircross e Basalt da geração atual, o <strong>BCCM</strong> concentra em um único
+        módulo aquilo que antes era body computer, BSI e painel de instrumentos. Esse módulo trabalha
+        casado com o módulo de <strong>airbag</strong>, e o casamento é feito por dois dados:
+        <strong>o VIN e a quilometragem</strong>.
+      </p>
+      <p>
+        Quando um dos dois diverge — porque o carro foi batido, alagou, ou porque um dos módulos foi
+        substituído — o painel apaga a quilometragem e passa a exibir erro. O veículo não volta ao normal
+        até que os dois módulos voltem a concordar.
+      </p>
+      <p>
+        Hoje a oficina resolve isso mandando o serviço para fora ou devolvendo o carro. A ferramenta
+        existe para resolver na bancada: abre os dois arquivos, mostra onde eles discordam, corrige a
+        divergência, recalcula os checksums e devolve dois arquivos válidos para gravação.
+      </p>
+
+      <div class="bloco">
+        <span class="legenda">Delimitação</span>
+        <p class="nota" style="margin:0">
+          A ferramenta trabalha com <strong>arquivos</strong>. A leitura do módulo e a gravação de volta
+          continuam sendo feitas com o programador de bancada que a oficina já usa (Dash Tool, XProg,
+          Orange5). A comunicação direta com o veículo está prevista nas fases 3 e 4, com as ressalvas
+          da seção 9.
+        </p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <h2 class="secao"><em>02</em>Princípio de projeto</h2>
+      <p>
+        A ferramenta escreve quilometragem em um módulo de veículo. Isso é uma operação legítima de
+        reparo e é também o mecanismo central da fraude de hodômetro. A diferença entre as duas coisas
+        não está na intenção do operador: está no <em class="destaque">registro</em> e na
+        <em class="destaque">forma da operação</em>.
+      </p>
+      <p>
+        Por isso o software não tem um campo genérico de "definir quilometragem". Ele tem quatro
+        operações distintas, e em três delas <strong>o operador não digita número nenhum</strong> — o
+        valor é preservado ou copiado do outro módulo do mesmo carro. Só a quarta aceita um valor
+        digitado, e ela é a operação de troca de módulo, que exige justificativa e comprovação.
+      </p>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">Regra estruturante</span>
+        <p style="margin:0">
+          Segurança por construção, não por aviso na tela. Se a operação não precisa de um número
+          digitado, a tela dessa operação não tem campo para digitar número.
+        </p>
+      </div>
+    </section>
+
+    <section id="s3">
+      <h2 class="secao"><em>03</em>As quatro operações</h2>
+
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:190px">Operação</th>
+              <th style="min-width:170px">De onde vem o valor</th>
+              <th style="min-width:150px">Exige justificativa</th>
+              <th style="min-width:110px">Classe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Diagnosticar</th>
+              <td>Não altera nada</td>
+              <td class="nao">Não</td>
+              <td><span class="pilula p-livre">Livre</span></td>
+            </tr>
+            <tr>
+              <th>Reparar arquivo</th>
+              <td>De lugar nenhum — preserva KM e VIN</td>
+              <td class="nao">Não</td>
+              <td><span class="pilula p-livre">Livre</span></td>
+            </tr>
+            <tr>
+              <th>Sincronizar módulos</th>
+              <td>Do outro dump do mesmo veículo</td>
+              <td class="cond">Motivo apenas</td>
+              <td><span class="pilula p-cond">Controlada</span></td>
+            </tr>
+            <tr>
+              <th>Restaurar KM documentada</th>
+              <td>Digitado pelo operador</td>
+              <td class="sim">Completa</td>
+              <td><span class="pilula p-restrito">Restrita</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">3.1 · Diagnosticar</span>
+        <p>
+          Abre um arquivo, identifica o perfil do módulo, decodifica VIN e quilometragem e confere todos
+          os checksums declarados no perfil. Somente leitura — o arquivo não é tocado.
+        </p>
+        <dl class="ficha">
+          <dt>Entrada</dt><dd>Um arquivo <code>.bin</code></dd>
+          <dt>Saída</dt><dd>Módulo identificado, VIN, KM, situação de cada bloco de checksum</dd>
+          <dt>Falha</dt>
+          <dd>Se o perfil não for reconhecido, a ferramenta informa e para. Não tenta adivinhar layout.</dd>
+          <dt>Registro</dt><dd>Consulta registrada; nenhuma alteração</dd>
+        </dl>
+      </div>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">3.2 · Reparar arquivo</span>
+        <p>
+          Corrige um arquivo cuja estrutura está íntegra mas cujos checksums não fecham — situação típica
+          de leitura ruim, módulo alagado ou bloco corrompido. <strong>Recalcula os checksums e preserva
+          integralmente KM e VIN.</strong>
+        </p>
+        <dl class="ficha">
+          <dt>Disponível</dt>
+          <dd>Somente quando o diagnóstico acusa checksum inválido. Em arquivo íntegro o botão fica desabilitado — não há o que reparar.</dd>
+          <dt>Não faz</dt><dd>Não altera nenhum valor de campo. Nunca.</dd>
+          <dt>Saída</dt><dd>Arquivo novo; o original nunca é sobrescrito</dd>
+          <dt>Registro</dt><dd>Blocos corrigidos, hash antes e depois</dd>
+        </dl>
+      </div>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">3.3 · Sincronizar módulos</span>
+        <p>
+          A operação central, e a que resolve o caso do vídeo. Carrega os dois dumps do
+          <strong>mesmo veículo</strong>, compara VIN e KM, mostra onde discordam e deixa o operador
+          escolher qual dos dois é o correto. O valor vai de um arquivo para o outro — nunca é digitado.
+        </p>
+
+        <div class="fluxo">
+          <div class="passo"><b>Entrada</b><span>Dump do BCCM + dump do airbag</span></div>
+          <div class="seta" aria-hidden="true">→</div>
+          <div class="passo"><b>Comparação</b><span>VIN e KM lidos dos dois</span></div>
+          <div class="seta" aria-hidden="true">→</div>
+          <div class="passo"><b>Divergência</b><span>Exibida lado a lado</span></div>
+          <div class="seta" aria-hidden="true">→</div>
+          <div class="passo"><b>Direção</b><span>Operador escolhe a fonte</span></div>
+          <div class="seta" aria-hidden="true">→</div>
+          <div class="passo"><b>Saída</b><span>Dois arquivos, checksums refeitos</span></div>
+        </div>
+
+        <dl class="ficha">
+          <dt>Direções</dt>
+          <dd>VIN do painel → airbag, ou airbag → painel. KM do painel → airbag, ou airbag → painel. Cada campo é decidido separadamente.</dd>
+          <dt>Trava</dt>
+          <dd>Se os dois VINs forem completamente diferentes, a ferramenta alerta que os arquivos podem ser de veículos distintos e exige confirmação explícita antes de seguir.</dd>
+          <dt>Exige</dt><dd>Motivo (lista fechada da seção 6) e vínculo com a OS</dd>
+          <dt>Registro</dt>
+          <dd>Valores dos dois módulos antes, direção escolhida, valores depois, hash dos quatro arquivos</dd>
+        </dl>
+      </div>
+
+      <div class="bloco bloco--restrito">
+        <span class="legenda">3.4 · Restaurar KM documentada · restrita</span>
+        <p>
+          Única operação que aceita um número digitado. Existe para o caso real de substituição de
+          módulo: a unidade nova chega zerada, e a usada chega com a quilometragem do carro anterior.
+          Em nenhum dos dois casos existe um segundo módulo de onde copiar o valor correto.
+        </p>
+        <dl class="ficha">
+          <dt>Quem pode</dt><dd>Somente o responsável técnico. Operador comum não vê esta operação.</dd>
+          <dt>Exige</dt>
+          <dd>KM anterior comprovada, KM a gravar, VIN, motivo da lista fechada, número da OS e identificação do responsável</dd>
+          <dt>Redução</dt>
+          <dd>Gravar valor <strong>menor</strong> que o atual é legítimo (módulo usado), mas é a assinatura da fraude quando não é. Exige confirmação reforçada em tela separada, com o motivo obrigatoriamente vindo da lista fechada — texto livre sozinho não libera.</dd>
+          <dt>Não faz</dt>
+          <dd>Não existe atalho de "zerar". Não existe modo lote. Um veículo por vez.</dd>
+          <dt>Registro</dt>
+          <dd>Todos os campos acima, mais tentativas abandonadas (ver seção 6)</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="s4">
+      <h2 class="secao"><em>04</em>Perfis de módulo</h2>
+      <p>
+        A ferramenta não sabe ler um dump por conta própria. Ela lê um <strong>perfil</strong>: um arquivo
+        declarativo que descreve, para um módulo específico, onde cada campo mora e como cada checksum é
+        calculado. Módulo novo significa perfil novo, não código novo.
+      </p>
+
+      <h3>O que um perfil declara</h3>
+      <ul class="lista">
+        <li><strong>Identificação</strong> — tamanho esperado do arquivo e assinaturas em offsets conhecidos, para reconhecer o módulo automaticamente e evitar que o operador aplique o perfil errado.</li>
+        <li><strong>Campos</strong> — offset, tamanho, endianness e codificação de VIN e quilometragem, incluindo todas as réplicas espelhadas.</li>
+        <li><strong>Codificação</strong> — a quilometragem raramente está gravada limpa: pode estar em complemento de 1, com XOR de chave fixa, em BCD, ou com fator de escala. Cada réplica pode ter a sua.</li>
+        <li><strong>Checksums</strong> — algoritmo, faixa coberta, onde gravar o resultado e endianness, para cada bloco afetado.</li>
+      </ul>
+
+      <div class="bloco bloco--veto">
+        <span class="legenda">Dependência crítica</span>
+        <p style="margin:0 0 12px">
+          <strong>Sem dumps reais não existe perfil, e sem perfil o software não faz nada.</strong>
+          Descobrir que a KM do BCCM mora em determinado offset, em três blocos espelhados, com checksum
+          <code>sum16</code> cobrindo uma faixa específica, não se programa — se descobre por análise
+          diferencial: vários dumps do mesmo módulo com KM e VIN conhecidos, comparados byte a byte.
+        </p>
+        <p class="nota" style="margin:0">
+          O motor pode ser construído inteiro antes disso. Ele só passa a servir para alguma coisa quando
+          os perfis forem levantados. Ver pendência P1.
+        </p>
+      </div>
+
+      <h3>Cobertura da versão 1</h3>
+      <p>
+        Dois perfis: <strong>BCCM</strong> e <strong>airbag</strong> da plataforma PSA usada no C3,
+        Aircross e Basalt. A estrutura de perfis já nasce aberta para outras montadoras, mas nenhum outro
+        perfil está prometido nesta versão.
+      </p>
+    </section>
+
+    <section id="s5">
+      <h2 class="secao"><em>05</em>Acessos e permissões</h2>
+      <p>
+        Três papéis. O objetivo é que toda operação que altera um arquivo fique amarrada a uma pessoa
+        nomeada — é isso que dá valor ao registro se ele for questionado.
+      </p>
+
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:230px">Ação</th>
+              <th class="marca" style="min-width:88px">Consulta</th>
+              <th class="marca" style="min-width:96px">Operador</th>
+              <th class="marca" style="min-width:130px">Resp. técnico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>Abrir e diagnosticar arquivo</th><td class="marca sim">✓</td><td class="marca sim">✓</td><td class="marca sim">✓</td></tr>
+            <tr><th>Reparar arquivo (checksum)</th><td class="marca nao">—</td><td class="marca sim">✓</td><td class="marca sim">✓</td></tr>
+            <tr><th>Sincronizar módulos</th><td class="marca nao">—</td><td class="marca sim">✓</td><td class="marca sim">✓</td></tr>
+            <tr><th>Restaurar KM documentada</th><td class="marca nao">—</td><td class="marca nao">—</td><td class="marca sim">✓</td></tr>
+            <tr><th>Gravar KM menor que a atual</th><td class="marca nao">—</td><td class="marca nao">—</td><td class="marca cond">✓ *</td></tr>
+            <tr><th>Consultar histórico e laudos</th><td class="marca sim">✓</td><td class="marca sim">✓</td><td class="marca sim">✓</td></tr>
+            <tr><th>Emitir laudo assinado</th><td class="marca nao">—</td><td class="marca nao">—</td><td class="marca sim">✓</td></tr>
+            <tr><th>Cadastrar e revogar operadores</th><td class="marca nao">—</td><td class="marca nao">—</td><td class="marca sim">✓</td></tr>
+            <tr><th>Instalar perfil de módulo</th><td class="marca nao">—</td><td class="marca nao">—</td><td class="marca sim">✓</td></tr>
+            <tr><th>Apagar ou editar registro</th><td class="marca nao">—</td><td class="marca nao">—</td><td class="marca nao">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        * Confirmação reforçada em tela separada, com motivo obrigatório da lista fechada.<br>
+        A última linha não é um esquecimento: <strong>ninguém apaga registro</strong>, nem o dono. Um log
+        que o próprio responsável pode editar não prova nada.
+      </p>
+    </section>
+
+    <section id="s6">
+      <h2 class="secao"><em>06</em>Registro de operações</h2>
+      <p>
+        Toda operação que toca um arquivo gera um registro. O registro é o produto real desta ferramenta —
+        a edição do binário é a parte fácil.
+      </p>
+
+      <h3>Campos de cada registro</h3>
+      <dl class="ficha">
+        <dt>Identificação</dt><dd>Data e hora, operador nomeado, oficina</dd>
+        <dt>Veículo</dt><dd>VIN, placa, modelo e ano, número da OS</dd>
+        <dt>Módulo</dt><dd>Tipo (BCCM ou airbag), perfil aplicado e sua versão</dd>
+        <dt>Operação</dt><dd>Qual das quatro, e a direção escolhida quando houver</dd>
+        <dt>Valores</dt><dd>KM e VIN antes e depois, em cada arquivo envolvido</dd>
+        <dt>Motivo</dt><dd>Item da lista fechada, mais observação livre opcional</dd>
+        <dt>Arquivos</dt><dd>Nome, tamanho e SHA-256 de cada arquivo de entrada e de saída</dd>
+        <dt>Encadeamento</dt><dd>Hash do registro anterior, formando cadeia</dd>
+      </dl>
+
+      <h3>Lista fechada de motivos</h3>
+      <ul class="lista">
+        <li>Substituição de módulo por unidade nova</li>
+        <li>Substituição de módulo por unidade usada ou recuperada</li>
+        <li>Reparo de módulo com perda de dados (alagamento ou colisão)</li>
+        <li>Dessincronização após intervenção anterior de terceiro</li>
+        <li>Correção de leitura corrompida, sem alteração de valores</li>
+      </ul>
+
+      <div class="bloco bloco--restrito">
+        <span class="legenda">Duas regras que sustentam o registro</span>
+        <p>
+          <strong>Registra a tentativa, não só a conclusão.</strong> Se o operador abrir "Restaurar KM",
+          digitar um valor e cancelar, isso vai para o log. Um registro que só grava sucesso é fácil
+          demais de contornar por tentativa e erro.
+        </p>
+        <p style="margin-bottom:0">
+          <strong>Cadeia de hash.</strong> Cada registro carrega o hash do anterior. Apagar ou alterar
+          qualquer linha do meio quebra a cadeia e isso é detectável — o software mostra a integridade do
+          histórico na tela de consulta.
+        </p>
+      </div>
+    </section>
+
+    <section id="s7">
+      <h2 class="secao"><em>07</em>Laudo técnico</h2>
+      <p>
+        O registro vira um PDF de uma página, assinado pelo responsável técnico, emitido em duas vias:
+        uma entregue ao cliente junto com o veículo, outra arquivada na OS.
+      </p>
+      <dl class="ficha">
+        <dt>Conteúdo</dt>
+        <dd>Identificação da oficina e do responsável, dados do veículo e da OS, o que foi feito em linguagem corrente, quilometragem antes e depois, motivo e hashes dos arquivos</dd>
+        <dt>Função</dt>
+        <dd>Documentar que a alteração de quilometragem decorreu de reparo, e não de adulteração. É o que separa a operação legítima da fraude aos olhos de quem for verificar depois.</dd>
+        <dt>Numeração</dt><dd>Sequencial e contínua, vinculada ao número da OS</dd>
+      </dl>
+      <p class="nota">
+        Sugestão de valor agregado: entregar o laudo ao cliente por padrão, sem ele pedir. Nenhuma oficina
+        da região faz isso, e é barato de produzir depois que o registro já existe.
+      </p>
+    </section>
+
+    <section id="s8">
+      <h2 class="secao"><em>08</em>Integração com a OS</h2>
+      <p>
+        Você definiu que a ferramenta nasce integrada à Ordem de Serviço. Uma observação de fato:
+        <strong>o repositório do SistemaHMMecanica está vazio hoje</strong> — nenhum commit, nenhum
+        arquivo. Então a integração será escrita como um <em class="destaque">contrato</em>, com um
+        adaptador isolado em uma única camada. Isso funciona nos dois cenários, sem retrabalho.
+      </p>
+
+      <h3>O que a ferramenta consome da OS</h3>
+      <ul class="lista">
+        <li>Número e situação da OS</li>
+        <li>Placa, VIN, modelo e ano do veículo</li>
+        <li>Nome do cliente</li>
+        <li>Responsável designado para o serviço</li>
+      </ul>
+
+      <h3>O que a ferramenta devolve para a OS</h3>
+      <ul class="lista">
+        <li>Registro da operação executada, vinculado à OS</li>
+        <li>PDF do laudo anexado</li>
+        <li>Alerta se o VIN lido do módulo divergir do VIN cadastrado na OS</li>
+      </ul>
+
+      <p class="nota">
+        Esse último item é uma checagem que sai de graça da integração e vale por si só: se o VIN do
+        arquivo não bate com o VIN da OS, ou o arquivo é de outro carro, ou o cadastro está errado.
+        Melhor descobrir antes de gravar.
+      </p>
+
+      <div class="bloco">
+        <span class="legenda">Se o sistema ainda não existe</span>
+        <p style="margin:0">
+          Neste caso eu defino o modelo de dados da OS junto com a ferramenta, mantendo-o mínimo e
+          compatível com o que um sistema de oficina completo precisaria depois. Decisão sua — ver
+          pendência P2.
+        </p>
+      </div>
+    </section>
+
+    <section id="s9">
+      <h2 class="secao"><em>09</em>Fases de entrega</h2>
+      <p>
+        Você pediu as três formas de trabalho — arquivo, leitura pela OBD e gravação pela OBD. As três
+        estão aqui, em sequência, porque tentar as três em paralelo é o jeito mais rápido de não entregar
+        nenhuma. Cada fase entrega algo utilizável sozinho.
+      </p>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">Fase 1 · Núcleo de arquivos</span>
+        <p style="margin-bottom:12px">
+          O escopo do vídeo, completo: abrir dump, diagnosticar, reparar checksum, sincronizar BCCM com
+          airbag, salvar os dois arquivos, registrar tudo em log local.
+        </p>
+        <dl class="ficha">
+          <dt>Pré-requisito</dt><dd>Dumps reais para levantar os dois perfis (P1)</dd>
+          <dt>Entrega</dt><dd>Aplicativo funcional na bancada, gravação via Dash Tool como já é feito</dd>
+          <dt>Situação</dt><dd>Motor iniciado — codecs e checksums prontos e validados</dd>
+        </dl>
+      </div>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">Fase 2 · Oficina</span>
+        <p style="margin-bottom:12px">
+          Transforma a ferramenta em software de oficina: login por operador, matriz de permissões da
+          seção 5, integração com a OS, emissão de laudo e tela de histórico com verificação de cadeia.
+        </p>
+        <dl class="ficha">
+          <dt>Pré-requisito</dt><dd>Definição do contrato da OS (P2)</dd>
+          <dt>Entrega</dt><dd>Rastreabilidade completa e laudo para o cliente</dd>
+        </dl>
+      </div>
+
+      <div class="bloco bloco--restrito">
+        <span class="legenda">Fase 3 · Leitura pela OBD</span>
+        <p style="margin-bottom:12px">
+          Conectar ao veículo para <strong>ler</strong>: identificar o carro, confirmar VIN e quilometragem
+          direto dos módulos e comparar com o arquivo em mãos. Somente leitura — risco baixo e utilidade
+          imediata, porque elimina o erro de trabalhar com o dump errado.
+        </p>
+        <dl class="ficha">
+          <dt>Pré-requisito</dt><dd>Interface de hardware (J2534 ou adaptador CAN dedicado). ELM327 comum não atende.</dd>
+          <dt>Entrega</dt><dd>Conferência do veículo antes e depois da gravação</dd>
+        </dl>
+      </div>
+
+      <div class="bloco bloco--veto">
+        <span class="legenda">Fase 4 · Gravação pela OBD · condicional</span>
+        <p>
+          Escrever direto no módulo pelo conector do carro, sem abrir a bancada. Precisa ser dito com
+          clareza: <strong>esta fase não depende de esforço de programação.</strong> Ela depende do
+          algoritmo <em class="destaque">seed/key</em> da montadora, que protege a escrita no módulo.
+          Sem ele, não há como gravar pela OBD — e obtê-lo significa engenharia reversa de um mecanismo
+          de segurança do fabricante.
+        </p>
+        <p style="margin-bottom:0">
+          É por isso que o próprio vídeo grava com Dash Tool na bancada, e é assim que a indústria de
+          reparo trabalha de forma legítima. Recomendo tratar a fase 4 como <strong>condicional</strong>:
+          fica no escopo declarado, mas só entra em execução se e quando houver um caminho legítimo. Não
+          é uma data que eu consiga prometer.
+        </p>
+      </div>
+    </section>
+
+    <section id="s10">
+      <h2 class="secao"><em>10</em>Arquitetura</h2>
+      <dl class="ficha">
+        <dt>Aplicativo</dt>
+        <dd>Electron, empacotado para Windows — que é o que roda na bancada da oficina. Tauri foi descartado por não compilar no ambiente atual.</dd>
+        <dt>Núcleo</dt>
+        <dd>JavaScript puro, sem dependências externas, totalmente testável fora da interface. Já escrito: leitura e escrita de campos com todas as codificações, e sete algoritmos de checksum conferidos contra vetores de teste padrão.</dd>
+        <dt>Perfis</dt><dd>Arquivos JSON declarativos, um por módulo, versionados e assinados</dd>
+        <dt>Dados</dt><dd>SQLite local. Sem nuvem na fase 1; exportação do registro para backup externo.</dd>
+        <dt>Arquivos</dt>
+        <dd>O original nunca é sobrescrito. Toda saída é arquivo novo, com cópia do original preservada e hash registrado.</dd>
+        <dt>Adaptadores</dt>
+        <dd>Integração com a OS e comunicação OBD ficam em camadas isoladas, para que as fases 2 a 4 não obriguem a mexer no núcleo.</dd>
+      </dl>
+    </section>
+
+    <section id="s11">
+      <h2 class="secao"><em>11</em>Fora de escopo</h2>
+      <p>
+        Lista explícita do que a ferramenta não fará, para que não vire discussão depois.
+      </p>
+
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr><th style="min-width:250px">Não faz</th><th style="min-width:300px">Por quê</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Apagar crash data de airbag</th>
+              <td>Limpar o registro de colisão sem reparo físico do sistema devolve à rua um carro com airbag que pode não disparar. É risco de vida, não questão administrativa.</td>
+            </tr>
+            <tr>
+              <th>Alterar VIN para valor arbitrário</th>
+              <td>Sincronizar o VIN entre os dois módulos do mesmo carro é reparo. Gravar um VIN de outro veículo é adulteração de sinal identificador — outro campeonato.</td>
+            </tr>
+            <tr>
+              <th>Modo lote</th>
+              <td>Processar vários arquivos de uma vez só serve para volume, e volume aqui só tem um uso.</td>
+            </tr>
+            <tr>
+              <th>Atalho de zerar quilometragem</th>
+              <td>Não existe caso de reparo que precise disso como preset.</td>
+            </tr>
+            <tr>
+              <th>Operar sem OS vinculada</th>
+              <td>Operação sem OS é operação sem rastro. O vínculo é obrigatório.</td>
+            </tr>
+            <tr>
+              <th>Distribuir os perfis de módulo</th>
+              <td>Os perfis são o ativo levantado com trabalho próprio. Ficam na instalação, assinados, não em arquivo solto.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s12">
+      <h2 class="secao"><em>12</em>Pendências</h2>
+      <p>Cinco itens em aberto. Os dois primeiros travam entrega; os outros três não impedem começar.</p>
+
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:44px">#</th>
+              <th style="min-width:200px">Pendência</th>
+              <th style="min-width:150px">Quem resolve</th>
+              <th style="min-width:150px">O que trava</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>P1</code></td>
+              <th>Dumps reais de BCCM e airbag, com KM e VIN conhecidos</th>
+              <td>Você / o mecânico</td>
+              <td class="cond">Fase 1 funcionar de verdade</td>
+            </tr>
+            <tr>
+              <td><code>P2</code></td>
+              <th>O SistemaHMMecanica existe em outro lugar, ou eu defino o modelo da OS?</th>
+              <td>Você</td>
+              <td class="cond">Fase 2 inteira</td>
+            </tr>
+            <tr>
+              <td><code>P3</code></td>
+              <th>Nome do produto — "Enigma" é a marca do vídeo, de terceiro</th>
+              <td>Você</td>
+              <td class="nao">Nada; só a tela inicial</td>
+            </tr>
+            <tr>
+              <td><code>P4</code></td>
+              <th>Interface de hardware para OBD</th>
+              <td>A definir na fase 3</td>
+              <td class="nao">Fase 3 apenas</td>
+            </tr>
+            <tr>
+              <td><code>P5</code></td>
+              <th>Revisão do modelo de laudo por advogado</th>
+              <td>Recomendado ao mecânico</td>
+              <td class="nao">Nada; recomendação</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bloco">
+        <span class="legenda">Enquanto P1 não chega</span>
+        <p style="margin:0">
+          Dá para construir o motor completo, a estrutura de perfis, o registro de operações, a matriz de
+          permissões e toda a interface, validando contra um perfil de teste sintético. Quando os dumps
+          reais chegarem, o trabalho é preencher o perfil — não reescrever o software.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <span>HM Mecânica</span>
+    <span>Escopo v0.1</span>
+    <span>27 ago 2026</span>
+    <span>Aguardando aprovação</span>
+  </footer>
+
+</div>

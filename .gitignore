@@ -1,0 +1,16 @@
+node_modules/
+dist/
+out/
+*.log
+
+# Dumps de modulos: nunca versionar.
+# Sao dados de veiculo real (VIN, quilometragem) e nao entram no repositorio.
+*.bin
+*.eep
+*.hex
+/dumps/
+
+# Banco local de operacoes e laudos gerados
+*.sqlite
+*.sqlite-journal
+/laudos/

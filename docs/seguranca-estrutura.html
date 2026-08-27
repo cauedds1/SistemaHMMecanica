@@ -1,0 +1,631 @@
+<title>Segurança e Confiabilidade HM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --fundo:      #EEF1F0;
+    --papel:      #F9FBFA;
+    --tinta:      #131A1C;
+    --tinta-fraca:#5B686C;
+    --linha:      #DCE2E1;
+    --linha-forte:#C2CBCA;
+    --petroleo:   #0F5E68;
+    --petroleo-fr:#0B4750;
+    --ambar:      #9C5C08;
+    --ambar-fundo:#F6EDDF;
+    --oxido:      #8B2A20;
+    --oxido-fundo:#F4E6E3;
+    --verde:      #2C6543;
+    --realce:     #E3EBEA;
+
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --grot:  "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fundo:      #0D1315;
+      --papel:      #151D1F;
+      --tinta:      #E3E9E8;
+      --tinta-fraca:#94A3A5;
+      --linha:      #253032;
+      --linha-forte:#38474A;
+      --petroleo:   #57BDC8;
+      --petroleo-fr:#8AD4DC;
+      --ambar:      #DFA044;
+      --ambar-fundo:#2A2116;
+      --oxido:      #D97A6C;
+      --oxido-fundo:#2C1A18;
+      --verde:      #6FBF8E;
+      --realce:     #1C2628;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --fundo:      #0D1315;
+    --papel:      #151D1F;
+    --tinta:      #E3E9E8;
+    --tinta-fraca:#94A3A5;
+    --linha:      #253032;
+    --linha-forte:#38474A;
+    --petroleo:   #57BDC8;
+    --petroleo-fr:#8AD4DC;
+    --ambar:      #DFA044;
+    --ambar-fundo:#2A2116;
+    --oxido:      #D97A6C;
+    --oxido-fundo:#2C1A18;
+    --verde:      #6FBF8E;
+    --realce:     #1C2628;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--fundo);
+    color: var(--tinta);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .folha {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 46px 26px 120px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 56px;
+  }
+
+  @media (min-width: 1040px) {
+    .folha { grid-template-columns: 196px minmax(0, 1fr); }
+    .indice { grid-column: 1; grid-row: 2; }
+    .cabecalho, .corpo, .rodape { grid-column: 2; }
+  }
+
+  /* ---------- cabeçalho de controle do documento ---------- */
+
+  .cabecalho { border-top: 3px solid var(--tinta); padding-top: 20px; }
+
+  .selo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0 0 18px;
+  }
+
+  .linha-fina {
+    font-family: var(--serif);
+    font-size: 1.16rem;
+    line-height: 1.55;
+    color: var(--tinta-fraca);
+    max-width: 62ch;
+    margin: 0 0 34px;
+  }
+
+  .controle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+    border-top: 1px solid var(--linha-forte);
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .controle div {
+    padding: 12px 16px 13px 0;
+    border-right: 1px solid var(--linha);
+  }
+  .controle div:last-child { border-right: 0; }
+  .controle dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    margin: 0 0 5px;
+  }
+  .controle dd {
+    font-family: var(--grot);
+    font-size: .93rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ---------- índice lateral ---------- */
+
+  .indice { padding-top: 46px; }
+  @media (min-width: 1040px) {
+    .indice { position: sticky; top: 26px; align-self: start; padding-top: 8px; }
+  }
+  .indice h2 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    font-weight: 500;
+    margin: 0 0 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .indice ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .indice a {
+    font-family: var(--grot);
+    font-size: .81rem;
+    line-height: 1.35;
+    color: var(--tinta-fraca);
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 6px;
+  }
+  .indice a span { font-family: var(--mono); font-size: .72rem; color: var(--petroleo); }
+  .indice a:hover, .indice a:focus-visible { color: var(--tinta); }
+
+  /* ---------- corpo ---------- */
+
+  .corpo { padding-top: 8px; }
+
+  section { padding-top: 52px; scroll-margin-top: 22px; }
+
+  h2.secao {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: 1.52rem;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0 0 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--linha-forte);
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 4px;
+  }
+  h2.secao em {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: .78rem;
+    font-weight: 400;
+    color: var(--petroleo);
+    letter-spacing: .04em;
+  }
+
+  h3 {
+    font-family: var(--grot);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.004em;
+    margin: 34px 0 10px;
+  }
+
+  p { margin: 0 0 15px; max-width: 68ch; }
+  .corpo > section > p { max-width: 68ch; }
+
+  strong { font-weight: 600; }
+  em.destaque { font-style: italic; color: var(--tinta); }
+
+  code {
+    font-family: var(--mono);
+    font-size: .84em;
+    background: var(--realce);
+    padding: 1px 5px;
+    color: var(--petroleo-fr);
+  }
+
+  ul.lista { margin: 0 0 16px; padding: 0; list-style: none; max-width: 68ch; display: flex; flex-direction: column; gap: 9px; }
+  ul.lista li { position: relative; padding-left: 22px; }
+  ul.lista li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--petroleo); font-family: var(--mono); font-size: .8rem; line-height: 1.62; }
+
+  /* ---------- blocos com legenda na borda ---------- */
+
+  .bloco {
+    position: relative;
+    border: 1px solid var(--linha-forte);
+    padding: 26px 24px 22px;
+    margin: 30px 0;
+    background: var(--papel);
+  }
+  .bloco > .legenda {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    transform: translateY(-50%);
+    background: var(--fundo);
+    padding: 0 9px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+  }
+  .bloco > :last-child { margin-bottom: 0; }
+
+  .bloco--op   { border-color: var(--petroleo); }
+  .bloco--op > .legenda { color: var(--petroleo); }
+  .bloco--restrito { border-color: var(--ambar); background: var(--ambar-fundo); }
+  .bloco--restrito > .legenda { color: var(--ambar); }
+  .bloco--veto { border-color: var(--oxido); background: var(--oxido-fundo); }
+  .bloco--veto > .legenda { color: var(--oxido); }
+
+  /* ---------- ficha de campos ---------- */
+
+  dl.ficha {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px 20px;
+    margin: 16px 0 0;
+  }
+  @media (min-width: 620px) {
+    dl.ficha { grid-template-columns: 126px minmax(0, 1fr); gap: 10px 20px; }
+  }
+  dl.ficha dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding-top: 6px;
+  }
+  dl.ficha dd { margin: 0; font-size: .96rem; line-height: 1.55; }
+  dl.ficha dd + dt { border-top: 1px solid var(--linha); }
+  dl.ficha dd { border-top: 1px solid var(--linha); padding-top: 6px; }
+  @media (max-width: 619px) {
+    dl.ficha dd { border-top: 0; padding-top: 0; padding-bottom: 12px; }
+    dl.ficha dt { border-top: 1px solid var(--linha); padding-top: 10px; }
+  }
+
+  /* ---------- tabelas ---------- */
+
+  .rolagem { overflow-x: auto; margin: 22px 0 26px; border-bottom: 1px solid var(--linha-forte); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-family: var(--grot);
+    font-size: .89rem;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding: 0 14px 10px 0;
+    border-bottom: 2px solid var(--tinta);
+    vertical-align: bottom;
+  }
+  tbody td, tbody th {
+    text-align: left;
+    font-weight: 400;
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--linha);
+    vertical-align: top;
+  }
+  tbody th { font-weight: 600; }
+  td.marca, th.marca { text-align: center; padding-right: 0; }
+  .sim { color: var(--verde); font-weight: 700; }
+  .nao { color: var(--tinta-fraca); }
+  .cond { color: var(--ambar); font-weight: 700; }
+
+  .pilula {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    padding: 3px 8px 2px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .p-livre { color: var(--verde); }
+  .p-restrito { color: var(--ambar); }
+  .p-veto { color: var(--oxido); }
+  .p-cond { color: var(--tinta-fraca); }
+
+  /* ---------- fluxo ---------- */
+
+  .fluxo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0 8px;
+    font-family: var(--grot);
+  }
+  .fluxo .passo {
+    border: 1px solid var(--linha-forte);
+    background: var(--papel);
+    padding: 11px 14px;
+    min-width: 132px;
+    flex: 1 1 132px;
+  }
+  .fluxo .passo b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .fluxo .passo span { font-size: .84rem; line-height: 1.4; display: block; }
+  .fluxo .seta {
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    color: var(--petroleo);
+    font-family: var(--mono);
+    font-size: .9rem;
+  }
+  @media (max-width: 700px) {
+    .fluxo { flex-direction: column; }
+    .fluxo .seta { padding: 5px 0 5px 16px; }
+  }
+
+  .nota {
+    font-size: .87rem;
+    color: var(--tinta-fraca);
+    font-family: var(--grot);
+    line-height: 1.55;
+    max-width: 66ch;
+    margin: 0 0 14px;
+  }
+
+  .rodape {
+    margin-top: 78px;
+    padding-top: 20px;
+    border-top: 3px solid var(--tinta);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--tinta-fraca);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+  }
+
+  a { color: var(--petroleo); }
+  a:focus-visible, .indice a:focus-visible {
+    outline: 2px solid var(--petroleo);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+
+<div class="folha">
+
+  <header class="cabecalho">
+    <p class="selo">Documento técnico · versão 0.1 · segurança, estrutura e confiabilidade</p>
+    <h1>Como a ferramenta se protege e não erra</h1>
+    <p class="linha-fina">
+      Esta ferramenta grava em módulo de carro e guarda dado de cliente. Um erro
+      aqui não é um botão travado — é um módulo queimado ou um vazamento. Este
+      documento define, em três frentes, como o software evita isso por construção.
+    </p>
+    <dl class="controle">
+      <div><dt>Frentes</dt><dd>Segurança · Estrutura · Confiabilidade</dd></div>
+      <div><dt>Princípio</dt><dd>Falhar parado, nunca gravar lixo</dd></div>
+      <div><dt>Dados</dt><dd>Locais, do cliente, sob LGPD</dd></div>
+      <div><dt>Estado</dt><dd>Definição — em estudo</dd></div>
+    </dl>
+  </header>
+
+  <nav class="indice" aria-label="Índice">
+    <h2>Seções</h2>
+    <ol>
+      <li><a href="#s1"><span>01</span>Segurança</a></li>
+      <li><a href="#s2"><span>02</span>Estrutura</a></li>
+      <li><a href="#s3"><span>03</span>Confiabilidade</a></li>
+      <li><a href="#s4"><span>04</span>Dados e LGPD</a></li>
+      <li><a href="#s5"><span>05</span>Proteção do produto</a></li>
+      <li><a href="#s6"><span>06</span>Resumo por prioridade</a></li>
+    </ol>
+  </nav>
+
+  <main class="corpo">
+
+    <section id="s1" style="padding-top:34px">
+      <h2 class="secao"><em>01</em>Segurança</h2>
+      <p>
+        Segurança aqui tem dois lados: proteger o <strong>arquivo do carro</strong> (que é
+        insubstituível — um dump corrompido pode inutilizar o módulo) e proteger o
+        <strong>acesso e o registro</strong> (para o log valer alguma coisa se for questionado).
+      </p>
+
+      <h3>Proteção do arquivo original</h3>
+      <ul class="lista">
+        <li><strong>Nunca sobrescrever o original.</strong> Toda operação salva um arquivo novo; o dump lido do módulo permanece intacto.</li>
+        <li><strong>Backup automático antes de qualquer coisa.</strong> Uma cópia do original é guardada em pasta própria assim que o arquivo é aberto.</li>
+        <li><strong>Impressão digital (SHA-256)</strong> de cada arquivo que entra e sai, para provar depois que nada foi trocado.</li>
+        <li><strong>Desfazer sempre possível.</strong> Como o original é preservado, dá para voltar ao ponto inicial a qualquer momento.</li>
+      </ul>
+
+      <h3>Controle de acesso</h3>
+      <ul class="lista">
+        <li><strong>Login por operador</strong>, com três papéis (consulta, operador, responsável técnico).</li>
+        <li><strong>Senha guardada com hash forte</strong> (algoritmo próprio para senha, tipo Argon2/bcrypt) — nunca em texto claro, nem eu nem ninguém lê a senha no banco.</li>
+        <li><strong>Bloqueio após tentativas erradas</strong>, para impedir adivinhação.</li>
+        <li>A operação de <strong>restaurar KM é exclusiva do responsável técnico</strong> — operador comum nem vê.</li>
+      </ul>
+
+      <h3>Registro inviolável</h3>
+      <ul class="lista">
+        <li><strong>Cadeia de hash:</strong> cada registro carrega a impressão digital do anterior. Apagar ou alterar uma linha do meio quebra a cadeia, e a quebra é detectável.</li>
+        <li><strong>Só adiciona, nunca edita nem apaga.</strong> Nenhum perfil de usuário — nem o dono — remove registro.</li>
+        <li><strong>Registra a tentativa</strong>, não só a conclusão: abrir uma operação e desistir também fica gravado.</li>
+      </ul>
+
+      <div class="bloco bloco--op">
+        <span class="legenda">Segurança por construção</span>
+        <p style="margin:0">
+          A maior proteção contra uso indevido não é senha, é a forma da ferramenta:
+          sem campo genérico de "definir KM", sem modo lote, sem operação fora de OS.
+          O software é desenhado para uso legítimo, e isso vale mais que qualquer aviso.
+        </p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <h2 class="secao"><em>02</em>Estrutura</h2>
+      <p>
+        A ferramenta é montada em <strong>camadas separadas</strong>. O motivo é prático: o
+        pedaço que mexe nos bytes do carro fica isolado da tela e do banco, então dá para
+        testá-lo sozinho, com rigor, sem depender de clicar em nada. É o que garante que a
+        parte perigosa seja a mais confiável.
+      </p>
+
+      <div class="rolagem"><table>
+        <thead><tr><th style="min-width:150px">Camada</th><th style="min-width:300px">O que faz</th><th style="min-width:120px">Isolada?</th></tr></thead>
+        <tbody>
+          <tr><th>Núcleo</th><td>Lê e grava campos no dump, recalcula checksums. JavaScript puro, sem depender de nada.</td><td class="sim">Sim — testável sozinha</td></tr>
+          <tr><th>Perfis</th><td>Arquivos declarativos, um por módulo, que dizem onde cada campo mora. Versionados e assinados.</td><td class="sim">Sim — dado, não código</td></tr>
+          <tr><th>Registro / banco</th><td>Guarda operações, laudos e operadores. Banco local (SQLite).</td><td class="sim">Sim</td></tr>
+          <tr><th>Adaptadores</th><td>Ligação com a Ordem de Serviço e, nas fases futuras, com a OBD. Trocáveis sem mexer no núcleo.</td><td class="sim">Sim</td></tr>
+          <tr><th>Interface</th><td>As telas (Electron). Só mostra e comanda; não contém a lógica perigosa.</td><td class="sim">Sim</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Decisões de estrutura já tomadas</h3>
+      <ul class="lista">
+        <li><strong>Núcleo sem dependências externas.</strong> Menos bibliotecas de terceiros = menos brecha de segurança e menos coisa para quebrar com o tempo.</li>
+        <li><strong>Perfis declarativos.</strong> Módulo novo é arquivo novo, não versão nova do programa. Reduz o risco de cada carro novo virar um remendo no código.</li>
+        <li><strong>Interface isolada da lógica</strong> (no Electron: processos separados, sem acesso direto ao sistema pela tela). É a prática recomendada de segurança dessa plataforma.</li>
+        <li><strong>Banco local, sem nuvem</strong> na fase inicial. O dado do cliente não sai da máquina da oficina.</li>
+      </ul>
+    </section>
+
+    <section id="s3">
+      <h2 class="secao"><em>03</em>Confiabilidade</h2>
+      <p>
+        A regra de ouro é uma só: <strong>na dúvida, o software para — nunca grava lixo.</strong>
+        Módulo queimado por arquivo ruim é o pior resultado possível, e é o que todas as
+        travas abaixo existem para impedir.
+      </p>
+
+      <h3>Antes de gravar</h3>
+      <ul class="lista">
+        <li><strong>Detectar leitura ruim:</strong> arquivo do tamanho errado, cheio de bytes vazios ou com as cópias internas discordando entre si = leitura falha. O software acusa e recusa.</li>
+        <li><strong>Prévia obrigatória:</strong> mostra exatamente o que vai mudar, antes de mudar.</li>
+        <li><strong>Validação do resultado:</strong> depois de editar, confere que os checksums fecham e que o VIN/KM ficaram coerentes. Se algo não bate, não deixa salvar.</li>
+      </ul>
+
+      <h3>Depois de gravar</h3>
+      <ul class="lista">
+        <li><strong>Conferência pós-gravação:</strong> o mecânico grava no módulo, lê de novo e joga a releitura no software. Se a impressão digital bate, está provado que o módulo recebeu exatamente o arquivo gerado.</li>
+      </ul>
+
+      <h3>Como se ganha essa confiança</h3>
+      <ul class="lista">
+        <li><strong>Testes automáticos do núcleo:</strong> os codecs e os checksums já são conferidos contra valores conhecidos (os CRCs já batem com os testes padrão). Isso roda a cada mudança.</li>
+        <li><strong>Testes contra dumps reais:</strong> ler o painel de 25.100 km tem que dar 25.100, sempre. Cada dump real vira um teste que impede regressão.</li>
+        <li><strong>Operação tudo-ou-nada:</strong> ou o arquivo sai inteiro e correto, ou não sai. Nunca um arquivo salvo pela metade.</li>
+        <li><strong>Registro técnico de erros:</strong> quando algo falha, fica um diagnóstico para eu analisar, sem depender da descrição do mecânico.</li>
+        <li><strong>Backup e restauração</strong> do banco de registros e laudos, contra perda do computador da oficina.</li>
+      </ul>
+
+      <div class="bloco bloco--veto">
+        <span class="legenda">A linha vermelha</span>
+        <p style="margin:0">
+          Em qualquer situação de dúvida — perfil não reconhecido, checksum que não fecha,
+          leitura suspeita — o software <strong>interrompe e avisa</strong>, em vez de tentar
+          adivinhar. Adivinhar layout de módulo é como se queima uma peça.
+        </p>
+      </div>
+    </section>
+
+    <section id="s4">
+      <h2 class="secao"><em>04</em>Dados e LGPD</h2>
+      <p>
+        Chassi e quilometragem, junto com nome de cliente e placa, são <strong>dados pessoais</strong>
+        sob a LGPD. Tratar isso direito protege a oficina e você.
+      </p>
+      <dl class="ficha">
+        <dt>Onde ficam</dt><dd>Só na máquina da oficina. Sem nuvem na fase inicial; se um dia houver, com consentimento e criptografia.</dd>
+        <dt>Dumps de veículo</dt><dd>Nunca entram no repositório do software nem são enviados a terceiros. Guardados localmente, com acesso controlado.</dd>
+        <dt>Finalidade</dt><dd>Registro de serviço de reparo. Não se usa o dado para outra coisa.</dd>
+        <dt>Retenção</dt><dd>Mantido pelo tempo necessário ao serviço e à garantia; política de descarte definida com o mecânico.</dd>
+        <dt>Acesso</dt><dd>Só operadores cadastrados. Cada acesso fica registrado.</dd>
+      </dl>
+      <p class="nota">
+        Recomendação: uma linha no orçamento/OS informando o cliente de que os dados do
+        veículo são tratados para fins de reparo. Fecha o ciclo da LGPD sem burocracia.
+      </p>
+    </section>
+
+    <section id="s5">
+      <h2 class="secao"><em>05</em>Proteção do produto</h2>
+      <p>
+        Duas coisas valem dinheiro e precisam ser protegidas de cópia: os <strong>perfis</strong>
+        (levantados com trabalho) e o <strong>próprio software</strong>.
+      </p>
+      <ul class="lista">
+        <li><strong>Perfis assinados</strong> e embutidos na instalação, não distribuídos como arquivo solto que qualquer um copia.</li>
+        <li><strong>Licenciamento por instalação:</strong> a ferramenta roda amarrada à máquina/licença do cliente, para não ser copiada e repassada. Modelo a definir junto com a cobrança.</li>
+        <li><strong>Atualizações controladas:</strong> perfis e correções chegam por canal próprio, o que também sustenta a mensalidade.</li>
+      </ul>
+      <div class="bloco">
+        <span class="legenda">Ligação com o modelo de negócio</span>
+        <p style="margin:0">
+          A proteção do produto e o modelo de cobrança são o mesmo assunto: se a ferramenta
+          é copiável, não há mensalidade que se sustente. Ver <code>precos-mercado.md</code>.
+        </p>
+      </div>
+    </section>
+
+    <section id="s6">
+      <h2 class="secao"><em>06</em>Resumo por prioridade</h2>
+      <p>O que é inegociável desde a primeira versão, e o que pode vir depois.</p>
+      <div class="rolagem"><table>
+        <thead><tr><th style="min-width:280px">Item</th><th style="min-width:110px">Frente</th><th style="min-width:130px">Quando</th></tr></thead>
+        <tbody>
+          <tr><th>Nunca sobrescrever original + backup + hash</th><td>Segurança</td><td class="sim">Fase 1 — base</td></tr>
+          <tr><th>Detecção de leitura ruim antes de gravar</th><td>Confiabilidade</td><td class="sim">Fase 1 — base</td></tr>
+          <tr><th>Falhar parado em qualquer dúvida</th><td>Confiabilidade</td><td class="sim">Fase 1 — base</td></tr>
+          <tr><th>Testes automáticos do núcleo + dumps reais</th><td>Confiabilidade</td><td class="sim">Fase 1 — base</td></tr>
+          <tr><th>Registro em cadeia de hash, não apagável</th><td>Segurança</td><td class="sim">Fase 1 — base</td></tr>
+          <tr><th>Núcleo isolado e sem dependências</th><td>Estrutura</td><td class="sim">Fase 1 — base</td></tr>
+          <tr><th>Conferência pós-gravação por hash</th><td>Confiabilidade</td><td class="cond">Fase 1</td></tr>
+          <tr><th>Login, papéis e senha com hash forte</th><td>Segurança</td><td class="cond">Fase 2</td></tr>
+          <tr><th>Tratamento LGPD e política de retenção</th><td>Dados</td><td class="cond">Fase 2</td></tr>
+          <tr><th>Licenciamento e proteção anti-cópia</th><td>Produto</td><td class="cond">Fase 2</td></tr>
+          <tr><th>Backup/restauração do banco</th><td>Confiabilidade</td><td class="cond">Fase 2</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <span>HM Mecânica</span>
+    <span>Segurança e confiabilidade v0.1</span>
+    <span>27 ago 2026</span>
+    <span>Em definição</span>
+  </footer>
+
+</div>

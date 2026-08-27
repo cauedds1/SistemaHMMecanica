@@ -20,6 +20,8 @@ o escopo completo antes de construir.
   permissões, registro encadeado, integração com a OS e as fases de entrega.
 - `funcionalidades.html` — catálogo completo (92 funcionalidades em 15 áreas),
   cada uma marcada por fase (F1–F4 / EST) e por núcleo/secundária.
+- `seguranca-estrutura.html` — segurança, estrutura (arquitetura) e confiabilidade:
+  proteção do arquivo, registro inviolável, falha segura, LGPD e proteção do produto.
 
 ## O que trava a entrega (resumo — detalhe em `pendencias.md`)
 

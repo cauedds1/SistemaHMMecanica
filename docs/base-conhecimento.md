@@ -115,6 +115,28 @@ Detalhe completo das 92 funcionalidades em `funcionalidades.html` (área por
 - **Vínculo com OS obrigatório** (mas o SistemaHMMecanica está vazio hoje —
   ver P2).
 
+### Segurança, estrutura e confiabilidade (detalhe em `seguranca-estrutura.html`)
+
+- **Princípio:** na dúvida o software **para**, nunca grava lixo. Módulo
+  queimado por arquivo ruim é o pior resultado.
+- **Arquivo:** nunca sobrescrever original; backup automático; SHA-256 de
+  entrada e saída; desfazer sempre possível.
+- **Antes de gravar:** detectar leitura ruim (tamanho errado, bytes vazios,
+  cópias internas discordantes); prévia; validar checksums e coerência.
+- **Depois de gravar:** conferência por hash (releitura do módulo == arquivo
+  gerado).
+- **Confiança:** testes automáticos do núcleo + testes contra dumps reais
+  (ler 25.100 tem que dar 25.100); operação tudo-ou-nada; log técnico de erro.
+- **Acesso:** login por operador, papéis, senha com hash forte (Argon2/bcrypt),
+  bloqueio após tentativas.
+- **Registro:** cadeia de hash, append-only, não apagável nem pelo dono.
+- **Estrutura:** camadas isoladas (núcleo sem dependências / perfis JSON /
+  banco SQLite local / adaptadores / UI Electron com processos separados).
+- **LGPD:** VIN + KM + cliente = dado pessoal. Local, finalidade de reparo,
+  retenção definida, dumps nunca no repositório.
+- **Produto:** perfis assinados e embutidos; licenciamento por instalação
+  (liga com o modelo de cobrança — sem isso não há mensalidade sustentável).
+
 ### Limites de construção (fora de escopo por finalidade)
 
 Estes não serão construídos, e o motivo é técnico/de finalidade, não moral:

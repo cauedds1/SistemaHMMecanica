@@ -1,0 +1,850 @@
+<title>Funcionalidades HM Módulos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --fundo:      #EEF1F0;
+    --papel:      #F9FBFA;
+    --tinta:      #131A1C;
+    --tinta-fraca:#5B686C;
+    --linha:      #DCE2E1;
+    --linha-forte:#C2CBCA;
+    --petroleo:   #0F5E68;
+    --petroleo-fr:#0B4750;
+    --ambar:      #9C5C08;
+    --ambar-fundo:#F6EDDF;
+    --oxido:      #8B2A20;
+    --oxido-fundo:#F4E6E3;
+    --verde:      #2C6543;
+    --realce:     #E3EBEA;
+
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --grot:  "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fundo:      #0D1315;
+      --papel:      #151D1F;
+      --tinta:      #E3E9E8;
+      --tinta-fraca:#94A3A5;
+      --linha:      #253032;
+      --linha-forte:#38474A;
+      --petroleo:   #57BDC8;
+      --petroleo-fr:#8AD4DC;
+      --ambar:      #DFA044;
+      --ambar-fundo:#2A2116;
+      --oxido:      #D97A6C;
+      --oxido-fundo:#2C1A18;
+      --verde:      #6FBF8E;
+      --realce:     #1C2628;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --fundo:      #0D1315;
+    --papel:      #151D1F;
+    --tinta:      #E3E9E8;
+    --tinta-fraca:#94A3A5;
+    --linha:      #253032;
+    --linha-forte:#38474A;
+    --petroleo:   #57BDC8;
+    --petroleo-fr:#8AD4DC;
+    --ambar:      #DFA044;
+    --ambar-fundo:#2A2116;
+    --oxido:      #D97A6C;
+    --oxido-fundo:#2C1A18;
+    --verde:      #6FBF8E;
+    --realce:     #1C2628;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--fundo);
+    color: var(--tinta);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .folha {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 46px 26px 120px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 56px;
+  }
+
+  @media (min-width: 1040px) {
+    .folha { grid-template-columns: 196px minmax(0, 1fr); }
+    .indice { grid-column: 1; grid-row: 2; }
+    .cabecalho, .corpo, .rodape { grid-column: 2; }
+  }
+
+  /* ---------- cabeçalho de controle do documento ---------- */
+
+  .cabecalho { border-top: 3px solid var(--tinta); padding-top: 20px; }
+
+  .selo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0 0 18px;
+  }
+
+  .linha-fina {
+    font-family: var(--serif);
+    font-size: 1.16rem;
+    line-height: 1.55;
+    color: var(--tinta-fraca);
+    max-width: 62ch;
+    margin: 0 0 34px;
+  }
+
+  .controle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+    border-top: 1px solid var(--linha-forte);
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .controle div {
+    padding: 12px 16px 13px 0;
+    border-right: 1px solid var(--linha);
+  }
+  .controle div:last-child { border-right: 0; }
+  .controle dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    margin: 0 0 5px;
+  }
+  .controle dd {
+    font-family: var(--grot);
+    font-size: .93rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ---------- índice lateral ---------- */
+
+  .indice { padding-top: 46px; }
+  @media (min-width: 1040px) {
+    .indice { position: sticky; top: 26px; align-self: start; padding-top: 8px; }
+  }
+  .indice h2 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    font-weight: 500;
+    margin: 0 0 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .indice ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .indice a {
+    font-family: var(--grot);
+    font-size: .81rem;
+    line-height: 1.35;
+    color: var(--tinta-fraca);
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 6px;
+  }
+  .indice a span { font-family: var(--mono); font-size: .72rem; color: var(--petroleo); }
+  .indice a:hover, .indice a:focus-visible { color: var(--tinta); }
+
+  /* ---------- corpo ---------- */
+
+  .corpo { padding-top: 8px; }
+
+  section { padding-top: 52px; scroll-margin-top: 22px; }
+
+  h2.secao {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: 1.52rem;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0 0 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--linha-forte);
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 4px;
+  }
+  h2.secao em {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: .78rem;
+    font-weight: 400;
+    color: var(--petroleo);
+    letter-spacing: .04em;
+  }
+
+  h3 {
+    font-family: var(--grot);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.004em;
+    margin: 34px 0 10px;
+  }
+
+  p { margin: 0 0 15px; max-width: 68ch; }
+  .corpo > section > p { max-width: 68ch; }
+
+  strong { font-weight: 600; }
+  em.destaque { font-style: italic; color: var(--tinta); }
+
+  code {
+    font-family: var(--mono);
+    font-size: .84em;
+    background: var(--realce);
+    padding: 1px 5px;
+    color: var(--petroleo-fr);
+  }
+
+  ul.lista { margin: 0 0 16px; padding: 0; list-style: none; max-width: 68ch; display: flex; flex-direction: column; gap: 9px; }
+  ul.lista li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 8px; }
+  ul.lista li::before { content: "—"; color: var(--petroleo); font-family: var(--mono); font-size: .8rem; line-height: 1.9; }
+
+  /* ---------- blocos com legenda na borda ---------- */
+
+  .bloco {
+    position: relative;
+    border: 1px solid var(--linha-forte);
+    padding: 26px 24px 22px;
+    margin: 30px 0;
+    background: var(--papel);
+  }
+  .bloco > .legenda {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    transform: translateY(-50%);
+    background: var(--fundo);
+    padding: 0 9px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+  }
+  .bloco > :last-child { margin-bottom: 0; }
+
+  .bloco--op   { border-color: var(--petroleo); }
+  .bloco--op > .legenda { color: var(--petroleo); }
+  .bloco--restrito { border-color: var(--ambar); background: var(--ambar-fundo); }
+  .bloco--restrito > .legenda { color: var(--ambar); }
+  .bloco--veto { border-color: var(--oxido); background: var(--oxido-fundo); }
+  .bloco--veto > .legenda { color: var(--oxido); }
+
+  /* ---------- ficha de campos ---------- */
+
+  dl.ficha {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px 20px;
+    margin: 16px 0 0;
+  }
+  @media (min-width: 620px) {
+    dl.ficha { grid-template-columns: 126px minmax(0, 1fr); gap: 10px 20px; }
+  }
+  dl.ficha dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding-top: 6px;
+  }
+  dl.ficha dd { margin: 0; font-size: .96rem; line-height: 1.55; }
+  dl.ficha dd + dt { border-top: 1px solid var(--linha); }
+  dl.ficha dd { border-top: 1px solid var(--linha); padding-top: 6px; }
+  @media (max-width: 619px) {
+    dl.ficha dd { border-top: 0; padding-top: 0; padding-bottom: 12px; }
+    dl.ficha dt { border-top: 1px solid var(--linha); padding-top: 10px; }
+  }
+
+  /* ---------- tabelas ---------- */
+
+  .rolagem { overflow-x: auto; margin: 22px 0 26px; border-bottom: 1px solid var(--linha-forte); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-family: var(--grot);
+    font-size: .89rem;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding: 0 14px 10px 0;
+    border-bottom: 2px solid var(--tinta);
+    vertical-align: bottom;
+  }
+  tbody td, tbody th {
+    text-align: left;
+    font-weight: 400;
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--linha);
+    vertical-align: top;
+  }
+  tbody th { font-weight: 600; }
+  td.marca, th.marca { text-align: center; padding-right: 0; }
+  .sim { color: var(--verde); font-weight: 700; }
+  .nao { color: var(--tinta-fraca); }
+  .cond { color: var(--ambar); font-weight: 700; }
+
+  .pilula {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    padding: 3px 8px 2px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .p-livre { color: var(--verde); }
+  .p-restrito { color: var(--ambar); }
+  .p-veto { color: var(--oxido); }
+  .p-cond { color: var(--tinta-fraca); }
+
+  /* ---------- fluxo ---------- */
+
+  .fluxo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0 8px;
+    font-family: var(--grot);
+  }
+  .fluxo .passo {
+    border: 1px solid var(--linha-forte);
+    background: var(--papel);
+    padding: 11px 14px;
+    min-width: 132px;
+    flex: 1 1 132px;
+  }
+  .fluxo .passo b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .fluxo .passo span { font-size: .84rem; line-height: 1.4; display: block; }
+  .fluxo .seta {
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    color: var(--petroleo);
+    font-family: var(--mono);
+    font-size: .9rem;
+  }
+  @media (max-width: 700px) {
+    .fluxo { flex-direction: column; }
+    .fluxo .seta { padding: 5px 0 5px 16px; }
+  }
+
+  .nota {
+    font-size: .87rem;
+    color: var(--tinta-fraca);
+    font-family: var(--grot);
+    line-height: 1.55;
+    max-width: 66ch;
+    margin: 0 0 14px;
+  }
+
+  .rodape {
+    margin-top: 78px;
+    padding-top: 20px;
+    border-top: 3px solid var(--tinta);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--tinta-fraca);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+  }
+
+  a { color: var(--petroleo); }
+  a:focus-visible, .indice a:focus-visible {
+    outline: 2px solid var(--petroleo);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+<style>
+  /* acrescimos especificos do catalogo de funcionalidades */
+  table.func { min-width: 620px; }
+  table.func tbody td, table.func tbody th { padding: 12px 14px 12px 0; }
+  table.func tbody th { width: 62%; }
+  table.func .nome {
+    display: block;
+    font-family: var(--grot);
+    font-weight: 600;
+    font-size: .95rem;
+    margin-bottom: 2px;
+  }
+  table.func .desc {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: .89rem;
+    line-height: 1.45;
+    color: var(--tinta-fraca);
+  }
+  td.col-fase, th.col-fase { width: 74px; text-align: left; padding-right: 10px; }
+  td.col-tipo, th.col-tipo { width: 108px; text-align: left; padding-right: 0; }
+
+  .f1, .f2, .f3, .f4 {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    padding: 2px 7px 1px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .f1 { color: var(--verde); }
+  .f2 { color: var(--petroleo); }
+  .f3 { color: var(--ambar); }
+  .f4 { color: var(--oxido); }
+
+  .nucleo, .secund {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nucleo { color: var(--tinta); font-weight: 500; }
+  .secund { color: var(--tinta-fraca); }
+
+  .legenda-cores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin: 20px 0 6px;
+    font-family: var(--grot);
+    font-size: .85rem;
+    color: var(--tinta-fraca);
+    align-items: center;
+  }
+  .legenda-cores span.par { display: inline-flex; align-items: center; gap: 8px; }
+
+  h3.area {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: 1.12rem;
+    margin: 42px 0 2px;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 4px;
+  }
+  h3.area em {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: .75rem;
+    font-weight: 400;
+    color: var(--petroleo);
+  }
+  h3.area + p.sub {
+    font-family: var(--serif);
+    font-size: .93rem;
+    color: var(--tinta-fraca);
+    margin: 0 0 4px 44px;
+    max-width: 62ch;
+  }
+</style>
+
+<div class="folha">
+
+  <header class="cabecalho">
+    <p class="selo">Catálogo de funcionalidades · versão 0.1 · companheiro do documento de escopo</p>
+    <h1>Tudo o que a ferramenta vai fazer</h1>
+    <p class="linha-fina">
+      Lista completa das funcionalidades do software de sincronismo BCCM e airbag — núcleo, secundárias
+      e as das fases seguintes. Escrita para fechar o combinado com a oficina sem margem para
+      "eu achei que fazia".
+    </p>
+    <dl class="controle">
+      <div><dt>Funcionalidades</dt><dd>84 no total</dd></div>
+      <div><dt>Fase 1</dt><dd>53 itens</dd></div>
+      <div><dt>Fase 2</dt><dd>24 itens</dd></div>
+      <div><dt>Fases 3 e 4</dt><dd>7 itens</dd></div>
+      <div><dt>Áreas</dt><dd>14</dd></div>
+    </dl>
+
+    <div class="legenda-cores">
+      <span class="par"><span class="f1">F1</span> Arquivos — o serviço do vídeo</span>
+      <span class="par"><span class="f2">F2</span> Oficina — registro, laudo, OS</span>
+      <span class="par"><span class="f3">F3</span> Leitura pela OBD</span>
+      <span class="par"><span class="f4">F4</span> Gravação pela OBD, condicional</span>
+    </div>
+    <p class="nota" style="margin-top:12px">
+      <span class="nucleo">Núcleo</span> — sem isso a ferramenta não cumpre o serviço.
+      <span class="secund" style="margin-left:14px">Secundária</span> — melhora o trabalho, mas dá para
+      entregar a primeira versão sem.
+    </p>
+  </header>
+
+  <nav class="indice" aria-label="Índice das áreas">
+    <h2>Áreas</h2>
+    <ol>
+      <li><a href="#a1"><span>01</span>Abertura e identificação</a></li>
+      <li><a href="#a2"><span>02</span>Integridade do arquivo</a></li>
+      <li><a href="#a3"><span>03</span>Reparo</a></li>
+      <li><a href="#a4"><span>04</span>Sincronização</a></li>
+      <li><a href="#a5"><span>05</span>Restauração de KM</a></li>
+      <li><a href="#a6"><span>06</span>Saída e conferência</a></li>
+      <li><a href="#a7"><span>07</span>Registro de operações</a></li>
+      <li><a href="#a8"><span>08</span>Laudo técnico</a></li>
+      <li><a href="#a9"><span>09</span>Operadores</a></li>
+      <li><a href="#a10"><span>10</span>Ordem de serviço</a></li>
+      <li><a href="#a11"><span>11</span>Perfis de módulo</a></li>
+      <li><a href="#a12"><span>12</span>Apoio de bancada</a></li>
+      <li><a href="#a13"><span>13</span>Comunicação com o veículo</a></li>
+      <li><a href="#a14"><span>14</span>Aplicativo</a></li>
+    </ol>
+  </nav>
+
+  <main class="corpo">
+
+    <section id="a1" style="padding-top:34px">
+      <h2 class="secao"><em>01</em>Abertura e identificação do arquivo</h2>
+      <p>O que acontece no instante em que o mecânico arrasta um <code>.bin</code> para a tela.</p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Abrir arquivo de dump</span><span class="desc">Aceita <code>.bin</code>, <code>.eep</code> e <code>.hex</code>, por botão ou arrastando para a janela.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Reconhecer o módulo sozinho</span><span class="desc">Identifica se é BCCM ou airbag pelo tamanho do arquivo e por assinaturas em posições conhecidas. O operador não escolhe nada.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Recusar o que não conhece</span><span class="desc">Se o arquivo não corresponde a nenhum perfil instalado, avisa e para. Nunca chuta layout — chute aqui vira módulo queimado.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Ler o chassi</span><span class="desc">Extrai o VIN gravado no módulo e mostra na tela.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Ler a quilometragem</span><span class="desc">Decodifica a KM mesmo quando ela está gravada invertida, com XOR, em BCD ou com fator de escala.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Ler campos extras do módulo</span><span class="desc">Versão de software, código de configuração, data de fabricação — o que o perfil daquele módulo declarar.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Visualizador hexadecimal</span><span class="desc">Mostra o conteúdo bruto do arquivo com os campos conhecidos destacados em cor.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Arquivos recentes</span><span class="desc">Lista os últimos dumps abertos, para retomar um serviço sem procurar pasta.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a2">
+      <h2 class="secao"><em>02</em>Integridade do arquivo</h2>
+      <p>
+        A parte que evita o pior erro possível na bancada: gravar de volta um arquivo que foi lido errado.
+        Tudo aqui roda sozinho no momento em que o arquivo abre.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Conferir todos os checksums</span><span class="desc">Recalcula cada bloco declarado no perfil e compara com o que está gravado. Sete algoritmos suportados.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Comparar as cópias internas</span><span class="desc">A KM costuma estar gravada em três lugares dentro do mesmo módulo. Se as cópias discordam entre si, o arquivo está corrompido — e isso aparece antes de qualquer coisa ser gravada.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Validar o formato do chassi</span><span class="desc">Confere os 17 caracteres e rejeita as letras que não existem em VIN (I, O e Q).</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Detectar arquivo truncado</span><span class="desc">Tamanho diferente do esperado significa leitura interrompida. Acusa na hora.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Detectar leitura falha</span><span class="desc">Arquivo cheio de <code>FF</code> ou <code>00</code> quer dizer clipe mal encaixado ou chip sem contato — não é dump, é ruído.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Painel de situação</span><span class="desc">Semáforo na tela: estrutura reconhecida, VIN válido, checksum válido. Verde ou vermelho, sem interpretação.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Alertar quilometragem implausível</span><span class="desc">Valor absurdo ou acima do teto que o campo comporta indica leitura ruim ou perfil errado.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a3">
+      <h2 class="secao"><em>03</em>Reparo do arquivo</h2>
+      <p>
+        Conserta o arquivo <strong>sem mexer em nenhum valor</strong>. KM e VIN saem exatamente como
+        entraram. O botão só fica ativo quando existe defeito a corrigir.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Recalcular checksums quebrados</span><span class="desc">Refaz os blocos que não fecham, preservando integralmente o conteúdo.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Reconstruir campo pelas cópias sadias</span><span class="desc">Se duas das três cópias da quilometragem concordam e uma está corrompida, restaura a corrompida a partir das outras duas. Recupera arquivo que hoje seria descartado.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Botão condicional</span><span class="desc">Em arquivo íntegro fica desabilitado. Não existe "reparar" o que está bom.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Relatório do reparo</span><span class="desc">Lista bloco a bloco o que estava errado e o que foi corrigido.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a4">
+      <h2 class="secao"><em>04</em>Sincronização entre módulos</h2>
+      <p>
+        A operação principal — a mesma do vídeo. Resolve o carro que apaga a quilometragem e acusa erro
+        no painel porque BCCM e airbag discordam.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Trabalhar com os dois dumps juntos</span><span class="desc">Carrega BCCM e airbag na mesma tela.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Mostrar a divergência lado a lado</span><span class="desc">VIN e KM dos dois módulos, com o conflito destacado.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Escolher a direção por campo</span><span class="desc">VIN do painel para o airbag ou o contrário; KM do painel para o airbag ou o contrário. Cada campo decidido separadamente.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Travar arquivos de carros diferentes</span><span class="desc">Se os dois VINs não têm nada a ver um com o outro, avisa que provavelmente são veículos distintos e exige confirmação antes de seguir.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Prévia antes de aplicar</span><span class="desc">Mostra exatamente o que vai mudar em cada arquivo, antes de mudar.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Aplicar e refazer os checksums</span><span class="desc">Grava as diferenças e recalcula todos os blocos afetados nos dois arquivos.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Salvar os dois em sequência</span><span class="desc">Pede o destino de um, depois do outro, como no fluxo que o mecânico já conhece.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a5">
+      <h2 class="secao"><em>05</em>Restauração de quilometragem</h2>
+      <p>
+        Única operação em que o operador digita um número. Existe para o caso de substituição de módulo,
+        em que não há um segundo arquivo de onde copiar o valor certo.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Gravar quilometragem informada</span><span class="desc">Escreve o valor em todas as cópias internas do campo e refaz os checksums.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Exigir a KM anterior</span><span class="desc">O operador informa de onde veio o número — leitura de outro módulo, nota de serviço anterior, histórico.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Motivo de lista fechada</span><span class="desc">Cinco opções — módulo novo, módulo usado, perda de dados por água ou colisão, dessincronização de terceiro, leitura corrompida. Texto livre é complemento, nunca substituto.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Confirmação reforçada ao reduzir</span><span class="desc">Gravar KM menor que a atual passa por uma tela separada de confirmação.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Registrar tentativa abandonada</span><span class="desc">Se o operador digitar um valor e desistir, o registro guarda mesmo assim.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Restrição ao responsável técnico</span><span class="desc">Operador comum não enxerga esta operação na tela.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a6">
+      <h2 class="secao"><em>06</em>Saída e conferência de gravação</h2>
+      <p>Como o arquivo sai da ferramenta, e como se prova que foi ele que entrou no módulo.</p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Nunca sobrescrever o original</span><span class="desc">Toda saída é arquivo novo. O dump lido do módulo permanece intacto, sempre.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Cópia de segurança automática</span><span class="desc">Guarda uma cópia do arquivo original em pasta própria, antes de qualquer operação.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Impressão digital dos arquivos</span><span class="desc">Calcula o SHA-256 de cada arquivo que entra e de cada um que sai.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Conferência depois de gravar</span><span class="desc">O mecânico grava no módulo, lê de novo e joga a releitura no software. Se a impressão digital bate, está provado que o módulo recebeu exatamente o arquivo gerado — nada foi trocado no caminho.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Nome de arquivo automático</span><span class="desc">Batiza a saída com chassi, módulo e data, para não virar <code>novo(3).bin</code> na pasta.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Pasta de trabalho configurável</span><span class="desc">A oficina escolhe onde ficam dumps, backups e laudos.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a7">
+      <h2 class="secao"><em>07</em>Registro de operações</h2>
+      <p>
+        O produto real da ferramenta. Roda sozinho, sem o operador precisar lembrar de nada.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Registrar toda operação</span><span class="desc">Data, hora, operador, veículo, módulo, o que foi feito, valores antes e depois, motivo e impressões digitais dos arquivos.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Corrente de registros</span><span class="desc">Cada registro carrega a impressão digital do anterior. Apagar ou alterar qualquer linha do meio quebra a corrente, e a quebra fica visível.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Verificar a corrente</span><span class="desc">Tela que confere o histórico inteiro e diz se está íntegro.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Impossível apagar</span><span class="desc">Nenhum perfil apaga ou edita registro. Nem o dono. Registro que o responsável pode editar não prova nada.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Consultar e filtrar</span><span class="desc">Busca por chassi, placa, número da OS, data ou operador.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Exportar o histórico</span><span class="desc">Cópia do registro para backup fora da máquina da oficina.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a8">
+      <h2 class="secao"><em>08</em>Laudo técnico</h2>
+      <p>
+        O documento que o cliente leva junto com o carro. Nenhuma oficina da região entrega isso, e ele
+        sai praticamente de graça depois que o registro já existe.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Gerar laudo em PDF</span><span class="desc">Uma página, linguagem corrente, dizendo o que foi feito, em qual módulo e por quê.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Duas vias</span><span class="desc">Uma para o cliente, uma arquivada na ordem de serviço.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Numeração sequencial</span><span class="desc">Contínua e amarrada ao número da OS.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Assinatura do responsável</span><span class="desc">Nome e identificação de quem respondeu tecnicamente pelo serviço.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Impressões digitais anexadas</span><span class="desc">Os hashes dos arquivos entram no laudo, tornando-o verificável anos depois.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Papel timbrado da oficina</span><span class="desc">Logo, nome, CNPJ e contato no cabeçalho.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Impressão direta</span><span class="desc">Manda para a impressora sem passar por outro programa.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a9">
+      <h2 class="secao"><em>09</em>Operadores e permissões</h2>
+      <p>Três papéis: consulta, operador e responsável técnico.</p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Entrar com usuário e senha</span><span class="desc">Cada pessoa da oficina tem o seu acesso.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Papéis com permissões distintas</span><span class="desc">Consulta só olha; operador diagnostica, repara e sincroniza; responsável faz tudo, inclusive restaurar KM.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Cadastrar e revogar acesso</span><span class="desc">Funcionário que sai perde o acesso no mesmo dia, sem perder o histórico do que fez.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Amarrar cada operação a uma pessoa</span><span class="desc">Nenhuma alteração fica anônima.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Histórico de acesso</span><span class="desc">Quem entrou no sistema e quando.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Troca de senha</span><span class="desc">Pelo próprio operador ou forçada pelo responsável.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a10">
+      <h2 class="secao"><em>10</em>Ordem de serviço</h2>
+      <p>
+        Integração com o sistema da oficina. Depende de definir o contrato de dados — pendência P2 do
+        escopo.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Vincular a operação a uma OS</span><span class="desc">Obrigatório. Operação sem OS é operação sem rastro.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Puxar os dados do veículo</span><span class="desc">Placa, chassi, cliente, modelo e ano vêm da OS. O mecânico não redigita nada.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Conferir chassi da OS contra o do arquivo</span><span class="desc">Se não bate, ou o dump é de outro carro, ou o cadastro está errado. Melhor descobrir antes de gravar.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Devolver laudo e registro para a OS</span><span class="desc">O serviço fica documentado dentro do sistema da oficina, não só na ferramenta.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Histórico do veículo pela placa</span><span class="desc">Tudo que já foi feito naquele carro, em uma tela.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a11">
+      <h2 class="secao"><em>11</em>Perfis de módulo</h2>
+      <p>
+        O perfil é o mapa que ensina o software a ler um módulo. Módulo novo significa perfil novo — não
+        versão nova do programa.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Perfil do BCCM</span><span class="desc">C3, Aircross e Basalt da geração atual — o mesmo módulo nos três.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Perfil do airbag</span><span class="desc">Módulo de airbag da mesma plataforma.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Instalar perfil novo sem atualizar o programa</span><span class="desc">Cobrir outro módulo vira um arquivo a mais, não uma nova versão do software.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Versão e assinatura do perfil</span><span class="desc">Cada perfil tem versão registrada, e o registro guarda qual versão foi usada em cada serviço.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Lista de módulos suportados</span><span class="desc">Tela mostrando o que a ferramenta cobre hoje.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a12">
+      <h2 class="secao"><em>12</em>Apoio de bancada</h2>
+      <p>
+        Ferramentas que servem para <strong>você</strong> levantar os perfis dos módulos, e que também
+        ajudam o mecânico quando aparecer um arquivo estranho. É a parte que o software do vídeo não tem
+        porque o autor dele já sabe os mapas de cabeça.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Comparar dois dumps</span><span class="desc">Mostra byte a byte o que difere entre dois arquivos. É assim que se descobre onde a quilometragem mora.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Procurar um valor conhecido</span><span class="desc">Você informa a KM real do carro e a ferramenta varre o arquivo procurando esse número em todas as codificações possíveis — invertido, em complemento, em BCD, com fator de escala. Encurta muito o levantamento de um perfil novo.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Calculadora de checksum</span><span class="desc">Calcula qualquer um dos sete algoritmos sobre uma faixa escolhida à mão, para testar hipóteses.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Assistente de perfil</span><span class="desc">Conduz o levantamento de um módulo novo a partir de vários dumps com KM e VIN conhecidos.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="a13">
+      <h2 class="secao"><em>13</em>Comunicação com o veículo</h2>
+      <p>
+        Fases seguintes. A leitura é segura e tem valor imediato; a gravação depende de fator externo —
+        ver a ressalva ao final.
+      </p>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Identificar o veículo pela tomada de diagnóstico</span><span class="desc">Conecta e lê chassi e dados do carro sem abrir nada.</span></th><td class="col-fase"><span class="f3">F3</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Ler a quilometragem de todos os módulos</span><span class="desc">Não só painel e airbag — motor, ABS, câmbio, o que houver.</span></th><td class="col-fase"><span class="f3">F3</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Painel de consistência do veículo</span><span class="desc">Uma tela dizendo se o carro inteiro concorda sobre a própria quilometragem. Serve para descobrir a KM verdadeira quando o painel está apagado, e para confirmar que o carro ficou coerente depois do serviço.</span></th><td class="col-fase"><span class="f3">F3</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Ler códigos de falha</span><span class="desc">Diagnóstico dos módulos envolvidos no serviço.</span></th><td class="col-fase"><span class="f3">F3</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Conferência antes e depois</span><span class="desc">Leitura do veículo na entrada e na saída, anexada ao laudo do cliente.</span></th><td class="col-fase"><span class="f3">F3</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Apagar códigos de falha após o reparo</span><span class="desc">Passo final de rotina de qualquer serviço.</span></th><td class="col-fase"><span class="f3">F3</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Gravar no módulo pela tomada de diagnóstico</span><span class="desc">Sem tirar o módulo do carro.</span></th><td class="col-fase"><span class="f4">F4</span></td><td class="col-tipo"><span class="secund">Condicional</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="bloco bloco--veto">
+        <span class="legenda">Ressalva sobre a Fase 4</span>
+        <p style="margin:0">
+          Gravar pela tomada de diagnóstico não depende de esforço de programação — depende do algoritmo
+          de liberação da montadora, que protege a escrita no módulo. Sem ele não há caminho. É por isso
+          que a gravação continua sendo feita na bancada, com programador, como a oficina já faz e como o
+          próprio vídeo demonstra. A fase fica declarada, sem prazo prometido.
+        </p>
+      </div>
+    </section>
+
+    <section id="a14">
+      <h2 class="secao"><em>14</em>Aplicativo</h2>
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Programa para Windows</span><span class="desc">Instalador próprio, roda na máquina da bancada.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Funciona sem internet</span><span class="desc">Tudo local. Dump de cliente não sai da oficina.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="nucleo">Núcleo</span></td></tr>
+          <tr><th><span class="nome">Tema claro e escuro</span><span class="desc">Bancada costuma ser mal iluminada.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Registro técnico de erros</span><span class="desc">Quando algo falhar, existe um arquivo de diagnóstico para você analisar sem depender da descrição do mecânico.</span></th><td class="col-fase"><span class="f1">F1</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Backup e restauração da base</span><span class="desc">Histórico e laudos protegidos contra perda do computador.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+          <tr><th><span class="nome">Aviso de atualização</span><span class="desc">Informa quando há versão nova ou perfil novo disponível.</span></th><td class="col-fase"><span class="f2">F2</span></td><td class="col-tipo"><span class="secund">Secundária</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="fecho">
+      <h2 class="secao"><em>—</em>O que não está aqui</h2>
+      <p>
+        Duas coisas ficam de fora e é melhor estarem escritas: as funções vetadas por finalidade
+        (apagar registro de colisão do airbag sem reparo físico, gravar chassi arbitrário, modo lote,
+        atalho de zerar quilometragem, operar sem OS) e qualquer coisa que dependa de dado guardado fora
+        do veículo — servidor da montadora, base da concessionária, papel arquivado. Nenhum software
+        alcança isso.
+      </p>
+      <div class="bloco">
+        <span class="legenda">O que ainda destrava tudo</span>
+        <p style="margin:0">
+          Nada desta lista funciona sem os perfis do BCCM e do airbag, e os perfis só saem de dumps
+          reais com quilometragem e chassi conhecidos. Cinco ou seis pares já permitem começar. É a
+          pendência P1 do escopo, e continua sendo a única que decide se isso vira produto.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <span>HM Mecânica</span>
+    <span>Catálogo v0.1</span>
+    <span>84 funcionalidades</span>
+    <span>27 ago 2026</span>
+  </footer>
+
+</div>

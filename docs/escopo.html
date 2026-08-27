@@ -230,8 +230,8 @@
   }
 
   ul.lista { margin: 0 0 16px; padding: 0; list-style: none; max-width: 68ch; display: flex; flex-direction: column; gap: 9px; }
-  ul.lista li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 8px; }
-  ul.lista li::before { content: "—"; color: var(--petroleo); font-family: var(--mono); font-size: .8rem; line-height: 1.9; }
+  ul.lista li { position: relative; padding-left: 22px; }
+  ul.lista li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--petroleo); font-family: var(--mono); font-size: .8rem; line-height: 1.62; }
 
   /* ---------- blocos com legenda na borda ---------- */
 

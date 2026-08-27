@@ -440,7 +440,7 @@
   td.col-fase, th.col-fase { width: 74px; text-align: left; padding-right: 10px; }
   td.col-tipo, th.col-tipo { width: 108px; text-align: left; padding-right: 0; }
 
-  .f1, .f2, .f3, .f4 {
+  .f1, .f2, .f3, .f4, .est {
     display: inline-block;
     font-family: var(--mono);
     font-size: 10px;
@@ -454,6 +454,7 @@
   .f2 { color: var(--petroleo); }
   .f3 { color: var(--ambar); }
   .f4 { color: var(--oxido); }
+  .est { color: var(--oxido); border-style: dashed; }
 
   .nucleo, .secund {
     font-family: var(--mono);
@@ -506,7 +507,7 @@
 <div class="folha">
 
   <header class="cabecalho">
-    <p class="selo">Catálogo de funcionalidades · versão 0.1 · companheiro do documento de escopo</p>
+    <p class="selo">Catálogo de funcionalidades · versão 0.2 · companheiro do documento de escopo</p>
     <h1>Tudo o que a ferramenta vai fazer</h1>
     <p class="linha-fina">
       Lista completa das funcionalidades do software de sincronismo BCCM e airbag — núcleo, secundárias
@@ -514,11 +515,11 @@
       "eu achei que fazia".
     </p>
     <dl class="controle">
-      <div><dt>Funcionalidades</dt><dd>84 no total</dd></div>
-      <div><dt>Fase 1</dt><dd>53 itens</dd></div>
-      <div><dt>Fase 2</dt><dd>24 itens</dd></div>
-      <div><dt>Fases 3 e 4</dt><dd>7 itens</dd></div>
-      <div><dt>Áreas</dt><dd>14</dd></div>
+      <div><dt>Funcionalidades</dt><dd>92 no total</dd></div>
+      <div><dt>Arquivos (F1+F2)</dt><dd>77 itens</dd></div>
+      <div><dt>OBD (F3+F4)</dt><dd>7 itens</dd></div>
+      <div><dt>Chave (a estudar)</dt><dd>8 itens</dd></div>
+      <div><dt>Áreas</dt><dd>15</dd></div>
     </dl>
 
     <div class="legenda-cores">
@@ -526,6 +527,7 @@
       <span class="par"><span class="f2">F2</span> Oficina — registro, laudo, OS</span>
       <span class="par"><span class="f3">F3</span> Leitura pela OBD</span>
       <span class="par"><span class="f4">F4</span> Gravação pela OBD, condicional</span>
+      <span class="par"><span class="est">EST</span> Chave e imobilizador — em estudo</span>
     </div>
     <p class="nota" style="margin-top:12px">
       <span class="nucleo">Núcleo</span> — sem isso a ferramenta não cumpre o serviço.
@@ -550,6 +552,7 @@
       <li><a href="#a11"><span>11</span>Perfis de módulo</a></li>
       <li><a href="#a12"><span>12</span>Apoio de bancada</a></li>
       <li><a href="#a13"><span>13</span>Comunicação com o veículo</a></li>
+      <li><a href="#a15"><span>15</span>Chave e imobilizador</a></li>
       <li><a href="#a14"><span>14</span>Aplicativo</a></li>
     </ol>
   </nav>
@@ -804,6 +807,45 @@
       </div>
     </section>
 
+    <section id="a15">
+      <h2 class="secao"><em>15</em>Chave e imobilizador</h2>
+      <p>
+        O que o segundo vídeo mostrou a mais: casar chave, tirar o carro do modo imobilizado, e
+        reprogramar o antifurto quando entra um módulo de sucata. É o eixo <strong>antifurto</strong>,
+        separado do eixo quilometragem — no front vira uma aba própria, para não se misturar com o resto.
+      </p>
+
+      <div class="bloco bloco--veto">
+        <span class="legenda">Por que tudo aqui está "em estudo"</span>
+        <p style="margin:0 0 12px">
+          Diferente de tudo o que veio antes, isto não é edição de arquivo — é o sistema
+          <strong>antifurto</strong> do carro, protegido por autenticação entre a chave e o módulo. Não
+          dá para eu prometer estas funções só olhando o vídeo: preciso ver o que sai de um módulo real,
+          e é provável que parte exija <strong>hardware de programação de chave</strong>, não só o
+          programador de dump. Ficam mapeadas e separadas; a viabilidade de cada uma se confirma com um
+          C3 na bancada.
+        </p>
+        <p class="nota" style="margin:0">
+          Serviço legítimo de chaveiro e eletricista automotivo em carro com documentação. Como no resto
+          da ferramenta, cada operação aqui também entra no registro.
+        </p>
+      </div>
+
+      <div class="rolagem"><table class="func">
+        <thead><tr><th>Funcionalidade</th><th class="col-fase">Fase</th><th class="col-tipo">Tipo</th></tr></thead>
+        <tbody>
+          <tr><th><span class="nome">Ler o estado do imobilizador</span><span class="desc">Diz se o carro está imobilizado ou liberado, e quantas chaves estão gravadas no módulo. Só leitura.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Reconhecer o sistema de antifurto do módulo</span><span class="desc">Identificar como aquele BCCM guarda o casamento com a chave — o mapa equivalente ao perfil, só que do antifurto.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Casar chave nova com o módulo</span><span class="desc">Programar um transponder para o carro reconhecer e liberar a partida — o que o vídeo demonstra com o LED piscando alternado.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Apagar chave perdida ou roubada</span><span class="desc">Remover do módulo uma chave que não deve mais dar partida.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Sincronizar o antifurto entre os módulos</span><span class="desc">Injeção, BCCM e airbag precisam concordar sobre o antifurto. É o que faz o carro pegar em vez de ficar procurando o transponder.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Trocar módulo de injeção de sucata</span><span class="desc">Módulo de ferro-velho chega casado com outro carro. Reprograma para o antifurto do veículo atual — o caso "peça de sucata, quer deixar original" que ele cita.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Ler e gravar a senha do antifurto</span><span class="desc">O código que autoriza mexer no imobilizador, quando o sistema usa um.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+          <tr><th><span class="nome">Casar tudo de uma vez</span><span class="desc">Painel, injeção, airbag e chave num fluxo só, como ele monta na bancada e entrega o kit funcionando.</span></th><td class="col-fase"><span class="est">EST</span></td><td class="col-tipo"><span class="secund">A estudar</span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
     <section id="a14">
       <h2 class="secao"><em>14</em>Aplicativo</h2>
       <div class="rolagem"><table class="func">
@@ -828,11 +870,21 @@
         do veículo — servidor da montadora, base da concessionária, papel arquivado. Nenhum software
         alcança isso.
       </p>
+      <div class="bloco bloco--op">
+        <span class="legenda">Como o front organiza tudo isso</span>
+        <p style="margin:0">
+          Com 92 funções, a decisão é deixar cada eixo em sua aba — Arquivos, Sincronismo, Registro e
+          laudo, Veículo (OBD) e Chave. O mecânico entra na aba do serviço que vai fazer e não vê o
+          resto. Melhor sobrar função organizada do que faltar; o que não se aplica àquele carro fica
+          fora do caminho, não fora do programa.
+        </p>
+      </div>
       <div class="bloco">
         <span class="legenda">O que ainda destrava tudo</span>
         <p style="margin:0">
           Nada desta lista funciona sem os perfis do BCCM e do airbag, e os perfis só saem de dumps
-          reais com quilometragem e chassi conhecidos. Cinco ou seis pares já permitem começar. É a
+          reais com quilometragem e chassi conhecidos. Cinco ou seis pares já permitem começar — e o
+          mesmo módulo na bancada é o que vai dizer se o bloco de chave (área 15) é viável. É a
           pendência P1 do escopo, e continua sendo a única que decide se isso vira produto.
         </p>
       </div>
@@ -842,8 +894,8 @@
 
   <footer class="rodape">
     <span>HM Mecânica</span>
-    <span>Catálogo v0.1</span>
-    <span>84 funcionalidades</span>
+    <span>Catálogo v0.2</span>
+    <span>92 funcionalidades</span>
     <span>27 ago 2026</span>
   </footer>
 

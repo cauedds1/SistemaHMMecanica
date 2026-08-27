@@ -8,6 +8,9 @@ o escopo completo antes de construir.
 - **`base-conhecimento.md`** — memória do projeto. Todo o conhecimento técnico
   levantado nos vídeos, as decisões já tomadas e os limites. É o primeiro
   documento a ler ao retomar o projeto.
+- **`descobertas-basalt.md`** — mapa dos primeiros dumps reais (Basalt): onde
+  ficam VIN e KM no BCCM e no airbag, como estão codificados e o que falta para
+  gravar. É a semente do primeiro perfil de módulo.
 - **`pendencias.md`** — perguntas em aberto e o que trava cada etapa.
 
 ## Documentos de apresentação (HTML, para mostrar ao cliente)

@@ -136,6 +136,10 @@ Nada fora do veículo (servidor da montadora, papel) — impossível por naturez
 | `src/core/codec.js` | ler/gravar campos: endianness, complemento, XOR, BCD, fator, réplicas, VIN | pronto, sem testes ainda |
 | `src/core/checksum.js` | 9 algoritmos de checksum (sum8/16/32, sum16le, xor8, sum8_neg, crc16ccitt, crc16modbus, crc32) | pronto, CRCs conferidos contra vetores padrão |
 
+Nota: o `codec.js` já cobre o padrão de KM do Basalt (fator ×10, LE, réplicas).
+O checksum-por-registro do anel de KM ainda não está entre os algoritmos — é
+o que falta descobrir (ver `docs/descobertas-basalt.md`).
+
 Falta do núcleo: perfis, detecção de módulo, motor de dump, sincronização,
 registro, laudo, permissões, integração OS, interface.
 
@@ -143,7 +147,7 @@ registro, laudo, permissões, integração OS, interface.
 
 ## 6. O que destrava tudo
 
-Os três eixos travam no **mesmo ponto: dumps reais de um C3**.
+Os três eixos travam no **mesmo ponto: dumps reais**.
 
 - Sem dumps, não há como levantar os perfis (nem KM/VIN, nem antifurto).
 - 5 ou 6 pares de BCCM+airbag com KM e VIN conhecidos permitem começar.
@@ -151,6 +155,20 @@ Os três eixos travam no **mesmo ponto: dumps reais de um C3**.
 
 **Pedido concreto ao mecânico:** ler BCCM + airbag (e, se der, injeção) de
 alguns C3/Aircross/Basalt que passarem, anotando KM e VIN de cada um.
+
+### Estado da P1 — parcialmente resolvida (27 ago 2026)
+
+Recebidos os **primeiros dumps reais**: 4 arquivos de um **Basalt** (2 painéis
+BCCM em KMs diferentes, 2 airbags). Resultado da análise:
+
+- **Leitura de VIN e KM: resolvida** para BCCM e airbag do Basalt. Offsets e
+  codificação confirmados por comparação diferencial.
+- **Gravação: falta uma peça** — o checksum de 4 bytes por registro do anel de
+  quilometragem. É o próximo trabalho técnico.
+
+Detalhe completo em `docs/descobertas-basalt.md`. Continua valendo o pedido de
+**mais pares** (mesmo módulo, KMs diferentes) — é o que permite quebrar o
+checksum e validar, e faltam dumps de C3 e Aircross.
 
 > Dumps de veículo **nunca** entram no repositório nem são colados no chat —
 > são dados reais de cliente (VIN, KM). `.gitignore` já bloqueia `.bin`,
@@ -166,6 +184,7 @@ alguns C3/Aircross/Basalt que passarem, anotando KM e VIN de cada um.
 | `docs/escopo.html` | escopo v0.1: 4 operações, permissões, registro, OS, fases |
 | `docs/funcionalidades.html` | catálogo das 92 funcionalidades por área/fase |
 | `docs/base-conhecimento.md` | **este** — memória técnica e decisões |
+| `docs/descobertas-basalt.md` | mapa dos dumps reais do Basalt (offsets, codificação, o que falta) |
 | `docs/pendencias.md` | perguntas em aberto e o que trava cada uma |
 
 Artifacts publicados (apresentação):

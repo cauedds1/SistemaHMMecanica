@@ -1,0 +1,13 @@
+{
+  "id": "basalt-airbag",
+  "nome": "Airbag — Citroën Basalt",
+  "modulo": "airbag",
+  "memoria": "EEPROM 95256",
+  "tamanho": 32768,
+  "confianca": "parcial",
+  "campos": {
+    "vin": { "offset": 19550, "tamanho": 17, "tipo": "ascii", "confianca": "confirmado" },
+    "km":  { "offset": 326, "tamanho": 2, "endian": "le", "fator": 1, "estrutura": "anel-de-registros", "confianca": "preliminar" }
+  },
+  "observacoes": "VIN confirmado. KM em anel de registros com hash de 4 bytes; leitura preliminar. Gravacao pendente."
+}

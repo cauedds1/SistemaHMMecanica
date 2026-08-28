@@ -1,0 +1,437 @@
+<title>HM Módulos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+  :root{
+    --fundo:#EEF1F0; --papel:#F9FBFA; --tinta:#131A1C; --tinta-fraca:#5B686C;
+    --linha:#DCE2E1; --linha-forte:#C2CBCA; --petroleo:#0F5E68; --petroleo-fr:#0B4750;
+    --ambar:#9C5C08; --ambar-fundo:#F6EDDF; --oxido:#8B2A20; --oxido-fundo:#F4E6E3;
+    --verde:#2C6543; --verde-fundo:#E4EFE7; --realce:#E3EBEA;
+    --serif:"Source Serif 4",Georgia,serif; --grot:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --fundo:#0D1315; --papel:#151D1F; --tinta:#E3E9E8; --tinta-fraca:#94A3A5;
+    --linha:#253032; --linha-forte:#38474A; --petroleo:#57BDC8; --petroleo-fr:#8AD4DC;
+    --ambar:#DFA044; --ambar-fundo:#2A2116; --oxido:#D97A6C; --oxido-fundo:#2C1A18;
+    --verde:#6FBF8E; --verde-fundo:#17251C; --realce:#1C2628;
+  }}
+  :root[data-theme="dark"]{
+    --fundo:#0D1315; --papel:#151D1F; --tinta:#E3E9E8; --tinta-fraca:#94A3A5;
+    --linha:#253032; --linha-forte:#38474A; --petroleo:#57BDC8; --petroleo-fr:#8AD4DC;
+    --ambar:#DFA044; --ambar-fundo:#2A2116; --oxido:#D97A6C; --oxido-fundo:#2C1A18;
+    --verde:#6FBF8E; --verde-fundo:#17251C; --realce:#1C2628;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--fundo);color:var(--tinta);font-family:var(--serif);margin:0;
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .app{max-width:1080px;margin:0 auto;padding:32px 20px 90px}
+
+  header.topo{border-top:3px solid var(--tinta);padding-top:16px;margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .marca{font-family:var(--grot);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;margin:0}
+  .marca span{color:var(--petroleo)}
+  .selo{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--tinta-fraca);margin:6px 0 0}
+  .tema{font-family:var(--mono);font-size:11px;color:var(--tinta-fraca);background:none;
+    border:1px solid var(--linha-forte);padding:6px 12px;cursor:pointer;border-radius:2px}
+  .tema:hover{color:var(--tinta)}
+
+  .intro{color:var(--tinta-fraca);max-width:64ch;margin:14px 0 26px;font-size:1rem}
+
+  .paineis{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:760px){.paineis{grid-template-columns:1fr 1fr}}
+
+  .slot{border:1px solid var(--linha-forte);background:var(--papel);border-radius:4px;overflow:hidden;
+    display:flex;flex-direction:column}
+  .slot h2{font-family:var(--grot);font-size:.82rem;font-weight:600;letter-spacing:.03em;
+    text-transform:uppercase;margin:0;padding:13px 16px;border-bottom:1px solid var(--linha);
+    color:var(--tinta-fraca);display:flex;align-items:center;gap:8px}
+  .slot h2 b{color:var(--petroleo);font-weight:700}
+
+  .drop{margin:16px;border:1.5px dashed var(--linha-forte);border-radius:4px;padding:26px 16px;
+    text-align:center;cursor:pointer;transition:border-color .15s,background .15s;color:var(--tinta-fraca)}
+  .drop:hover,.drop.sobre{border-color:var(--petroleo);background:var(--realce);color:var(--tinta)}
+  .drop .ic{font-size:26px;display:block;margin-bottom:8px}
+  .drop .hint{font-family:var(--grot);font-size:.85rem}
+  .drop .sub{font-family:var(--mono);font-size:10px;margin-top:6px;opacity:.75}
+
+  .ficha{padding:4px 16px 18px;display:none}
+  .ficha.mostra{display:block}
+  .linha{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--linha);
+    align-items:baseline}
+  .linha:last-of-type{border-bottom:0}
+  .rot{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-fraca)}
+  .val{font-family:var(--grot);font-weight:600;font-size:.98rem;text-align:right;font-variant-numeric:tabular-nums;
+    word-break:break-all}
+  .val small{display:block;font-weight:400;font-size:.7rem;color:var(--tinta-fraca);font-family:var(--mono)}
+
+  .integridade{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+  .chk{display:flex;align-items:center;gap:8px;font-family:var(--grot);font-size:.86rem}
+  .chk .mk{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;flex:none;color:#fff}
+  .chk.ok .mk{background:var(--verde)} .chk.ok{color:var(--tinta)}
+  .chk.aviso .mk{background:var(--ambar)} .chk.aviso{color:var(--tinta)}
+  .chk.erro .mk{background:var(--oxido)} .chk.erro{color:var(--tinta)}
+  .chk .obs{color:var(--tinta-fraca);font-size:.78rem}
+
+  .trocar{margin:0 16px 16px;font-family:var(--mono);font-size:11px;color:var(--petroleo);
+    background:none;border:none;cursor:pointer;text-align:left;padding:0}
+  .trocar:hover{text-decoration:underline}
+
+  /* casamento */
+  .casamento{margin-top:24px;border:1px solid var(--linha-forte);border-radius:4px;background:var(--papel)}
+  .casamento h2{font-family:var(--grot);font-size:.82rem;font-weight:600;letter-spacing:.03em;
+    text-transform:uppercase;margin:0;padding:13px 16px;border-bottom:1px solid var(--linha);color:var(--tinta-fraca)}
+  .cas-corpo{padding:18px 16px}
+  .veredito{font-family:var(--grot);font-weight:700;font-size:1.15rem;margin:0 0 14px;display:flex;
+    align-items:center;gap:10px}
+  .veredito .badge{font-family:var(--mono);font-size:11px;font-weight:600;padding:4px 10px;border-radius:3px}
+  .b-ok{background:var(--verde-fundo);color:var(--verde)}
+  .b-diverge{background:var(--ambar-fundo);color:var(--ambar)}
+  .b-alerta{background:var(--oxido-fundo);color:var(--oxido)}
+  .cmp{width:100%;border-collapse:collapse;font-family:var(--grot);font-size:.9rem;margin-top:6px}
+  .cmp th,.cmp td{text-align:left;padding:9px 10px 9px 0;border-bottom:1px solid var(--linha);
+    font-variant-numeric:tabular-nums}
+  .cmp th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--tinta-fraca);font-weight:500}
+  .cmp .igual{color:var(--verde);font-weight:700}
+  .cmp .difere{color:var(--ambar);font-weight:700}
+  .cas-nota{color:var(--tinta-fraca);font-size:.82rem;margin:14px 0 0;line-height:1.5}
+
+  .acoes{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{font-family:var(--grot);font-weight:600;font-size:.9rem;padding:10px 18px;border-radius:3px;
+    border:1px solid var(--petroleo);background:var(--petroleo);color:#fff;cursor:pointer}
+  .btn:hover{background:var(--petroleo-fr);border-color:var(--petroleo-fr)}
+  .btn:disabled{background:transparent;color:var(--tinta-fraca);border-color:var(--linha-forte);cursor:not-allowed}
+  .btn.sec{background:transparent;color:var(--petroleo)}
+  .btn.sec:hover{background:var(--realce)}
+
+  .rodape{margin-top:40px;padding-top:16px;border-top:1px solid var(--linha);font-family:var(--mono);
+    font-size:11px;color:var(--tinta-fraca);line-height:1.7}
+  .rodape b{color:var(--tinta)}
+  .aviso-box{margin-top:20px;border:1px solid var(--ambar);background:var(--ambar-fundo);border-radius:4px;
+    padding:14px 16px;font-size:.86rem;line-height:1.5}
+  .aviso-box b{font-family:var(--grot)}
+  code{font-family:var(--mono);font-size:.85em;background:var(--realce);padding:1px 5px;border-radius:2px}
+</style>
+
+<div class="app">
+  <header class="topo">
+    <div>
+      <h1 class="marca">HM<span>·</span>Módulos</h1>
+      <p class="selo">Versão de teste 0.1 · leitura e casamento</p>
+    </div>
+    <button class="tema" id="btnTema" type="button">tema</button>
+  </header>
+
+  <p class="intro">
+    Abra os arquivos do <b>painel (BCCM)</b> e do <b>airbag</b> de um mesmo carro. O programa lê o chassi e a
+    quilometragem de cada um e mostra se eles concordam entre si — o "casamento". Tudo acontece no seu
+    navegador; nenhum arquivo é enviado para lugar nenhum.
+  </p>
+
+  <div class="paineis">
+    <!-- PAINEL -->
+    <section class="slot" data-slot="painel">
+      <h2>🖥️ Painel <b>BCCM</b></h2>
+      <div class="drop" tabindex="0">
+        <span class="ic">📂</span>
+        <div class="hint">Toque ou arraste o arquivo do painel</div>
+        <div class="sub">.bin — esperado 64 KB</div>
+      </div>
+      <div class="ficha">
+        <div class="linha"><span class="rot">Arquivo</span><span class="val" data-f="arquivo">—</span></div>
+        <div class="linha"><span class="rot">Módulo</span><span class="val" data-f="modulo">—</span></div>
+        <div class="linha"><span class="rot">Chassi (VIN)</span><span class="val" data-f="vin">—</span></div>
+        <div class="linha"><span class="rot">Quilometragem</span><span class="val" data-f="km">—</span></div>
+        <div class="integridade" data-f="integridade"></div>
+      </div>
+      <button class="trocar" type="button" hidden>trocar arquivo</button>
+    </section>
+
+    <!-- AIRBAG -->
+    <section class="slot" data-slot="airbag">
+      <h2>🛡️ Módulo <b>Airbag</b></h2>
+      <div class="drop" tabindex="0">
+        <span class="ic">📂</span>
+        <div class="hint">Toque ou arraste o arquivo do airbag</div>
+        <div class="sub">.bin — esperado 32 KB</div>
+      </div>
+      <div class="ficha">
+        <div class="linha"><span class="rot">Arquivo</span><span class="val" data-f="arquivo">—</span></div>
+        <div class="linha"><span class="rot">Módulo</span><span class="val" data-f="modulo">—</span></div>
+        <div class="linha"><span class="rot">Chassi (VIN)</span><span class="val" data-f="vin">—</span></div>
+        <div class="linha"><span class="rot">Quilometragem</span><span class="val" data-f="km">—</span></div>
+        <div class="integridade" data-f="integridade"></div>
+      </div>
+      <button class="trocar" type="button" hidden>trocar arquivo</button>
+    </section>
+  </div>
+
+  <!-- CASAMENTO -->
+  <section class="casamento" id="casamento" hidden>
+    <h2>🔗 Casamento entre os módulos</h2>
+    <div class="cas-corpo">
+      <p class="veredito" id="veredito"></p>
+      <table class="cmp">
+        <thead><tr><th>Informação</th><th>Painel</th><th>Airbag</th><th>Bate?</th></tr></thead>
+        <tbody id="cmpBody"></tbody>
+      </table>
+      <p class="cas-nota" id="casNota"></p>
+      <div class="acoes">
+        <button class="btn" id="btnSync" disabled>Sincronizar (em breve)</button>
+        <button class="btn sec" id="btnLimpar" type="button">Limpar tudo</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="aviso-box">
+    <b>O que esta versão faz e não faz.</b> Ela já <b>lê de verdade</b> o chassi e a quilometragem do
+    painel do Basalt (confirmado). No airbag, o chassi é confirmado e a quilometragem é uma
+    <b>leitura preliminar</b> — o airbag guarda o número de um jeito que ainda estou calibrando. Ainda
+    <b>não grava nem salva</b> arquivo corrigido: o passo de escrever depende de descobrir o código de
+    proteção interno, que é o próximo trabalho. Serve para você <b>ver e entender</b> como funciona.
+  </div>
+
+  <div class="rodape">
+    <div>HM Módulos · versão de teste 0.1 · perfil <b>Basalt BCCM + airbag</b></div>
+    <div>Leitura confirmada no painel · airbag em calibração · gravação: próxima etapa</div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ---------- perfis reais (descobertos nos dumps do Basalt) ---------- */
+const PERFIS = {
+  painel: {
+    nome: "BCCM / Painel — Basalt", modulo: "Painel (BCCM)", tamanho: 65536,
+    assinatura: { janela: 0x0AB0, janelaTam: 32, texto: "BCCM" },
+    vin: { offset: 0x0B00, tam: 17 },
+    km:  { offset: 0x4BA0, tam: 3, fator: 10 },
+    kmConfianca: "confirmado"
+  },
+  airbag: {
+    nome: "Airbag — Basalt", modulo: "Airbag", tamanho: 32768,
+    vin: { offset: 0x4C5E, tam: 17 },
+    km:  { offset: 0x0146, tam: 2, fator: 1 },
+    kmConfianca: "preliminar"
+  }
+};
+
+const VIN_RE = /^[A-HJ-NPR-Z0-9]{17}$/;
+
+function lerAscii(buf, off, tam){
+  let s = "";
+  for (let i=0;i<tam && off+i<buf.length;i++){
+    const c = buf[off+i];
+    s += (c>=0x20 && c<=0x7e) ? String.fromCharCode(c) : "";
+  }
+  return s.trim();
+}
+function lerIntLE(buf, off, tam){
+  let v = 0;
+  for (let i=tam-1;i>=0;i--) v = v*256 + buf[off+i];
+  return v;
+}
+
+/* le um dump conforme o perfil do slot; devolve dados + integridade */
+function analisar(slot, buf){
+  const perfil = PERFIS[slot];
+  const res = { perfil, arquivoTam: buf.length, checks: [] };
+
+  // 1. tamanho
+  const tamOk = buf.length === perfil.tamanho;
+  res.checks.push({
+    tipo: tamOk ? "ok" : "erro",
+    txt: tamOk ? "Tamanho do arquivo confere" : "Tamanho inesperado (" + buf.length + " bytes)",
+    obs: tamOk ? "" : "esperado " + perfil.tamanho + " bytes"
+  });
+
+  // 2. estrutura reconhecida (assinatura, quando houver)
+  let estruturaOk = tamOk;
+  if (perfil.assinatura){
+    const jan = lerAscii(buf, perfil.assinatura.janela, perfil.assinatura.janelaTam);
+    estruturaOk = tamOk && jan.indexOf(perfil.assinatura.texto) >= 0;
+  }
+  res.checks.push({
+    tipo: estruturaOk ? "ok" : "erro",
+    txt: estruturaOk ? "Estrutura reconhecida" : "Estrutura não reconhecida",
+    obs: estruturaOk ? perfil.modulo : "o arquivo não parece deste módulo"
+  });
+
+  // 3. VIN
+  const vin = lerAscii(buf, perfil.vin.offset, perfil.vin.tam).toUpperCase();
+  const vinOk = VIN_RE.test(vin);
+  res.vin = vin || "—";
+  res.checks.push({
+    tipo: vinOk ? "ok" : "aviso",
+    txt: vinOk ? "Chassi (VIN) válido" : "Chassi não reconhecido",
+    obs: vinOk ? "" : "leitura fora do padrão de VIN"
+  });
+
+  // 4. KM
+  let kmVal = null;
+  if (estruturaOk){
+    kmVal = Math.floor(lerIntLE(buf, perfil.km.offset, perfil.km.tam) / perfil.km.fator);
+  }
+  res.km = kmVal;
+  res.kmConfianca = perfil.kmConfianca;
+  const kmPlausivel = kmVal !== null && kmVal >= 0 && kmVal < 2000000;
+  if (perfil.kmConfianca === "confirmado"){
+    res.checks.push({
+      tipo: kmPlausivel ? "ok" : "aviso",
+      txt: kmPlausivel ? "Quilometragem lida" : "Quilometragem implausível",
+      obs: kmPlausivel ? "" : "possível leitura ruim"
+    });
+  } else {
+    res.checks.push({
+      tipo: "aviso",
+      txt: "Quilometragem — leitura preliminar",
+      obs: "formato do airbag em calibração"
+    });
+  }
+  return res;
+}
+
+/* ---------- estado + interface ---------- */
+const dados = { painel: null, airbag: null };
+
+function fmtKm(km, conf){
+  if (km === null || km === undefined) return "—";
+  const s = km.toLocaleString("pt-BR") + " km";
+  return conf === "preliminar" ? s : s;
+}
+
+function pintarSlot(slotEl, slot, nomeArq, res){
+  slotEl.querySelector(".drop").hidden = true;
+  slotEl.querySelector(".trocar").hidden = false;
+  const ficha = slotEl.querySelector(".ficha");
+  ficha.classList.add("mostra");
+  ficha.querySelector('[data-f="arquivo"]').textContent = nomeArq;
+  ficha.querySelector('[data-f="modulo"]').textContent = res.perfil.modulo;
+  ficha.querySelector('[data-f="vin"]').textContent = res.vin;
+  const kmEl = ficha.querySelector('[data-f="km"]');
+  if (res.km === null){ kmEl.textContent = "—"; }
+  else {
+    kmEl.innerHTML = res.km.toLocaleString("pt-BR") + " km" +
+      (res.kmConfianca === "preliminar" ? "<small>leitura preliminar</small>" : "");
+  }
+  const box = ficha.querySelector('[data-f="integridade"]');
+  box.innerHTML = "";
+  for (const c of res.checks){
+    const mk = c.tipo==="ok" ? "✓" : c.tipo==="aviso" ? "!" : "✕";
+    const div = document.createElement("div");
+    div.className = "chk " + c.tipo;
+    div.innerHTML = '<span class="mk">'+mk+'</span><span>'+c.txt+
+      (c.obs ? ' <span class="obs">— '+c.obs+'</span>' : '')+'</span>';
+    box.appendChild(div);
+  }
+}
+
+function carregar(slotEl, slot, file){
+  const rd = new FileReader();
+  rd.onload = () => {
+    const buf = new Uint8Array(rd.result);
+    const res = analisar(slot, buf);
+    dados[slot] = { nome: file.name, res };
+    pintarSlot(slotEl, slot, file.name, res);
+    atualizarCasamento();
+  };
+  rd.readAsArrayBuffer(file);
+}
+
+function limparSlot(slot){
+  const slotEl = document.querySelector('[data-slot="'+slot+'"]');
+  dados[slot] = null;
+  slotEl.querySelector(".drop").hidden = false;
+  slotEl.querySelector(".trocar").hidden = true;
+  slotEl.querySelector(".ficha").classList.remove("mostra");
+  atualizarCasamento();
+}
+
+function atualizarCasamento(){
+  const sec = document.getElementById("casamento");
+  if (!dados.painel || !dados.airbag){ sec.hidden = true; return; }
+  sec.hidden = false;
+
+  const p = dados.painel.res, a = dados.airbag.res;
+  const vinIgual = p.vin !== "—" && p.vin === a.vin;
+  const kmIgual = p.km !== null && a.km !== null && p.km === a.km;
+
+  const body = document.getElementById("cmpBody");
+  body.innerHTML = "";
+  const linhas = [
+    ["Chassi (VIN)", p.vin, a.vin, vinIgual],
+    ["Quilometragem",
+      p.km!==null ? p.km.toLocaleString("pt-BR")+" km" : "—",
+      a.km!==null ? a.km.toLocaleString("pt-BR")+" km" : "—",
+      kmIgual]
+  ];
+  for (const [rot,vp,va,ig] of linhas){
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td>"+rot+"</td><td>"+vp+"</td><td>"+va+"</td>"+
+      '<td class="'+(ig?"igual":"difere")+'">'+(ig?"sim":"não")+"</td>";
+    body.appendChild(tr);
+  }
+
+  const vd = document.getElementById("veredito");
+  const nota = document.getElementById("casNota");
+  if (vinIgual && kmIgual){
+    vd.innerHTML = 'Módulos casados <span class="badge b-ok">CASADO</span>';
+    nota.textContent = "Chassi e quilometragem batem entre os dois módulos. Neste estado o painel do "
+      + "carro mostraria a quilometragem normalmente, sem erro.";
+  } else if (!vinIgual && p.vin!=="—" && a.vin!=="—"){
+    vd.innerHTML = 'Chassis diferentes <span class="badge b-alerta">ATENÇÃO</span>';
+    nota.textContent = "Os dois arquivos têm chassis diferentes — provavelmente são de carros distintos. "
+      + "Confira se os arquivos são do mesmo veículo antes de qualquer coisa.";
+  } else {
+    vd.innerHTML = 'Divergência <span class="badge b-diverge">FORA DE SINCRONIA</span>';
+    nota.textContent = "O chassi bate, mas a quilometragem não. É exatamente o caso do carro que apaga a "
+      + "quilometragem e mostra erro no painel. A função de sincronizar (em breve) resolveria isso, "
+      + "copiando o valor correto de um módulo para o outro.";
+  }
+}
+
+/* ---------- ligações de eventos ---------- */
+document.querySelectorAll(".slot").forEach(slotEl => {
+  const slot = slotEl.dataset.slot;
+  const drop = slotEl.querySelector(".drop");
+  const input = document.createElement("input");
+  input.type = "file"; input.accept = ".bin,.eep,.hex,application/octet-stream";
+  input.style.display = "none";
+  slotEl.appendChild(input);
+
+  drop.addEventListener("click", () => input.click());
+  drop.addEventListener("keydown", e => { if (e.key==="Enter"||e.key===" "){ e.preventDefault(); input.click(); }});
+  input.addEventListener("change", () => { if (input.files[0]) carregar(slotEl, slot, input.files[0]); });
+  drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("sobre"); });
+  drop.addEventListener("dragleave", () => drop.classList.remove("sobre"));
+  drop.addEventListener("drop", e => {
+    e.preventDefault(); drop.classList.remove("sobre");
+    if (e.dataTransfer.files[0]) carregar(slotEl, slot, e.dataTransfer.files[0]);
+  });
+  slotEl.querySelector(".trocar").addEventListener("click", () => input.click());
+});
+
+document.getElementById("btnLimpar").addEventListener("click", () => {
+  limparSlot("painel"); limparSlot("airbag");
+});
+
+/* tema */
+(function(){
+  const btn = document.getElementById("btnTema");
+  let atual = null;
+  try { atual = localStorage.getItem("hm-tema"); } catch(e){}
+  if (atual) document.documentElement.setAttribute("data-theme", atual);
+  btn.addEventListener("click", () => {
+    const agora = document.documentElement.getAttribute("data-theme");
+    const prefereDark = matchMedia("(prefers-color-scheme:dark)").matches;
+    const novo = (agora==="dark" || (!agora && prefereDark)) ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", novo);
+    try { localStorage.setItem("hm-tema", novo); } catch(e){}
+  });
+})();
+</script>

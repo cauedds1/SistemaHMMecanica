@@ -421,7 +421,7 @@
 <div class="folha">
 
   <header class="cabecalho">
-    <p class="selo">Documento de escopo · versão 0.1 · em definição</p>
+    <p class="selo">Documento de escopo · versão 0.2 · em desenvolvimento</p>
     <h1>Ferramenta de sincronismo BCCM e airbag</h1>
     <p class="linha-fina">
       Aplicativo de bancada para leitura, diagnóstico, reparo e sincronização de arquivos de memória
@@ -452,6 +452,7 @@
       <li><a href="#s10"><span>10</span>Arquitetura</a></li>
       <li><a href="#s11"><span>11</span>Fora de escopo</a></li>
       <li><a href="#s12"><span>12</span>Pendências</a></li>
+      <li><a href="#s13"><span>13</span>Estado real (28 ago)</a></li>
     </ol>
   </nav>
 
@@ -992,6 +993,58 @@
           reais chegarem, o trabalho é preencher o perfil — não reescrever o software.
         </p>
       </div>
+    </section>
+
+    <section id="s13">
+      <h2 class="secao"><em>13</em>Estado real do desenvolvimento</h2>
+      <p>
+        Seção viva, acrescentada conforme o projeto anda — o restante do escopo permanece como
+        planejamento; aqui fica o que já foi provado na prática. Atualizado em 28 ago 2026.
+      </p>
+
+      <h3>Já funciona (provado com arquivos reais)</h3>
+      <ul class="lista">
+        <li><strong>Leitura do painel (BCCM):</strong> chassi e quilometragem lidos corretamente em dumps reais de Basalt (25.100 e 85.219 km, exatos).</li>
+        <li><strong>Leitura do airbag:</strong> chassi confirmado; quilometragem em leitura preliminar.</li>
+        <li><strong>C3 e Basalt usam o mesmo layout de painel</strong> — um único perfil cobre os dois (e provavelmente o Aircross). Menos trabalho, mais cobertura.</li>
+        <li><strong>Reconhecimento de módulo resetado/virgem</strong> (chassi e KM em branco).</li>
+        <li><strong>Versão de teste web</strong> no ar, abrindo painel + airbag e mostrando o casamento entre eles.</li>
+      </ul>
+
+      <h3>Confirmado pelo mecânico</h3>
+      <ul class="lista">
+        <li>O escopo está certo: "sistema como o do vídeo", trocar módulo/painel, casar chassi e KM.</li>
+        <li>Ele pediu explicitamente a função de <strong>alterar os parâmetros</strong> (gravar KM/VIN) — é a função que falta.</li>
+        <li>Vai fornecer <strong>mais arquivos com quilometragem anotada</strong> e ler também a <strong>ECU (motor)</strong> para adicionar depois.</li>
+        <li>Ferramental deles: programador de bancada <strong>iProg Pro</strong> (com IDE de script Emvima).</li>
+      </ul>
+
+      <div class="bloco bloco--veto">
+        <span class="legenda">O que ainda falta para gravar</span>
+        <p style="margin:0 0 12px">
+          Gravar uma quilometragem nova depende de reproduzir o <strong>código de proteção</strong> que o
+          painel usa em cada registro. Ele é <strong>próprio da PSA</strong> — nenhum padrão de mercado
+          (testados vários tipos de CRC e soma) bate. Confirma por que as ferramentas grandes ainda não
+          cobrem esses carros.
+        </p>
+        <p style="margin:0">
+          Para quebrá-lo falta material: o ideal é o <strong>antes e depois</strong> de um mesmo módulo com
+          uma quilometragem conhecida, gravada por ferramenta que já funcione. O mecânico se ofereceu para
+          fornecer. É a nova pendência <strong>P1b</strong>.
+        </p>
+      </div>
+
+      <h3>Decisões acrescentadas neste período</h3>
+      <dl class="ficha">
+        <dt>Entrega</dt>
+        <dd><strong>Web só para teste; produto final é programa instalado (.exe, Windows).</strong> Motivos: arquivo do cliente não sai da máquina (LGPD), funciona offline, banco local do registro e laudo, licenciamento anti-cópia, e comunicação com hardware na fase OBD. O mesmo código do teste vira a tela do programa.</dd>
+        <dt>Mercado</dt>
+        <dd>Como categoria, calculadora automotiva não é escassa; para os <strong>PSA novos</strong> (C3/Basalt/Aircross) a cobertura parece escassa — é o nicho e a janela de oportunidade, que fecha conforme os carros popularizam.</dd>
+        <dt>Preço</dt>
+        <dd>Referência: concorrente CarroTec ≈ R$ 1.200/ano. Recomendação: entrada + mensalidade menor, sem cobrar acima de um concorrente consolidado. Detalhe em <code>precos-mercado.md</code>.</dd>
+        <dt>Viabilidade</dt>
+        <dd>Provado: leitura. Não garantido ainda: escrita (P1b) e eixo chave/imobilizador (pode exigir hardware). Sem promessa de "perfeito em tudo" — o produto evolui por perfis.</dd>
+      </dl>
     </section>
 
   </main>

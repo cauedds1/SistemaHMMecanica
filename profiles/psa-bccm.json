@@ -1,0 +1,14 @@
+{
+  "id": "psa-bccm",
+  "nome": "Painel / BCCM — PSA (C3, Aircross, Basalt)",
+  "modulo": "painel",
+  "memoria": "EEPROM 95512",
+  "tamanho": 65536,
+  "confianca": "confirmado",
+  "assinatura": { "janela": 2736, "janelaTam": 32, "texto": "BCCM" },
+  "campos": {
+    "vin": { "offset": 2816, "tamanho": 17, "tipo": "ascii" },
+    "km":  { "offset": 19360, "tamanho": 3, "endian": "le", "fator": 10, "estrutura": "anel-de-registros", "confianca": "confirmado" }
+  },
+  "observacoes": "Cobre C3, Aircross e Basalt (mesmo layout). KM em anel de registros com codigo de protecao de 4 bytes por registro ainda nao decodificado (P1b). Leitura confirmada; gravacao pendente."
+}

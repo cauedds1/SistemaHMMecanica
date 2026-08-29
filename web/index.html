@@ -29,498 +29,540 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%}
-  body{background:var(--fundo);color:var(--tinta);font-family:var(--grot);font-size:15px;line-height:1.5;
-    -webkit-font-smoothing:antialiased}
+  body{background:var(--fundo);color:var(--tinta);font-family:var(--grot);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
   .app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}
   @media(max-width:800px){.app{grid-template-columns:1fr}}
 
   /* ---------- barra lateral ---------- */
-  .lateral{background:var(--barra);color:var(--barra-tinta);display:flex;flex-direction:column;padding:20px 14px;gap:6px}
-  @media(max-width:800px){.lateral{flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}}
-  .marca{display:flex;align-items:center;gap:9px;padding:6px 8px 18px;font-weight:800;font-size:1.15rem;letter-spacing:-.01em;color:#fff}
-  @media(max-width:800px){.marca{padding:0 10px 0 4px;flex:1}}
+  .lateral{background:var(--barra);color:var(--barra-tinta);display:flex;flex-direction:column;padding:20px 14px;gap:4px}
+  @media(max-width:800px){.lateral{flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px}}
+  .marca{display:flex;align-items:center;gap:9px;padding:6px 8px 16px;font-weight:800;font-size:1.15rem;letter-spacing:-.01em;color:#fff}
+  @media(max-width:800px){.marca{padding:0 10px 0 4px;flex:1 0 100%}}
   .marca .dot{width:11px;height:11px;border-radius:3px;background:var(--petroleo);box-shadow:0 0 0 4px rgba(15,94,104,.25)}
   .navbtn{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:0;cursor:pointer;
-    color:var(--barra-tinta);font-family:var(--grot);font-size:.92rem;font-weight:500;padding:10px 12px;border-radius:8px;
-    opacity:.72;transition:background .12s,opacity .12s}
-  .navbtn .ic{font-size:1.05rem;width:20px;text-align:center;flex:none}
+    color:var(--barra-tinta);font-family:var(--grot);font-size:.9rem;font-weight:500;padding:9px 12px;border-radius:8px;opacity:.72;transition:background .12s,opacity .12s}
+  .navbtn .ic{font-size:1.02rem;width:20px;text-align:center;flex:none}
   .navbtn:hover{opacity:1;background:rgba(255,255,255,.05)}
   .navbtn.ativo{opacity:1;background:rgba(255,255,255,.10);color:#fff;font-weight:600}
-  .navbtn .tag{margin-left:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
-    border:1px solid currentColor;border-radius:4px;padding:1px 5px;opacity:.7}
+  .navbtn .tag{margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor;border-radius:4px;padding:1px 5px;opacity:.65}
+  .navbtn[hidden]{display:none}
   @media(max-width:800px){.navbtn{width:auto}.navbtn .tag{display:none}}
-  .lateral .rodape{margin-top:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--barra-tinta);opacity:.5;padding:8px}
-  @media(max-width:800px){.lateral .rodape{display:none}}
+  .navsep{height:1px;background:rgba(255,255,255,.08);margin:8px 4px}
+  @media(max-width:800px){.navsep{display:none}}
+  .lateral .usuario{margin-top:auto;background:rgba(255,255,255,.05);border-radius:8px;padding:10px 12px;font-size:.8rem}
+  @media(max-width:800px){.lateral .usuario{margin:0;flex:0 0 auto}}
+  .usuario .nm{color:#fff;font-weight:600;font-size:.85rem}
+  .usuario .pp{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+  .usuario .sair{background:none;border:0;color:var(--barra-tinta);font-family:var(--mono);font-size:10px;cursor:pointer;opacity:.7;padding:6px 0 0}
+  .usuario .sair:hover{opacity:1;text-decoration:underline}
 
   /* ---------- área principal ---------- */
-  .conteudo{padding:26px clamp(16px,4vw,44px) 80px;max-width:1000px}
-  .topo{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px}
-  .topo h1{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0}
-  .topo .sub{color:var(--tinta-fraca);font-size:.92rem;margin:4px 0 0}
-  .tema{font-family:var(--mono);font-size:11px;color:var(--tinta-fraca);background:var(--painel);
-    border:1px solid var(--linha-forte);padding:7px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
+  .conteudo{padding:22px clamp(16px,4vw,44px) 80px;max-width:1000px}
+  .osbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--painel);border:1px solid var(--linha);
+    border-radius:var(--raio);padding:10px 16px;margin-bottom:18px;box-shadow:var(--sombra)}
+  .osbar .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-fraca)}
+  .osbar .osval{font-weight:700} .osbar .osdet{color:var(--tinta-fraca);font-size:.85rem}
+  .osbar .osnone{color:var(--ambar);font-weight:600;font-size:.86rem}
+  .osbar button{margin-left:auto}
+  .topo{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+  .topo h1{font-size:1.45rem;font-weight:700;letter-spacing:-.02em;margin:0}
+  .topo .sub{color:var(--tinta-fraca);font-size:.9rem;margin:4px 0 0;max-width:60ch}
+  .tema{font-family:var(--mono);font-size:11px;color:var(--tinta-fraca);background:var(--painel);border:1px solid var(--linha-forte);padding:7px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
   .tema:hover{color:var(--tinta)}
-  .aba{display:none;animation:ap .18s ease}
-  .aba.on{display:block}
+  .aba{display:none;animation:ap .18s ease}.aba.on{display:block}
   @keyframes ap{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
   /* ---------- componentes ---------- */
   .card{background:var(--painel);border:1px solid var(--linha);border-radius:var(--raio);box-shadow:var(--sombra)}
   .card+.card{margin-top:16px}
-  .card h2{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-fraca);
-    margin:0;padding:14px 18px;border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:8px}
+  .card h2{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-fraca);margin:0;padding:14px 18px;border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:8px}
   .card .corpo{padding:18px}
-
-  .drop{border:1.5px dashed var(--linha-forte);border-radius:var(--raio);padding:30px 18px;text-align:center;
-    cursor:pointer;color:var(--tinta-fraca);transition:border-color .15s,background .15s}
+  .drop{border:1.5px dashed var(--linha-forte);border-radius:var(--raio);padding:28px 18px;text-align:center;cursor:pointer;color:var(--tinta-fraca);transition:border-color .15s,background .15s}
   .drop:hover,.drop.sobre{border-color:var(--petroleo);background:var(--realce);color:var(--tinta)}
   .drop .ic{font-size:30px;display:block;margin-bottom:8px}
-  .drop .h{font-weight:600;font-size:.95rem;color:var(--tinta)}
-  .drop .s{font-family:var(--mono);font-size:10px;margin-top:6px;opacity:.7}
-
-  .grade2{display:grid;grid-template-columns:1fr;gap:16px}
-  @media(min-width:720px){.grade2{grid-template-columns:1fr 1fr}}
-
+  .drop .h{font-weight:600;font-size:.95rem;color:var(--tinta)} .drop .s{font-family:var(--mono);font-size:10px;margin-top:6px;opacity:.7}
+  .grade2{display:grid;grid-template-columns:1fr;gap:16px}@media(min-width:720px){.grade2{grid-template-columns:1fr 1fr}}
   .linha{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--linha);align-items:baseline}
   .linha:last-child{border-bottom:0}
   .rot{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-fraca)}
   .val{font-weight:600;text-align:right;font-variant-numeric:tabular-nums;word-break:break-all}
   .val small{display:block;font-weight:400;font-size:.68rem;color:var(--tinta-fraca);font-family:var(--mono)}
-
   .chk{display:flex;align-items:center;gap:9px;font-size:.88rem;padding:5px 0}
-  .chk .mk{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:700;color:#fff;flex:none}
-  .chk.ok .mk{background:var(--verde)} .chk.aviso .mk{background:var(--ambar)} .chk.erro .mk{background:var(--oxido)}
+  .chk .mk{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex:none}
+  .chk.ok .mk{background:var(--verde)}.chk.aviso .mk{background:var(--ambar)}.chk.erro .mk{background:var(--oxido)}
   .chk .obs{color:var(--tinta-fraca);font-size:.78rem}
-
-  .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;
-    letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px}
-  .pill.v{background:var(--verde-fundo);color:var(--verde)} .pill.a{background:var(--ambar-fundo);color:var(--ambar)}
-  .pill.o{background:var(--oxido-fundo);color:var(--oxido)} .pill.n{background:var(--realce);color:var(--tinta-fraca)}
-
-  .btn{font-family:var(--grot);font-weight:600;font-size:.9rem;padding:10px 18px;border-radius:8px;cursor:pointer;
-    border:1px solid var(--petroleo);background:var(--petroleo);color:#fff}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px}
+  .pill.v{background:var(--verde-fundo);color:var(--verde)}.pill.a{background:var(--ambar-fundo);color:var(--ambar)}
+  .pill.o{background:var(--oxido-fundo);color:var(--oxido)}.pill.n{background:var(--realce);color:var(--tinta-fraca)}
+  .btn{font-family:var(--grot);font-weight:600;font-size:.9rem;padding:10px 18px;border-radius:8px;cursor:pointer;border:1px solid var(--petroleo);background:var(--petroleo);color:#fff}
   .btn:hover{background:var(--petroleo-cl);border-color:var(--petroleo-cl)}
   .btn:disabled{background:transparent;color:var(--tinta-fraca);border-color:var(--linha-forte);cursor:not-allowed}
-  .btn.sec{background:transparent;color:var(--petroleo)} .btn.sec:hover{background:var(--realce)}
-  .btn.mini{padding:6px 12px;font-size:.8rem}
+  .btn.sec{background:transparent;color:var(--petroleo)}.btn.sec:hover{background:var(--realce)}
+  .btn.mini{padding:6px 12px;font-size:.8rem}.btn.perigo{border-color:var(--oxido);background:var(--oxido)}.btn.perigo:hover{background:#a33228}
   .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-
-  .trocar{font-family:var(--mono);font-size:11px;color:var(--petroleo);background:none;border:0;cursor:pointer;padding:8px 0 0}
-  .trocar:hover{text-decoration:underline}
-
+  .trocar{font-family:var(--mono);font-size:11px;color:var(--petroleo);background:none;border:0;cursor:pointer;padding:8px 0 0}.trocar:hover{text-decoration:underline}
   table.cmp{width:100%;border-collapse:collapse;font-size:.9rem}
   table.cmp th,table.cmp td{text-align:left;padding:9px 10px 9px 0;border-bottom:1px solid var(--linha);font-variant-numeric:tabular-nums}
   table.cmp th{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-fraca);font-weight:500}
-  table.cmp .ig{color:var(--verde);font-weight:700} table.cmp .di{color:var(--ambar);font-weight:700}
-
+  table.cmp .ig{color:var(--verde);font-weight:700}table.cmp .di{color:var(--ambar);font-weight:700}
   .escolha{display:flex;flex-direction:column;gap:8px;margin:6px 0 0}
-  .escolha label{display:flex;align-items:center;gap:8px;font-size:.86rem;cursor:pointer}
-  .escolha input{accent-color:var(--petroleo)}
-
+  .escolha label{display:flex;align-items:center;gap:8px;font-size:.86rem;cursor:pointer}.escolha input{accent-color:var(--petroleo)}
+  .campo{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+  .campo label{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-fraca)}
+  .campo input,.campo select{font-family:var(--grot);font-size:.92rem;padding:9px 11px;border:1px solid var(--linha-forte);border-radius:8px;background:var(--painel);color:var(--tinta)}
+  .campo input:focus,.campo select:focus{border-color:var(--petroleo);outline:none}
+  .campos2{display:grid;grid-template-columns:1fr;gap:0 16px}@media(min-width:560px){.campos2{grid-template-columns:1fr 1fr}}
   .nota{font-size:.82rem;color:var(--tinta-fraca);line-height:1.5}
-  .aviso{border:1px solid var(--ambar);background:var(--ambar-fundo);border-radius:var(--raio);padding:13px 16px;font-size:.85rem;line-height:1.5}
-  .aviso b{color:var(--tinta)}
+  .aviso{border:1px solid var(--ambar);background:var(--ambar-fundo);border-radius:var(--raio);padding:13px 16px;font-size:.85rem;line-height:1.5}.aviso b{color:var(--tinta)}
   .veto{border:1px solid var(--oxido);background:var(--oxido-fundo);border-radius:var(--raio);padding:13px 16px;font-size:.85rem;line-height:1.5}
   code{font-family:var(--mono);font-size:.85em;background:var(--realce);padding:1px 5px;border-radius:4px}
-
-  .vazio{text-align:center;color:var(--tinta-fraca);padding:40px 18px;font-size:.9rem}
-  .vazio .ic{font-size:34px;display:block;margin-bottom:8px;opacity:.5}
-
-  .reg{border-bottom:1px solid var(--linha);padding:12px 0;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:baseline}
-  .reg:last-child{border-bottom:0}
-  .reg .seq{font-family:var(--mono);font-size:11px;color:var(--tinta-fraca)}
-  .reg .op{font-weight:600;font-size:.9rem} .reg .res{grid-column:2;font-size:.82rem;color:var(--tinta-fraca)}
-  .reg .ts{font-family:var(--mono);font-size:10px;color:var(--tinta-fraca);text-align:right}
-  .reg .hash{grid-column:2;font-family:var(--mono);font-size:9.5px;color:var(--tinta-min);word-break:break-all}
-
+  .vazio{text-align:center;color:var(--tinta-fraca);padding:38px 18px;font-size:.9rem}.vazio .ic{font-size:34px;display:block;margin-bottom:8px;opacity:.5}
+  .reg{border-bottom:1px solid var(--linha);padding:12px 0;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:baseline}.reg:last-child{border-bottom:0}
+  .reg .seq{font-family:var(--mono);font-size:11px;color:var(--tinta-fraca)}.reg .op{font-weight:600;font-size:.9rem}
+  .reg .res{grid-column:2;font-size:.82rem;color:var(--tinta-fraca)}.reg .ts{font-family:var(--mono);font-size:10px;color:var(--tinta-fraca);text-align:right}
+  .reg .meta{grid-column:2;font-family:var(--mono);font-size:9.5px;color:var(--tinta-min);word-break:break-all}
   .cabInteg{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
   :focus-visible{outline:2px solid var(--petroleo);outline-offset:2px}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* ---------- overlay (login / OS / laudo) ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(8,15,17,.55);display:flex;align-items:center;justify-content:center;padding:18px;z-index:100}
+  .overlay[hidden]{display:none}
+  .modal{background:var(--painel);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.35);max-width:440px;width:100%;padding:26px;max-height:90vh;overflow:auto}
+  .modal h3{margin:0 0 4px;font-size:1.2rem;font-weight:700}
+  .modal .msub{color:var(--tinta-fraca);font-size:.88rem;margin:0 0 18px}
+  .papeis{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+  .papel{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--linha-forte);border-radius:10px;padding:11px 13px;cursor:pointer}
+  .papel:hover{border-color:var(--petroleo)} .papel input{margin-top:3px;accent-color:var(--petroleo)}
+  .papel .pt{font-weight:600;font-size:.9rem} .papel .pd{font-size:.78rem;color:var(--tinta-fraca)}
+  /* ---------- laudo ---------- */
+  .laudo{background:#fff;color:#131A1C;border-radius:8px;padding:26px;font-size:.85rem;line-height:1.5;border:1px solid var(--linha)}
+  .laudo h4{margin:0 0 2px;font-size:1.1rem} .laudo .lcab{border-bottom:2px solid #131A1C;padding-bottom:8px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px}
+  .laudo .lrot{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#5B686C}
+  .laudo table{width:100%;border-collapse:collapse;margin:8px 0} .laudo td{padding:5px 8px 5px 0;border-bottom:1px solid #E1E6E8;vertical-align:top}
+  .laudo .lass{margin-top:26px;border-top:1px solid #131A1C;padding-top:6px;width:60%}
+  @media print{ body *{visibility:hidden} #laudoPrint,#laudoPrint *{visibility:visible} #laudoPrint{position:absolute;inset:0;padding:20px} .noprint{display:none!important} }
 </style>
 
+<!-- ===================== OVERLAY LOGIN ===================== -->
+<div class="overlay" id="ovLogin">
+  <div class="modal">
+    <h3>Entrar</h3>
+    <p class="msub">Identifique o operador. Cada operação fica registrada no nome de quem a fez.</p>
+    <div class="campo"><label>Nome do operador</label><input id="inNome" placeholder="Ex.: João" autocomplete="off"></div>
+    <div class="papeis">
+      <label class="papel"><input type="radio" name="papel" value="consulta"><span><span class="pt">Consulta</span><span class="pd"> — só visualiza e diagnostica.</span></span></label>
+      <label class="papel"><input type="radio" name="papel" value="operador" checked><span><span class="pt">Operador</span><span class="pd"> — diagnostica, repara e sincroniza.</span></span></label>
+      <label class="papel"><input type="radio" name="papel" value="responsavel"><span><span class="pt">Responsável técnico</span><span class="pd"> — tudo, inclusive restaurar quilometragem e emitir laudo.</span></span></label>
+    </div>
+    <button class="btn" id="btnEntrar" style="width:100%">Entrar</button>
+    <p class="nota" style="margin-top:12px">Protótipo: no produto final o acesso tem senha e é gerenciado pelo responsável.</p>
+  </div>
+</div>
+
+<!-- ===================== OVERLAY OS ===================== -->
+<div class="overlay" id="ovOS" hidden>
+  <div class="modal">
+    <h3>Ordem de Serviço</h3>
+    <p class="msub">Toda operação fica vinculada a uma OS. É o que amarra o serviço ao veículo e ao cliente.</p>
+    <div class="campo"><label>Número da OS</label><input id="osNum" placeholder="Ex.: 1024" autocomplete="off"></div>
+    <div class="campos2">
+      <div class="campo"><label>Placa</label><input id="osPlaca" placeholder="ABC1D23" autocomplete="off"></div>
+      <div class="campo"><label>Modelo / ano</label><input id="osModelo" placeholder="C3 2024" autocomplete="off"></div>
+    </div>
+    <div class="campo"><label>Cliente</label><input id="osCliente" placeholder="Nome do cliente" autocomplete="off"></div>
+    <div class="acoes">
+      <button class="btn" id="btnSalvarOS">Vincular OS</button>
+      <button class="btn sec" id="btnFecharOS" type="button">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
 <div class="app">
   <nav class="lateral">
     <div class="marca"><span class="dot"></span>HM Módulos</div>
-    <button class="navbtn ativo" data-aba="diag"><span class="ic">🔍</span>Diagnóstico</button>
-    <button class="navbtn" data-aba="sync"><span class="ic">🔗</span>Sincronismo</button>
-    <button class="navbtn" data-aba="reg"><span class="ic">📓</span>Registro</button>
-    <button class="navbtn" data-aba="chave"><span class="ic">🔑</span>Chave<span class="tag">estudo</span></button>
-    <button class="navbtn" data-aba="veic"><span class="ic">🚗</span>Veículo<span class="tag">fase 3</span></button>
-    <div class="rodape">v1 · teste web<br>PSA BCCM + airbag</div>
+    <button class="navbtn ativo" data-aba="diag" data-min="consulta"><span class="ic">🔍</span>Diagnóstico</button>
+    <button class="navbtn" data-aba="sync" data-min="operador"><span class="ic">🔗</span>Sincronismo</button>
+    <button class="navbtn" data-aba="restaurar" data-min="responsavel"><span class="ic">🔢</span>Restaurar KM<span class="tag">resp.</span></button>
+    <div class="navsep"></div>
+    <button class="navbtn" data-aba="reg" data-min="consulta"><span class="ic">📓</span>Registro</button>
+    <button class="navbtn" data-aba="laudo" data-min="responsavel"><span class="ic">📄</span>Laudo<span class="tag">resp.</span></button>
+    <div class="navsep"></div>
+    <button class="navbtn" data-aba="chave" data-min="consulta"><span class="ic">🔑</span>Chave<span class="tag">estudo</span></button>
+    <button class="navbtn" data-aba="veic" data-min="consulta"><span class="ic">🚗</span>Veículo<span class="tag">fase 3</span></button>
+    <div class="usuario">
+      <div class="nm" id="uNome">—</div><div class="pp" id="uPapel">—</div>
+      <button class="sair" id="btnSair" type="button">trocar operador</button>
+    </div>
   </nav>
 
   <main class="conteudo">
+    <div class="osbar">
+      <span class="lab">OS</span>
+      <span id="osResumo"><span class="osnone">nenhuma vinculada</span></span>
+      <button class="btn sec mini" id="btnAbrirOS" type="button">Vincular OS</button>
+    </div>
     <div class="topo">
-      <div>
-        <h1 id="tituloAba">Diagnóstico</h1>
-        <p class="sub" id="subAba">Abra um arquivo de módulo para ler chassi, quilometragem e integridade.</p>
-      </div>
+      <div><h1 id="tituloAba">Diagnóstico</h1><p class="sub" id="subAba"></p></div>
       <button class="tema" id="btnTema" type="button">tema</button>
     </div>
 
-    <!-- ===================== DIAGNÓSTICO ===================== -->
+    <!-- DIAGNÓSTICO -->
     <section class="aba on" id="aba-diag">
       <div class="card"><div class="corpo">
-        <div class="drop" id="dropDiag" tabindex="0">
-          <span class="ic">📂</span>
-          <div class="h">Toque ou arraste um arquivo de módulo</div>
-          <div class="s">.bin — painel (64 KB) ou airbag (32 KB)</div>
-        </div>
+        <div class="drop" id="dropDiag" tabindex="0"><span class="ic">📂</span><div class="h">Toque ou arraste um arquivo de módulo</div><div class="s">.bin — painel (64 KB) ou airbag (32 KB)</div></div>
         <button class="trocar" id="trocarDiag" type="button" hidden>trocar arquivo</button>
       </div></div>
       <div id="fichaDiag"></div>
     </section>
 
-    <!-- ===================== SINCRONISMO ===================== -->
+    <!-- SINCRONISMO -->
     <section class="aba" id="aba-sync">
       <div class="grade2">
-        <div class="card" data-slot="painel">
-          <h2>🖥️ Painel (BCCM)</h2>
-          <div class="corpo">
-            <div class="drop slotdrop" tabindex="0"><span class="ic">📂</span><div class="h">Arquivo do painel</div><div class="s">64 KB</div></div>
-            <div class="slotficha"></div>
-            <button class="trocar" type="button" hidden>trocar</button>
-          </div>
-        </div>
-        <div class="card" data-slot="airbag">
-          <h2>🛡️ Airbag</h2>
-          <div class="corpo">
-            <div class="drop slotdrop" tabindex="0"><span class="ic">📂</span><div class="h">Arquivo do airbag</div><div class="s">32 KB</div></div>
-            <div class="slotficha"></div>
-            <button class="trocar" type="button" hidden>trocar</button>
-          </div>
-        </div>
+        <div class="card" data-slot="painel"><h2>🖥️ Painel (BCCM)</h2><div class="corpo">
+          <div class="drop slotdrop" tabindex="0"><span class="ic">📂</span><div class="h">Arquivo do painel</div><div class="s">64 KB</div></div>
+          <div class="slotficha"></div><button class="trocar" type="button" hidden>trocar</button></div></div>
+        <div class="card" data-slot="airbag"><h2>🛡️ Airbag</h2><div class="corpo">
+          <div class="drop slotdrop" tabindex="0"><span class="ic">📂</span><div class="h">Arquivo do airbag</div><div class="s">32 KB</div></div>
+          <div class="slotficha"></div><button class="trocar" type="button" hidden>trocar</button></div></div>
       </div>
-      <div class="card" id="cardCasamento" hidden>
-        <h2>🔗 Casamento entre os módulos</h2>
-        <div class="corpo">
-          <div class="cabInteg"><span id="verBadge"></span><strong id="verTexto"></strong></div>
-          <table class="cmp"><thead><tr><th>Informação</th><th>Painel</th><th>Airbag</th><th>Bate?</th></tr></thead>
-            <tbody id="cmpBody"></tbody></table>
-          <p class="nota" id="casNota" style="margin-top:12px"></p>
-          <div id="direcaoBox"></div>
-          <div class="acoes">
-            <button class="btn" id="btnGerar" disabled>Gerar arquivo corrigido</button>
-          </div>
-          <div class="veto" id="avisoGravar" style="margin-top:14px">
-            <b>Por que ainda não gera:</b> aplicar a correção exige reproduzir o código de proteção interno
-            do painel (próprio da PSA, ainda sendo decifrado — item P1b do escopo). Assim que ele for
-            quebrado, este botão passa a salvar o arquivo corrigido. Até lá, esta tela mostra o que
-            <em>seria</em> alterado.
-          </div>
-        </div>
-      </div>
+      <div class="card" id="cardCasamento" hidden><h2>🔗 Casamento entre os módulos</h2><div class="corpo">
+        <div class="cabInteg"><span id="verBadge"></span><strong id="verTexto"></strong></div>
+        <table class="cmp"><thead><tr><th>Informação</th><th>Painel</th><th>Airbag</th><th>Bate?</th></tr></thead><tbody id="cmpBody"></tbody></table>
+        <p class="nota" id="casNota" style="margin-top:12px"></p>
+        <div id="direcaoBox"></div>
+        <div class="acoes"><button class="btn" id="btnGerar" disabled>Gerar arquivo corrigido</button></div>
+        <div class="veto" id="avisoGravar" style="margin-top:14px"><b>Por que ainda não gera:</b> aplicar a correção exige reproduzir o código de proteção interno do painel (próprio da PSA, ainda sendo decifrado — item P1b do escopo). Assim que quebrado, este botão salva o arquivo corrigido. Até lá, a tela mostra o que <em>seria</em> alterado.</div>
+      </div></div>
     </section>
 
-    <!-- ===================== REGISTRO ===================== -->
+    <!-- RESTAURAR KM -->
+    <section class="aba" id="aba-restaurar">
+      <div class="card"><h2>🔢 Restaurar quilometragem</h2><div class="corpo">
+        <div class="aviso" style="margin-bottom:16px"><b>Operação restrita.</b> Única em que se digita a quilometragem. Existe para troca de módulo (novo vem zerado; usado vem com KM de outro carro). Exige a KM comprovada, o motivo e a OS vinculada. Tudo fica registrado — inclusive tentativas.</div>
+        <div id="restDrop"><div class="drop" id="dropRest" tabindex="0"><span class="ic">📂</span><div class="h">Arquivo do módulo a corrigir</div><div class="s">painel (64 KB) ou airbag (32 KB)</div></div></div>
+        <div id="restForm" hidden>
+          <div class="linha"><span class="rot">Módulo</span><span class="val" id="restMod">—</span></div>
+          <div class="linha"><span class="rot">KM atual no arquivo</span><span class="val" id="restKmAtual">—</span></div>
+          <div class="campos2" style="margin-top:14px">
+            <div class="campo"><label>KM comprovada (a gravar)</label><input id="restKmNova" type="number" min="0" placeholder="Ex.: 48271"></div>
+            <div class="campo"><label>De onde vem esse valor</label><input id="restFonte" placeholder="Ex.: leitura do motor / nota"></div>
+          </div>
+          <div class="campo"><label>Motivo (lista fechada)</label><select id="restMotivo">
+            <option value="">Selecione…</option>
+            <option>Substituição de módulo por unidade nova</option>
+            <option>Substituição de módulo por unidade usada/recuperada</option>
+            <option>Reparo de módulo com perda de dados (água/colisão)</option>
+            <option>Dessincronização após intervenção de terceiro</option>
+            <option>Correção de leitura corrompida</option>
+          </select></div>
+          <div id="restAlerta"></div>
+          <div class="acoes"><button class="btn" id="btnRestaurar" disabled>Gravar quilometragem</button><button class="trocar" id="restTrocar" type="button">trocar arquivo</button></div>
+          <div class="veto" style="margin-top:14px"><b>Por que ainda não grava:</b> depende do mesmo código de proteção (P1b). O fluxo, as travas e o registro já funcionam; só o passo final de escrever fica pendente.</div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- REGISTRO -->
     <section class="aba" id="aba-reg">
-      <div class="card">
-        <h2>📓 Registro de operações</h2>
-        <div class="corpo">
-          <div class="cabInteg">
-            <span id="regBadge" class="pill n">—</span>
-            <span class="nota" id="regResumo">Cada operação fica registrada com data, o que foi lido e um selo encadeado.</span>
-          </div>
-          <div id="regLista"></div>
-          <div class="acoes">
-            <button class="btn sec mini" id="btnVerificar" type="button">Verificar integridade</button>
-            <button class="btn sec mini" id="btnExportar" type="button">Copiar registro</button>
-          </div>
-          <p class="nota" style="margin-top:12px">
-            Protótipo do caderninho à prova de adulteração: no produto final ele fica em banco na máquina
-            da oficina e ninguém apaga. Aqui é guardado só neste navegador, para você ver como funciona.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== CHAVE ===================== -->
-    <section class="aba" id="aba-chave">
-      <div class="card"><div class="corpo">
-        <div class="vazio">
-          <span class="ic">🔑</span>
-          <strong>Chave e imobilizador — em estudo</strong>
-          <p class="nota" style="max-width:46ch;margin:8px auto 0">
-            Casar chave, tirar o carro do modo imobilizado e reprogramar antifurto de módulo de sucata.
-            É o sistema antifurto do carro (criptografia) — depende de ver um módulo real e possivelmente
-            de hardware de chave. Está mapeado no escopo, ainda não construído.
-          </p>
-        </div>
+      <div class="card"><h2>📓 Registro de operações</h2><div class="corpo">
+        <div class="cabInteg"><span id="regBadge" class="pill n">—</span><span class="nota" id="regResumo">Cada operação fica registrada com data, operador, OS e um selo encadeado.</span></div>
+        <div id="regLista"></div>
+        <div class="acoes"><button class="btn sec mini" id="btnVerificar" type="button">Verificar integridade</button><button class="btn sec mini" id="btnExportar" type="button">Copiar registro</button></div>
+        <p class="nota" style="margin-top:12px">Protótipo do caderninho à prova de adulteração: no produto final fica em banco na máquina da oficina e ninguém apaga. Aqui é guardado só neste navegador.</p>
       </div></div>
     </section>
 
-    <!-- ===================== VEÍCULO ===================== -->
-    <section class="aba" id="aba-veic">
-      <div class="card"><div class="corpo">
-        <div class="vazio">
-          <span class="ic">🚗</span>
-          <strong>Leitura pelo veículo (OBD) — fase futura</strong>
-          <p class="nota" style="max-width:46ch;margin:8px auto 0">
-            Conectar na tomada do carro para conferir chassi e quilometragem de todos os módulos e ver se
-            o veículo está consistente. Somente leitura, risco baixo. Exige interface de hardware; está no
-            escopo como fase 3.
-          </p>
-        </div>
+    <!-- LAUDO -->
+    <section class="aba" id="aba-laudo">
+      <div class="card"><h2>📄 Laudo técnico</h2><div class="corpo">
+        <p class="nota" style="margin-bottom:14px">Gera o comprovante do serviço a partir da OS vinculada e das operações registradas nela. Duas vias: uma para o cliente, uma para a OS.</p>
+        <div class="acoes" style="margin-top:0"><button class="btn" id="btnGerarLaudo" type="button">Gerar laudo da OS atual</button><button class="btn sec" id="btnImprimir" type="button" hidden>Imprimir / PDF</button></div>
+        <div id="laudoPrint" style="margin-top:16px"></div>
       </div></div>
     </section>
+
+    <!-- CHAVE -->
+    <section class="aba" id="aba-chave"><div class="card"><div class="corpo"><div class="vazio"><span class="ic">🔑</span><strong>Chave e imobilizador — em estudo</strong><p class="nota" style="max-width:46ch;margin:8px auto 0">Casar chave, tirar o carro do modo imobilizado e reprogramar antifurto de módulo de sucata. É o sistema antifurto do carro (criptografia) — depende de ver um módulo real e possivelmente de hardware de chave. Mapeado no escopo, ainda não construído.</p></div></div></div></section>
+    <!-- VEÍCULO -->
+    <section class="aba" id="aba-veic"><div class="card"><div class="corpo"><div class="vazio"><span class="ic">🚗</span><strong>Leitura pelo veículo (OBD) — fase futura</strong><p class="nota" style="max-width:46ch;margin:8px auto 0">Conectar na tomada do carro para conferir chassi e quilometragem de todos os módulos e ver se o veículo está consistente. Somente leitura, risco baixo. Exige interface de hardware; fase 3 do escopo.</p></div></div></div></section>
   </main>
 </div>
 
 <script>
 "use strict";
-/* ==========================================================================
-   NÚCLEO — leitura de campos e perfis (mesma lógica que vira o motor do .exe)
-   ========================================================================== */
-const PERFIS = {
-  painel: {
-    nome:"Painel (BCCM) — PSA", modulo:"Painel (BCCM)", tamanho:65536,
-    memoria:"EEPROM 95512",
-    assinatura:{ janela:0x0AB0, janelaTam:32, texto:"BCCM" },
-    vin:{ offset:0x0B00, tam:17 },
-    km:{ offset:0x4BA0, tam:3, fator:10 }, kmConfianca:"confirmado"
-  },
-  airbag: {
-    nome:"Airbag — PSA", modulo:"Airbag", tamanho:32768,
-    memoria:"EEPROM 95256",
-    vin:{ offset:0x4C5E, tam:17 },
-    km:{ offset:0x0146, tam:2, fator:1 }, kmConfianca:"preliminar"
-  }
+/* ========== NÚCLEO (vira o motor do .exe) ========== */
+const PERFIS={
+  painel:{nome:"Painel (BCCM) — PSA",modulo:"Painel (BCCM)",tamanho:65536,memoria:"EEPROM 95512",assinatura:{janela:0x0AB0,janelaTam:32,texto:"BCCM"},vin:{offset:0x0B00,tam:17},km:{offset:0x4BA0,tam:3,fator:10},kmConfianca:"confirmado"},
+  airbag:{nome:"Airbag — PSA",modulo:"Airbag",tamanho:32768,memoria:"EEPROM 95256",vin:{offset:0x4C5E,tam:17},km:{offset:0x0146,tam:2,fator:1},kmConfianca:"preliminar"}
 };
 const VIN_RE=/^[A-HJ-NPR-Z0-9]{17}$/;
-
 function lerAscii(b,o,t){let s="";for(let i=0;i<t&&o+i<b.length;i++){const c=b[o+i];s+=(c>=0x20&&c<=0x7e)?String.fromCharCode(c):"";}return s.trim();}
 function lerIntLE(b,o,t){let v=0;for(let i=t-1;i>=0;i--)v=v*256+b[o+i];return v;}
-function detectarPerfil(b){
-  if(b.length===PERFIS.painel.tamanho) return "painel";
-  if(b.length===PERFIS.airbag.tamanho) return "airbag";
-  return null;
-}
-async function sha256Hex(buf){
-  const h=await crypto.subtle.digest("SHA-256", buf.buffer||buf);
-  return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("");
-}
+function detectarPerfil(b){if(b.length===65536)return"painel";if(b.length===32768)return"airbag";return null;}
+async function sha256Hex(buf){const h=await crypto.subtle.digest("SHA-256",buf.buffer||buf);return[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("");}
 function analisar(slot,b){
-  const perfil=PERFIS[slot]; const res={perfil,tam:b.length,checks:[]};
-  const tamOk=b.length===perfil.tamanho;
-  res.checks.push({t:tamOk?"ok":"erro",x:tamOk?"Tamanho do arquivo confere":"Tamanho inesperado ("+b.length+" bytes)",o:tamOk?"":"esperado "+perfil.tamanho});
+  const p=PERFIS[slot],res={perfil:p,tam:b.length,checks:[]};
+  const tamOk=b.length===p.tamanho;
+  res.checks.push({t:tamOk?"ok":"erro",x:tamOk?"Tamanho do arquivo confere":"Tamanho inesperado ("+b.length+" bytes)",o:tamOk?"":"esperado "+p.tamanho});
   let estOk=tamOk;
-  if(perfil.assinatura){ const j=lerAscii(b,perfil.assinatura.janela,perfil.assinatura.janelaTam); estOk=tamOk&&j.indexOf(perfil.assinatura.texto)>=0; }
-  res.checks.push({t:estOk?"ok":"erro",x:estOk?"Estrutura reconhecida":"Estrutura não reconhecida",o:estOk?perfil.modulo:"não parece deste módulo"});
-  const vinB=b.slice(perfil.vin.offset,perfil.vin.offset+perfil.vin.tam);
-  const branco=vinB.every(x=>x===0)||vinB.every(x=>x===0xFF);
-  const vin=lerAscii(b,perfil.vin.offset,perfil.vin.tam).toUpperCase();
-  res.resetado=branco; res.vin=branco?"(em branco)":(vin||"—");
-  if(branco) res.checks.push({t:"aviso",x:"Módulo resetado / virgem",o:"chassi em branco"});
+  if(p.assinatura){const j=lerAscii(b,p.assinatura.janela,p.assinatura.janelaTam);estOk=tamOk&&j.indexOf(p.assinatura.texto)>=0;}
+  res.checks.push({t:estOk?"ok":"erro",x:estOk?"Estrutura reconhecida":"Estrutura não reconhecida",o:estOk?p.modulo:"não parece deste módulo"});
+  const vinB=b.slice(p.vin.offset,p.vin.offset+p.vin.tam),branco=vinB.every(x=>x===0)||vinB.every(x=>x===0xFF),vin=lerAscii(b,p.vin.offset,p.vin.tam).toUpperCase();
+  res.resetado=branco;res.vin=branco?"(em branco)":(vin||"—");
+  if(branco)res.checks.push({t:"aviso",x:"Módulo resetado / virgem",o:"chassi em branco"});
   else res.checks.push({t:VIN_RE.test(vin)?"ok":"aviso",x:VIN_RE.test(vin)?"Chassi (VIN) válido":"Chassi não reconhecido",o:VIN_RE.test(vin)?"":"fora do padrão"});
-  let km=null; if(estOk) km=Math.floor(lerIntLE(b,perfil.km.offset,perfil.km.tam)/perfil.km.fator);
-  const kmBranco=branco||km===65535||km===null;
-  res.km=kmBranco?null:km; res.kmConfianca=perfil.kmConfianca;
-  if(kmBranco) res.checks.push({t:"aviso",x:"Quilometragem em branco",o:"módulo resetado ou zerado"});
-  else if(perfil.kmConfianca==="confirmado"){ const p=km>=0&&km<2000000; res.checks.push({t:p?"ok":"aviso",x:p?"Quilometragem lida":"Quilometragem implausível",o:p?"":"possível leitura ruim"}); }
+  let km=null;if(estOk)km=Math.floor(lerIntLE(b,p.km.offset,p.km.tam)/p.km.fator);
+  const kmBranco=branco||km===65535||km===null;res.km=kmBranco?null:km;res.kmConfianca=p.kmConfianca;
+  if(kmBranco)res.checks.push({t:"aviso",x:"Quilometragem em branco",o:"módulo resetado ou zerado"});
+  else if(p.kmConfianca==="confirmado"){const ok=km>=0&&km<2000000;res.checks.push({t:ok?"ok":"aviso",x:ok?"Quilometragem lida":"Quilometragem implausível",o:ok?"":"possível leitura ruim"});}
   else res.checks.push({t:"aviso",x:"Quilometragem — leitura preliminar",o:"formato do airbag em calibração"});
   return res;
 }
-const fmtKm=k=> k==null?"—":k.toLocaleString("pt-BR")+" km";
+const fmtKm=k=>k==null?"—":k.toLocaleString("pt-BR")+" km";
 
-/* ==========================================================================
-   REGISTRO — caderninho encadeado por hash (protótipo em localStorage)
-   ========================================================================== */
+/* ========== SESSÃO + PAPÉIS ========== */
+const RANK={consulta:1,operador:2,responsavel:3};
+const PAPEL_NOME={consulta:"Consulta",operador:"Operador",responsavel:"Responsável técnico"};
+let sessao=null, os=null;
+function carregarSessao(){ try{sessao=JSON.parse(localStorage.getItem("hm-sessao")||"null");}catch(e){} try{os=JSON.parse(localStorage.getItem("hm-os")||"null");}catch(e){} }
+function pode(min){ return sessao && RANK[sessao.papel]>=RANK[min]; }
+
+/* ========== REGISTRO (corrente de hash) ========== */
 const REG_KEY="hm-registro-v1";
-function regCarregar(){ try{ return JSON.parse(localStorage.getItem(REG_KEY)||"[]"); }catch(e){ return []; } }
-function regSalvar(l){ try{ localStorage.setItem(REG_KEY,JSON.stringify(l)); }catch(e){} }
+function regCarregar(){try{return JSON.parse(localStorage.getItem(REG_KEY)||"[]");}catch(e){return[];}}
+function regSalvar(l){try{localStorage.setItem(REG_KEY,JSON.stringify(l));}catch(e){}}
 async function regAdicionar(tipo,resumo,detalhes){
-  const l=regCarregar();
-  const prev=l.length?l[l.length-1].hash:"genesis";
-  const ent={seq:l.length+1,ts:new Date().toISOString(),operador:"operador (protótipo)",tipo,resumo,detalhes,hashPrev:prev};
-  const base=JSON.stringify({seq:ent.seq,ts:ent.ts,operador:ent.operador,tipo,resumo,detalhes,hashPrev:prev});
+  const l=regCarregar(),prev=l.length?l[l.length-1].hash:"genesis";
+  const ent={seq:l.length+1,ts:new Date().toISOString(),operador:sessao?sessao.nome+" ("+PAPEL_NOME[sessao.papel]+")":"—",os:os?os.numero:null,tipo,resumo,detalhes,hashPrev:prev};
+  const base=JSON.stringify({seq:ent.seq,ts:ent.ts,operador:ent.operador,os:ent.os,tipo,resumo,detalhes,hashPrev:prev});
   ent.hash=await sha256Hex(new TextEncoder().encode(base));
-  l.push(ent); regSalvar(l); pintarRegistro();
+  l.push(ent);regSalvar(l);pintarRegistro();
 }
 async function regVerificar(){
-  const l=regCarregar(); let prev="genesis";
-  for(const e of l){
-    const base=JSON.stringify({seq:e.seq,ts:e.ts,operador:e.operador,tipo:e.tipo,resumo:e.resumo,detalhes:e.detalhes,hashPrev:prev});
-    const h=await sha256Hex(new TextEncoder().encode(base));
-    if(h!==e.hash||e.hashPrev!==prev) return {ok:false,em:e.seq};
-    prev=e.hash;
-  }
-  return {ok:true,n:l.length};
+  const l=regCarregar();let prev="genesis";
+  for(const e of l){const base=JSON.stringify({seq:e.seq,ts:e.ts,operador:e.operador,os:e.os,tipo:e.tipo,resumo:e.resumo,detalhes:e.detalhes,hashPrev:prev});
+    const h=await sha256Hex(new TextEncoder().encode(base));if(h!==e.hash||e.hashPrev!==prev)return{ok:false,em:e.seq};prev=e.hash;}
+  return{ok:true,n:l.length};
 }
 function pintarRegistro(){
-  const l=regCarregar(); const box=document.getElementById("regLista");
-  if(!l.length){ box.innerHTML='<div class="vazio"><span class="ic">📓</span>Nenhuma operação registrada ainda.<br><span class="nota">Abra um arquivo no Diagnóstico ou no Sincronismo.</span></div>'; return; }
+  const l=regCarregar(),box=document.getElementById("regLista");
+  if(!l.length){box.innerHTML='<div class="vazio"><span class="ic">📓</span>Nenhuma operação registrada ainda.</div>';return;}
   box.innerHTML="";
-  for(const e of [...l].reverse()){
-    const d=new Date(e.ts);
-    const el=document.createElement("div"); el.className="reg";
-    el.innerHTML='<span class="seq">#'+e.seq+'</span>'+
-      '<span class="op">'+e.tipo+'</span>'+
-      '<span class="ts">'+d.toLocaleString("pt-BR")+'</span>'+
-      '<span class="res">'+e.resumo+'</span>'+
-      '<span class="hash">selo '+e.hash.slice(0,24)+'…</span>';
-    box.appendChild(el);
-  }
+  for(const e of [...l].reverse()){const d=new Date(e.ts),el=document.createElement("div");el.className="reg";
+    el.innerHTML='<span class="seq">#'+e.seq+'</span><span class="op">'+e.tipo+'</span><span class="ts">'+d.toLocaleString("pt-BR")+'</span>'+
+      '<span class="res">'+e.resumo+'</span><span class="meta">'+e.operador+(e.os?' · OS '+e.os:'')+' · selo '+e.hash.slice(0,18)+'…</span>';
+    box.appendChild(el);}
 }
 
-/* ==========================================================================
-   ESTADO + UI
-   ========================================================================== */
-const dados={painel:null,airbag:null};
-
-function chkHtml(c){
-  const mk=c.t==="ok"?"✓":c.t==="aviso"?"!":"✕";
-  return '<div class="chk '+c.t+'"><span class="mk">'+mk+'</span><span>'+c.x+(c.o?' <span class="obs">— '+c.o+'</span>':'')+'</span></div>';
-}
+/* ========== UI compartilhada ========== */
+function chkHtml(c){const mk=c.t==="ok"?"✓":c.t==="aviso"?"!":"✕";return '<div class="chk '+c.t+'"><span class="mk">'+mk+'</span><span>'+c.x+(c.o?' <span class="obs">— '+c.o+'</span>':'')+'</span></div>';}
 function fichaHtml(nome,res,hash){
-  let km; if(res.km==null) km="—"; else km=res.km.toLocaleString("pt-BR")+" km"+(res.kmConfianca==="preliminar"?' <small>leitura preliminar</small>':'');
+  let km=res.km==null?"—":res.km.toLocaleString("pt-BR")+" km"+(res.kmConfianca==="preliminar"?' <small>leitura preliminar</small>':'');
   return '<div class="card"><h2>📄 Leitura do arquivo</h2><div class="corpo">'+
     '<div class="linha"><span class="rot">Arquivo</span><span class="val">'+nome+'</span></div>'+
     '<div class="linha"><span class="rot">Módulo</span><span class="val">'+res.perfil.modulo+' <small>'+res.perfil.memoria+'</small></span></div>'+
     '<div class="linha"><span class="rot">Chassi (VIN)</span><span class="val">'+res.vin+'</span></div>'+
     '<div class="linha"><span class="rot">Quilometragem</span><span class="val">'+km+'</span></div>'+
     '<div class="linha"><span class="rot">Impressão digital</span><span class="val"><small>SHA-256 '+(hash?hash.slice(0,32)+'…':'—')+'</small></span></div>'+
-    '<div style="margin-top:12px">'+res.checks.map(chkHtml).join("")+'</div>'+
-    '</div></div>';
+    '<div style="margin-top:12px">'+res.checks.map(chkHtml).join("")+'</div></div></div>';
 }
+function fileInput(cb){const i=document.createElement("input");i.type="file";i.accept=".bin,.eep,.hex,application/octet-stream";i.style.display="none";document.body.appendChild(i);i.addEventListener("change",()=>{if(i.files[0])cb(i.files[0]);i.value="";});return i;}
+function ligarDrop(drop,cb){const inp=fileInput(cb);
+  drop.addEventListener("click",()=>inp.click());
+  drop.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();inp.click();}});
+  drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("sobre");});
+  drop.addEventListener("dragleave",()=>drop.classList.remove("sobre"));
+  drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("sobre");if(e.dataTransfer.files[0])cb(e.dataTransfer.files[0]);});
+  return inp;}
+function lerArquivo(file,cb){const rd=new FileReader();rd.onload=()=>cb(new Uint8Array(rd.result));rd.readAsArrayBuffer(file);}
 
-/* ---- Diagnóstico ---- */
-function carregarDiag(file){
-  const rd=new FileReader();
-  rd.onload=async()=>{
-    const b=new Uint8Array(rd.result);
-    const slot=detectarPerfil(b);
-    const box=document.getElementById("fichaDiag");
-    document.getElementById("dropDiag").hidden=true;
-    document.getElementById("trocarDiag").hidden=false;
-    if(!slot){
-      box.innerHTML='<div class="card"><div class="corpo"><div class="veto"><b>Arquivo não reconhecido.</b> O tamanho ('+b.length+' bytes) não corresponde a um painel (64 KB) nem a um airbag (32 KB) conhecidos. Confira se o dump está completo. O programa não tenta adivinhar — para não arriscar gravar lixo depois.</div></div></div>';
-      await regAdicionar("Diagnóstico","Arquivo não reconhecido ("+file.name+")",{tam:b.length});
-      return;
-    }
-    const res=analisar(slot,b);
-    const hash=await sha256Hex(b);
-    box.innerHTML=fichaHtml(file.name,res,hash);
-    await regAdicionar("Diagnóstico",res.perfil.modulo+" · VIN "+res.vin+" · "+fmtKm(res.km),{arquivo:file.name,modulo:res.perfil.modulo,vin:res.vin,km:res.km,sha256:hash});
-  };
-  rd.readAsArrayBuffer(file);
-}
+/* ========== DIAGNÓSTICO ========== */
+const inpDiag=ligarDrop(document.getElementById("dropDiag"),f=>lerArquivo(f,async b=>{
+  const slot=detectarPerfil(b),box=document.getElementById("fichaDiag");
+  document.getElementById("dropDiag").hidden=true;document.getElementById("trocarDiag").hidden=false;
+  if(!slot){box.innerHTML='<div class="card"><div class="corpo"><div class="veto"><b>Arquivo não reconhecido.</b> O tamanho ('+b.length+' bytes) não corresponde a um painel (64 KB) nem a um airbag (32 KB). O programa não tenta adivinhar.</div></div></div>';
+    await regAdicionar("Diagnóstico","Arquivo não reconhecido ("+f.name+")",{tam:b.length});return;}
+  const res=analisar(slot,b),hash=await sha256Hex(b);
+  box.innerHTML=fichaHtml(f.name,res,hash);
+  await regAdicionar("Diagnóstico",res.perfil.modulo+" · VIN "+res.vin+" · "+fmtKm(res.km),{arquivo:f.name,modulo:res.perfil.modulo,vin:res.vin,km:res.km,sha256:hash});
+}));
+document.getElementById("trocarDiag").addEventListener("click",()=>inpDiag.click());
 
-/* ---- Sincronismo ---- */
-function carregarSlot(slotEl,slot,file){
-  const rd=new FileReader();
-  rd.onload=async()=>{
-    const b=new Uint8Array(rd.result);
-    const esperado=PERFIS[slot].tamanho;
+/* ========== SINCRONISMO ========== */
+const dados={painel:null,airbag:null};
+document.querySelectorAll(".card[data-slot]").forEach(slotEl=>{
+  const slot=slotEl.dataset.slot;
+  const inp=ligarDrop(slotEl.querySelector(".slotdrop"),f=>lerArquivo(f,async b=>{
     const ficha=slotEl.querySelector(".slotficha");
-    slotEl.querySelector(".slotdrop").hidden=true;
-    slotEl.querySelector(".trocar").hidden=false;
-    if(b.length!==esperado){
-      ficha.innerHTML='<div class="veto" style="margin-top:12px">Tamanho inesperado ('+b.length+' bytes). Esperado '+esperado+' bytes para este módulo.</div>';
-      dados[slot]=null; atualizarCasamento(); return;
-    }
-    const res=analisar(slot,b); const hash=await sha256Hex(b);
-    dados[slot]={nome:file.name,res,hash};
-    let km; if(res.km==null) km="—"; else km=res.km.toLocaleString("pt-BR")+" km"+(res.kmConfianca==="preliminar"?' <small>preliminar</small>':'');
-    ficha.innerHTML='<div style="margin-top:12px">'+
-      '<div class="linha"><span class="rot">Chassi</span><span class="val">'+res.vin+'</span></div>'+
-      '<div class="linha"><span class="rot">KM</span><span class="val">'+km+'</span></div>'+
-      '</div>';
+    slotEl.querySelector(".slotdrop").hidden=true;slotEl.querySelector(".trocar").hidden=false;
+    if(b.length!==PERFIS[slot].tamanho){ficha.innerHTML='<div class="veto" style="margin-top:12px">Tamanho inesperado ('+b.length+' bytes).</div>';dados[slot]=null;atualizarCasamento();return;}
+    const res=analisar(slot,b),hash=await sha256Hex(b);dados[slot]={nome:f.name,res,hash};
+    let km=res.km==null?"—":res.km.toLocaleString("pt-BR")+" km"+(res.kmConfianca==="preliminar"?' <small>preliminar</small>':'');
+    ficha.innerHTML='<div style="margin-top:12px"><div class="linha"><span class="rot">Chassi</span><span class="val">'+res.vin+'</span></div><div class="linha"><span class="rot">KM</span><span class="val">'+km+'</span></div></div>';
     atualizarCasamento();
-  };
-  rd.readAsArrayBuffer(file);
-}
+  }));
+  slotEl.querySelector(".trocar").addEventListener("click",()=>inp.click());
+});
+let sincRegistrado="";
 function atualizarCasamento(){
   const card=document.getElementById("cardCasamento");
-  if(!dados.painel||!dados.airbag){ card.hidden=true; return; }
+  if(!dados.painel||!dados.airbag){card.hidden=true;return;}
   card.hidden=false;
-  const p=dados.painel.res, a=dados.airbag.res;
-  const vinIg=p.vin!=="—"&&p.vin!=="(em branco)"&&p.vin===a.vin;
-  const kmIg=p.km!=null&&a.km!=null&&p.km===a.km;
+  const p=dados.painel.res,a=dados.airbag.res;
+  const vinIg=p.vin!=="—"&&p.vin!=="(em branco)"&&p.vin===a.vin, kmIg=p.km!=null&&a.km!=null&&p.km===a.km;
   document.getElementById("cmpBody").innerHTML=
     '<tr><td>Chassi (VIN)</td><td>'+p.vin+'</td><td>'+a.vin+'</td><td class="'+(vinIg?"ig":"di")+'">'+(vinIg?"sim":"não")+'</td></tr>'+
     '<tr><td>Quilometragem</td><td>'+fmtKm(p.km)+'</td><td>'+fmtKm(a.km)+'</td><td class="'+(kmIg?"ig":"di")+'">'+(kmIg?"sim":"não")+'</td></tr>';
-  const badge=document.getElementById("verBadge"), txt=document.getElementById("verTexto"), nota=document.getElementById("casNota");
-  const dir=document.getElementById("direcaoBox");
-  if(vinIg&&kmIg){
-    badge.innerHTML='<span class="pill v">Casado</span>'; txt.textContent="Módulos casados";
-    nota.textContent="Chassi e quilometragem batem entre os dois módulos. Neste estado o painel mostra a quilometragem normalmente, sem erro.";
-    dir.innerHTML="";
-  } else if(!vinIg&&p.vin!=="—"&&a.vin!=="—"&&p.vin!=="(em branco)"&&a.vin!=="(em branco)"){
-    badge.innerHTML='<span class="pill o">Atenção</span>'; txt.textContent="Chassis diferentes";
-    nota.textContent="Os dois arquivos têm chassis diferentes — provavelmente são de carros distintos. Confirme antes de qualquer coisa.";
-    dir.innerHTML="";
-  } else {
-    badge.innerHTML='<span class="pill a">Fora de sincronia</span>'; txt.textContent="Divergência";
-    nota.textContent="É o caso do carro que apaga a quilometragem e mostra erro. Escolha de onde vem o valor correto para cada campo:";
-    let h="";
-    if(!vinIg) h+='<div style="margin-top:12px"><div class="rot">Chassi — usar o valor de:</div><div class="escolha"><label><input type="radio" name="dvin" checked> Painel ('+p.vin+')</label><label><input type="radio" name="dvin"> Airbag ('+a.vin+')</label></div></div>';
-    if(!kmIg) h+='<div style="margin-top:12px"><div class="rot">Quilometragem — usar o valor de:</div><div class="escolha"><label><input type="radio" name="dkm" checked> Painel ('+fmtKm(p.km)+')</label><label><input type="radio" name="dkm"> Airbag ('+fmtKm(a.km)+')</label></div></div>';
-    dir.innerHTML=h;
-  }
+  const badge=document.getElementById("verBadge"),txt=document.getElementById("verTexto"),nota=document.getElementById("casNota"),dir=document.getElementById("direcaoBox");
+  let estado;
+  if(vinIg&&kmIg){badge.innerHTML='<span class="pill v">Casado</span>';txt.textContent="Módulos casados";nota.textContent="Chassi e quilometragem batem. O painel mostra a KM normalmente, sem erro.";dir.innerHTML="";estado="casado";}
+  else if(!vinIg&&p.vin!=="—"&&a.vin!=="—"&&p.vin!=="(em branco)"&&a.vin!=="(em branco)"){badge.innerHTML='<span class="pill o">Atenção</span>';txt.textContent="Chassis diferentes";nota.textContent="Os dois arquivos têm chassis diferentes — provavelmente carros distintos. Confirme antes de qualquer coisa.";dir.innerHTML="";estado="chassis-diferentes";}
+  else{badge.innerHTML='<span class="pill a">Fora de sincronia</span>';txt.textContent="Divergência";nota.textContent="É o caso do carro que apaga a KM e mostra erro. Escolha de onde vem o valor correto:";
+    let h="";if(!vinIg)h+='<div style="margin-top:12px"><div class="rot">Chassi — usar o valor de:</div><div class="escolha"><label><input type="radio" name="dvin" checked> Painel ('+p.vin+')</label><label><input type="radio" name="dvin"> Airbag ('+a.vin+')</label></div></div>';
+    if(!kmIg)h+='<div style="margin-top:12px"><div class="rot">Quilometragem — usar o valor de:</div><div class="escolha"><label><input type="radio" name="dkm" checked> Painel ('+fmtKm(p.km)+')</label><label><input type="radio" name="dkm"> Airbag ('+fmtKm(a.km)+')</label></div></div>';
+    dir.innerHTML=h;estado="fora-de-sincronia";}
+  // registra a análise de casamento uma vez por combinação
+  const chave=dados.painel.hash+"/"+dados.airbag.hash+"/"+estado;
+  if(chave!==sincRegistrado){ sincRegistrado=chave; regAdicionar("Sincronismo (análise)","Painel "+p.vin+" "+fmtKm(p.km)+" × Airbag "+a.vin+" "+fmtKm(a.km)+" → "+estado,{estado,painel:dados.painel.nome,airbag:dados.airbag.nome}); }
 }
 
-/* ---- ligações ---- */
-function fileInput(cb){ const i=document.createElement("input"); i.type="file"; i.accept=".bin,.eep,.hex,application/octet-stream"; i.style.display="none"; document.body.appendChild(i); i.addEventListener("change",()=>{ if(i.files[0]) cb(i.files[0]); i.value=""; }); return i; }
-function ligarDrop(drop,cb){
-  const inp=fileInput(cb);
-  drop.addEventListener("click",()=>inp.click());
-  drop.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); inp.click(); }});
-  drop.addEventListener("dragover",e=>{ e.preventDefault(); drop.classList.add("sobre"); });
-  drop.addEventListener("dragleave",()=>drop.classList.remove("sobre"));
-  drop.addEventListener("drop",e=>{ e.preventDefault(); drop.classList.remove("sobre"); if(e.dataTransfer.files[0]) cb(e.dataTransfer.files[0]); });
-  return inp;
+/* ========== RESTAURAR KM ========== */
+let restState=null;
+const inpRest=ligarDrop(document.getElementById("dropRest"),f=>lerArquivo(f,b=>{
+  const slot=detectarPerfil(b);
+  if(!slot){alert("Arquivo não reconhecido (tamanho "+b.length+" bytes).");return;}
+  const res=analisar(slot,b);restState={nome:f.name,slot,res,km:res.km};
+  document.getElementById("restDrop").hidden=true;document.getElementById("restForm").hidden=false;
+  document.getElementById("restMod").textContent=res.perfil.modulo;
+  document.getElementById("restKmAtual").textContent=fmtKm(res.km);
+  validarRest();
+}));
+function validarRest(){
+  const nova=parseInt(document.getElementById("restKmNova").value,10);
+  const motivo=document.getElementById("restMotivo").value;
+  const fonte=document.getElementById("restFonte").value.trim();
+  const alerta=document.getElementById("restAlerta");
+  let ok=Number.isInteger(nova)&&nova>=0&&nova<2000000&&!!motivo&&!!fonte&&!!os;
+  let av="";
+  if(!os)av+='<div class="aviso" style="margin-top:10px">Vincule uma OS antes de gravar.</div>';
+  if(Number.isInteger(nova)&&restState&&restState.km!=null&&nova<restState.km)
+    av+='<div class="veto" style="margin-top:10px"><b>Redução de quilometragem.</b> O valor é menor que o atual ('+fmtKm(restState.km)+'). É legítimo em módulo usado, mas exige atenção redobrada — confirme o motivo pela lista e a comprovação.</div>';
+  alerta.innerHTML=av;
+  document.getElementById("btnRestaurar").disabled=!ok;
 }
-// diagnóstico
-const inpDiag=ligarDrop(document.getElementById("dropDiag"),carregarDiag);
-document.getElementById("trocarDiag").addEventListener("click",()=>inpDiag.click());
-// slots de sincronismo
-document.querySelectorAll(".card[data-slot]").forEach(slotEl=>{
-  const slot=slotEl.dataset.slot;
-  const inp=ligarDrop(slotEl.querySelector(".slotdrop"),f=>carregarSlot(slotEl,slot,f));
-  slotEl.querySelector(".trocar").addEventListener("click",()=>inp.click());
+["restKmNova","restMotivo","restFonte"].forEach(id=>document.getElementById(id).addEventListener("input",validarRest));
+document.getElementById("restTrocar").addEventListener("click",()=>inpRest.click());
+document.getElementById("btnRestaurar").addEventListener("click",async()=>{
+  const nova=parseInt(document.getElementById("restKmNova").value,10);
+  const motivo=document.getElementById("restMotivo").value;
+  const fonte=document.getElementById("restFonte").value.trim();
+  // registra a TENTATIVA (mesmo sem poder gravar ainda)
+  await regAdicionar("Restaurar KM (pendente P1b)",restState.res.perfil.modulo+" · "+fmtKm(restState.km)+" → "+fmtKm(nova)+" · "+motivo,{arquivo:restState.nome,kmAntes:restState.km,kmNova:nova,fonte,motivo});
+  alert("Registrado. A gravação em si depende do código de proteção (P1b) — ainda não é aplicada. Tudo o que você preencheu ficou no registro.");
 });
-// abas
+
+/* ========== LAUDO ========== */
+document.getElementById("btnGerarLaudo").addEventListener("click",()=>{
+  if(!os){ alert("Vincule uma OS primeiro."); return; }
+  const l=regCarregar().filter(e=>e.os===os.numero);
+  const linhas=l.map(e=>'<tr><td class="lrot">'+new Date(e.ts).toLocaleString("pt-BR")+'</td><td>'+e.tipo+'</td><td>'+e.resumo+'</td></tr>').join("")||'<tr><td colspan="3">Nenhuma operação registrada nesta OS ainda.</td></tr>';
+  const el=document.getElementById("laudoPrint");
+  el.innerHTML='<div class="laudo">'+
+    '<div class="lcab"><div><h4>Laudo técnico de serviço</h4><span class="lrot">HM Mecânica · comprovante</span></div><div style="text-align:right"><div class="lrot">OS</div><div style="font-weight:700">'+os.numero+'</div></div></div>'+
+    '<table><tr><td class="lrot">Veículo</td><td>'+(os.modelo||"—")+' · placa '+(os.placa||"—")+'</td></tr>'+
+    '<tr><td class="lrot">Cliente</td><td>'+(os.cliente||"—")+'</td></tr>'+
+    '<tr><td class="lrot">Responsável</td><td>'+(sessao?sessao.nome+" ("+PAPEL_NOME[sessao.papel]+")":"—")+'</td></tr>'+
+    '<tr><td class="lrot">Emitido em</td><td>'+new Date().toLocaleString("pt-BR")+'</td></tr></table>'+
+    '<div class="lrot" style="margin-top:14px">Operações registradas</div>'+
+    '<table>'+linhas+'</table>'+
+    '<div class="lass"><span class="lrot">Assinatura do responsável técnico</span></div>'+
+    '<p class="lrot" style="margin-top:16px">Documento gerado para fins de comprovação de serviço de reparo.</p>'+
+    '</div>';
+  document.getElementById("btnImprimir").hidden=false;
+  regAdicionar("Laudo emitido","OS "+os.numero+" · "+l.length+" operação(ões)",{os:os.numero});
+});
+document.getElementById("btnImprimir").addEventListener("click",()=>window.print());
+
+/* ========== OS ========== */
+function pintarOS(){
+  const r=document.getElementById("osResumo");
+  if(os) r.innerHTML='<span class="osval">OS '+os.numero+'</span> <span class="osdet">· '+(os.modelo||"—")+' · '+(os.placa||"—")+' · '+(os.cliente||"—")+'</span>';
+  else r.innerHTML='<span class="osnone">nenhuma vinculada</span>';
+}
+document.getElementById("btnAbrirOS").addEventListener("click",()=>{ document.getElementById("ovOS").hidden=false; });
+document.getElementById("btnFecharOS").addEventListener("click",()=>{ document.getElementById("ovOS").hidden=true; });
+document.getElementById("btnSalvarOS").addEventListener("click",()=>{
+  const num=document.getElementById("osNum").value.trim();
+  if(!num){ alert("Informe o número da OS."); return; }
+  os={numero:num,placa:document.getElementById("osPlaca").value.trim(),modelo:document.getElementById("osModelo").value.trim(),cliente:document.getElementById("osCliente").value.trim()};
+  try{localStorage.setItem("hm-os",JSON.stringify(os));}catch(e){}
+  document.getElementById("ovOS").hidden=true; pintarOS(); validarRest();
+});
+
+/* ========== NAV + PERMISSÕES ========== */
 const titulos={diag:["Diagnóstico","Abra um arquivo de módulo para ler chassi, quilometragem e integridade."],
   sync:["Sincronismo","Compare painel e airbag do mesmo carro e resolva a divergência."],
+  restaurar:["Restaurar KM","Gravar a quilometragem comprovada numa troca de módulo. Operação restrita."],
   reg:["Registro","O caderninho encadeado de tudo que foi feito."],
+  laudo:["Laudo","Comprovante do serviço para o cliente e para a OS."],
   chave:["Chave e imobilizador","Antifurto — em estudo."],
   veic:["Veículo (OBD)","Leitura pela tomada do carro — fase futura."]};
-document.querySelectorAll(".navbtn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".navbtn").forEach(b=>b.classList.remove("ativo"));
-    document.querySelectorAll(".aba").forEach(a=>a.classList.remove("on"));
-    btn.classList.add("ativo");
-    const aba=btn.dataset.aba;
-    document.getElementById("aba-"+aba).classList.add("on");
-    document.getElementById("tituloAba").textContent=titulos[aba][0];
-    document.getElementById("subAba").textContent=titulos[aba][1];
-    if(aba==="reg") pintarRegistro();
-  });
+function irPara(aba){
+  document.querySelectorAll(".navbtn").forEach(b=>b.classList.remove("ativo"));
+  document.querySelectorAll(".aba").forEach(a=>a.classList.remove("on"));
+  const btn=document.querySelector('.navbtn[data-aba="'+aba+'"]');btn.classList.add("ativo");
+  document.getElementById("aba-"+aba).classList.add("on");
+  document.getElementById("tituloAba").textContent=titulos[aba][0];
+  document.getElementById("subAba").textContent=titulos[aba][1];
+  if(aba==="reg")pintarRegistro();
+}
+document.querySelectorAll(".navbtn").forEach(btn=>btn.addEventListener("click",()=>irPara(btn.dataset.aba)));
+function aplicarPermissoes(){
+  document.querySelectorAll(".navbtn").forEach(b=>{ b.hidden=!pode(b.dataset.min); });
+}
+
+/* ========== LOGIN ========== */
+function mostrarLogin(){ document.getElementById("ovLogin").hidden=false; }
+function entrar(){
+  const nome=document.getElementById("inNome").value.trim()||"Operador";
+  const papel=(document.querySelector('input[name="papel"]:checked')||{}).value||"operador";
+  sessao={nome,papel};
+  try{localStorage.setItem("hm-sessao",JSON.stringify(sessao));}catch(e){}
+  document.getElementById("ovLogin").hidden=true;
+  iniciarSessao();
+}
+document.getElementById("btnEntrar").addEventListener("click",entrar);
+document.getElementById("inNome").addEventListener("keydown",e=>{if(e.key==="Enter")entrar();});
+document.getElementById("btnSair").addEventListener("click",()=>{
+  sessao=null;try{localStorage.removeItem("hm-sessao");}catch(e){}
+  mostrarLogin();
 });
-// registro
+function iniciarSessao(){
+  document.getElementById("uNome").textContent=sessao.nome;
+  document.getElementById("uPapel").textContent=PAPEL_NOME[sessao.papel];
+  aplicarPermissoes(); pintarOS();
+  // vai para a primeira aba permitida
+  irPara("diag");
+}
+
+/* ========== TEMA ========== */
+(function(){const btn=document.getElementById("btnTema");let atual=null;try{atual=localStorage.getItem("hm-tema");}catch(e){}
+  if(atual)document.documentElement.setAttribute("data-theme",atual);
+  btn.addEventListener("click",()=>{const ag=document.documentElement.getAttribute("data-theme");const dark=matchMedia("(prefers-color-scheme:dark)").matches;const novo=(ag==="dark"||(!ag&&dark))?"light":"dark";document.documentElement.setAttribute("data-theme",novo);try{localStorage.setItem("hm-tema",novo);}catch(e){}});
+})();
+
+/* ========== BOOT ========== */
+carregarSessao();
 document.getElementById("btnVerificar").addEventListener("click",async()=>{
-  const badge=document.getElementById("regBadge"), resumo=document.getElementById("regResumo");
-  const r=await regVerificar();
-  if(r.ok){ badge.className="pill v"; badge.textContent="Íntegro"; resumo.textContent=r.n+" operação(ões) registrada(s), corrente intacta."; }
-  else { badge.className="pill o"; badge.textContent="Quebrado"; resumo.textContent="A corrente foi alterada a partir da operação #"+r.em+"."; }
+  const badge=document.getElementById("regBadge"),resumo=document.getElementById("regResumo"),r=await regVerificar();
+  if(r.ok){badge.className="pill v";badge.textContent="Íntegro";resumo.textContent=r.n+" operação(ões) registrada(s), corrente intacta.";}
+  else{badge.className="pill o";badge.textContent="Quebrado";resumo.textContent="A corrente foi alterada a partir da operação #"+r.em+".";}
 });
 document.getElementById("btnExportar").addEventListener("click",async()=>{
-  const txt=JSON.stringify(regCarregar(),null,2);
-  try{ await navigator.clipboard.writeText(txt); document.getElementById("btnExportar").textContent="Copiado!"; setTimeout(()=>document.getElementById("btnExportar").textContent="Copiar registro",1500); }catch(e){}
+  try{await navigator.clipboard.writeText(JSON.stringify(regCarregar(),null,2));const b=document.getElementById("btnExportar");b.textContent="Copiado!";setTimeout(()=>b.textContent="Copiar registro",1500);}catch(e){}
 });
-// tema
-(function(){
-  const btn=document.getElementById("btnTema"); let atual=null;
-  try{ atual=localStorage.getItem("hm-tema"); }catch(e){}
-  if(atual) document.documentElement.setAttribute("data-theme",atual);
-  btn.addEventListener("click",()=>{
-    const ag=document.documentElement.getAttribute("data-theme");
-    const dark=matchMedia("(prefers-color-scheme:dark)").matches;
-    const novo=(ag==="dark"||(!ag&&dark))?"light":"dark";
-    document.documentElement.setAttribute("data-theme",novo);
-    try{ localStorage.setItem("hm-tema",novo); }catch(e){}
-  });
-})();
 pintarRegistro();
+if(sessao) iniciarSessao(); else mostrarLogin();
 </script>

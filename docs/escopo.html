@@ -1143,9 +1143,74 @@
 
   <footer class="rodape">
     <span>HM Mecânica</span>
-    <span>Escopo v0.1</span>
-    <span>27 ago 2026</span>
-    <span>Aguardando aprovação</span>
+    <span>Escopo v0.2 · documento-mestre</span>
+    <span>28 ago 2026</span>
+    <span>Em desenvolvimento</span>
   </footer>
 
 </div>
+
+<button id="btnCopiar" type="button" aria-label="Copiar todo o conteúdo do documento">
+  <span class="ic" aria-hidden="true">⧉</span><span class="txt">Copiar tudo</span>
+</button>
+
+<style>
+  #btnCopiar{
+    position:fixed; right:18px; bottom:18px; z-index:50;
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--grot); font-weight:600; font-size:.86rem;
+    padding:11px 16px; border-radius:999px; cursor:pointer;
+    color:#fff; background:var(--petroleo); border:1px solid var(--petroleo);
+    box-shadow:0 4px 14px rgba(0,0,0,.18); transition:background .15s,transform .1s;
+  }
+  #btnCopiar:hover{ background:var(--petroleo-fr); border-color:var(--petroleo-fr); }
+  #btnCopiar:active{ transform:translateY(1px); }
+  #btnCopiar:focus-visible{ outline:2px solid var(--tinta); outline-offset:2px; }
+  #btnCopiar .ic{ font-size:1.05rem; line-height:1; }
+  #btnCopiar.ok{ background:var(--verde); border-color:var(--verde); }
+  @media (prefers-reduced-motion:reduce){ #btnCopiar{ transition:none; } }
+  @media print{ #btnCopiar{ display:none; } }
+</style>
+
+<script>
+(function(){
+  const btn = document.getElementById("btnCopiar");
+  const txtEl = btn.querySelector(".txt");
+
+  function montarTexto(){
+    // pega o texto legível do documento (cabeçalho + corpo), sem o índice lateral
+    const partes = [];
+    const cab = document.querySelector(".cabecalho");
+    const corpo = document.querySelector(".corpo");
+    if (cab) partes.push(cab.innerText);
+    if (corpo) partes.push(corpo.innerText);
+    return partes.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
+  }
+
+  function feedback(ok){
+    btn.classList.toggle("ok", ok);
+    txtEl.textContent = ok ? "Copiado!" : "Copie manualmente";
+    setTimeout(() => { btn.classList.remove("ok"); txtEl.textContent = "Copiar tudo"; }, 1800);
+  }
+
+  async function copiar(){
+    const texto = montarTexto();
+    try {
+      await navigator.clipboard.writeText(texto);
+      feedback(true);
+    } catch (e) {
+      // fallback: seleção manual via textarea temporário
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = texto; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        const okExec = document.execCommand("copy");
+        document.body.removeChild(ta);
+        feedback(okExec);
+      } catch (e2) { feedback(false); }
+    }
+  }
+
+  btn.addEventListener("click", copiar);
+})();
+</script>

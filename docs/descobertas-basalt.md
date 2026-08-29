@@ -124,3 +124,19 @@ por registro.
 3. Formalizar o perfil `basalt-bccm` e `basalt-airbag` no formato declarativo.
 4. Pedir mais pares (mesmos módulos, KMs diferentes) para validar o checksum.
 5. Repetir para C3 e Aircross quando houver dumps.
+
+### Atualização 28 ago (noite) — KM do airbag ainda não confirmada
+
+- A leitura da KM do airbag no offset `0x146` (2 bytes LE) dá o valor certo
+  para o airbag **sincronizado** (25.100 → 25.100), mas para o airbag
+  "original" dá 19.661 — provavelmente um **contador**, não o hodômetro.
+- Voto por frequência não isola a KM (dominado por bytes de preenchimento
+  `EBEB`/`FFFF`). Os dois airbags têm distribuição idêntica exceto na região
+  de registros — confirma o anel.
+- **A KM do painel chega a 85.219, que NÃO cabe em 2 bytes (máx 65.535).**
+  Logo o airbag guarda a KM em mais bytes ou com outra codificação — a
+  suposição de "2 bytes cru" está incompleta.
+- **Pendência:** confirmar o formato da KM do airbag exige airbags com KM
+  **conhecida/anotada** (idealmente o mesmo airbag em KMs diferentes). Até lá,
+  o app marca a KM do airbag como "leitura preliminar" (honesto). VIN do
+  airbag continua confirmado.

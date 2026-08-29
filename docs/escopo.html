@@ -421,12 +421,18 @@
 <div class="folha">
 
   <header class="cabecalho">
-    <p class="selo">Documento de escopo · versão 0.2 · em desenvolvimento</p>
+    <p class="selo">Documento-mestre · versão 0.2 · atualizado a cada avanço</p>
     <h1>Ferramenta de sincronismo BCCM e airbag</h1>
     <p class="linha-fina">
       Aplicativo de bancada para leitura, diagnóstico, reparo e sincronização de arquivos de memória
       dos módulos BCCM e airbag dos Citroën C3, Aircross e Basalt. Escrito para uma oficina que
       precisa provar o que fez, não apenas fazer.
+    </p>
+    <p class="linha-fina" style="font-size:.98rem;border-left:3px solid var(--petroleo);padding-left:14px;margin-top:-18px">
+      <strong>Este é o documento-mestre do projeto.</strong> Reúne o que aprendemos e como vamos
+      construir, para que, quando a construção começar, nada se perca. É mantido sempre atualizado —
+      a seção 13 registra o estado real e a 14 guarda a referência técnica de construção. Documentos de
+      apoio (memória técnica, descobertas, preços, iProg) estão listados ao final da seção 14.
     </p>
     <dl class="controle">
       <div><dt>Cliente</dt><dd>HM Mecânica</dd></div>
@@ -453,6 +459,7 @@
       <li><a href="#s11"><span>11</span>Fora de escopo</a></li>
       <li><a href="#s12"><span>12</span>Pendências</a></li>
       <li><a href="#s13"><span>13</span>Estado real (28 ago)</a></li>
+      <li><a href="#s14"><span>14</span>Referência de construção</a></li>
     </ol>
   </nav>
 
@@ -1045,6 +1052,91 @@
         <dt>Viabilidade</dt>
         <dd>Provado: leitura. Não garantido ainda: escrita (P1b) e eixo chave/imobilizador (pode exigir hardware). Sem promessa de "perfeito em tudo" — o produto evolui por perfis.</dd>
       </dl>
+    </section>
+
+    <section id="s14">
+      <h2 class="secao"><em>14</em>Referência de construção</h2>
+      <p>
+        A parte técnica que não pode se perder na hora de construir. É a "planta" do que já sabemos
+        sobre os módulos, a arquitetura escolhida e a ordem de trabalho. Seção viva — cresce conforme
+        descobrimos mais.
+      </p>
+
+      <h3>14.1 · Mapa dos módulos (o que já foi decifrado)</h3>
+      <p>
+        Confirmado por análise de dumps reais. Os offsets são posições dentro do arquivo. C3 e Basalt
+        compartilham o mesmo layout de painel — um perfil cobre os dois.
+      </p>
+      <div class="rolagem"><table>
+        <thead><tr>
+          <th style="min-width:150px">Módulo</th><th style="min-width:110px">Tamanho</th>
+          <th style="min-width:150px">Chassi (VIN)</th><th style="min-width:210px">Quilometragem</th>
+          <th style="min-width:110px">Confiança</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <th>Painel / BCCM</th><td>64 KB (EEPROM 95512)</td>
+            <td><code>0x0B00</code>, 17 ASCII</td>
+            <td><code>0x4BA0</code>, ×10, little-endian, anel de registros</td>
+            <td class="sim">confirmado</td>
+          </tr>
+          <tr>
+            <th>Airbag</th><td>32 KB (EEPROM 95256)</td>
+            <td><code>0x4C5E</code>, 17 ASCII</td>
+            <td>anel de registros, 2 bytes LE</td>
+            <td class="cond">VIN ok; KM preliminar</td>
+          </tr>
+        </tbody>
+      </table></div>
+      <ul class="lista">
+        <li><strong>Assinatura do painel:</strong> texto <code>BCCM</code> por volta de <code>0x0AC6</code> — usado para reconhecer o módulo.</li>
+        <li><strong>Constante de fábrica:</strong> o valor 3000 em <code>0x391E</code> aparece em todos os painéis — <strong>não é a quilometragem</strong> (evita confusão).</li>
+        <li><strong>Código de proteção da KM:</strong> 4 bytes por registro, logo após a KM; depende de KM + contador (e provavelmente do VIN/região maior). É <strong>próprio da PSA</strong> — nenhum CRC/soma padrão bate. Falta quebrar (P1b) para gravar.</li>
+        <li><strong>Módulo resetado/virgem:</strong> VIN e KM em branco (bytes <code>FF</code>/<code>00</code>). O software reconhece esse estado.</li>
+      </ul>
+
+      <h3>14.2 · Arquitetura e tecnologia</h3>
+      <dl class="ficha">
+        <dt>Entrega</dt><dd>Produto final: programa instalado <code>.exe</code> para Windows (Electron). A versão web atual é só para teste. O mesmo código de tela serve aos dois.</dd>
+        <dt>Camadas</dt><dd>Núcleo (JS puro, sem dependências, testável) · Perfis (JSON, um por módulo) · Banco local (SQLite) · Adaptadores (OS e OBD, isolados) · Interface.</dd>
+        <dt>Perfis</dt><dd>Cada módulo é um arquivo declarativo com offsets, codificação e checksums. Módulo novo = perfil novo, não código novo. Já existem <code>profiles/basalt-bccm.json</code> e <code>basalt-airbag.json</code>.</dd>
+        <dt>Já escrito</dt><dd><code>src/core/codec.js</code> (ler/gravar campos: endianness, complemento, XOR, BCD, fator, réplicas, VIN) e <code>src/core/checksum.js</code> (9 algoritmos, CRCs conferidos). App de teste em <code>web/index.html</code>.</dd>
+        <dt>Dados</dt><dd>Tudo local, offline. Dumps de veículo nunca entram no repositório. Registro e laudo em banco na máquina da oficina.</dd>
+        <dt>Ferramental</dt><dd>Não construímos programador. O mecânico lê/grava com o iProg Pro (ou similar); nossa ferramenta conserta o arquivo no meio. Fluxo: iProg lê → nós consertamos → iProg grava.</dd>
+      </dl>
+
+      <h3>14.3 · Ordem de construção</h3>
+      <div class="fluxo">
+        <div class="passo"><b>Agora</b><span>Leitura + casamento (feito, em teste)</span></div>
+        <div class="seta" aria-hidden="true">→</div>
+        <div class="passo"><b>P1b</b><span>Quebrar o código de proteção → gravar KM/VIN</span></div>
+        <div class="seta" aria-hidden="true">→</div>
+        <div class="passo"><b>Fase 1</b><span>Reparo, sincronismo, salvar, registro</span></div>
+        <div class="seta" aria-hidden="true">→</div>
+        <div class="passo"><b>Fase 2</b><span>Login, laudo, OS, empacotar .exe</span></div>
+        <div class="seta" aria-hidden="true">→</div>
+        <div class="passo"><b>Depois</b><span>Chave, OBD, ECU, mais perfis</span></div>
+      </div>
+      <p class="nota" style="margin-top:14px">
+        O que destrava a próxima etapa é sempre <strong>material do mecânico</strong>: mais dumps com KM
+        anotada e, principalmente, um <strong>antes/depois</strong> de KM conhecida para quebrar o código
+        de proteção (P1b).
+      </p>
+
+      <h3>14.4 · Documentos de apoio (a memória completa)</h3>
+      <p>Este é o documento-mestre; os detalhes profundos ficam nos apoios abaixo, no repositório.</p>
+      <div class="rolagem"><table>
+        <thead><tr><th style="min-width:220px">Documento</th><th style="min-width:320px">O que guarda</th></tr></thead>
+        <tbody>
+          <tr><th><code>docs/base-conhecimento.md</code></th><td>Memória técnica e o diário de evolução (seção 8) com todos os aprendizados datados.</td></tr>
+          <tr><th><code>docs/descobertas-basalt.md</code></th><td>Mapa detalhado dos dumps: offsets, codificação, estrutura do anel de KM e do código de proteção.</td></tr>
+          <tr><th><code>docs/funcionalidades.html</code></th><td>Catálogo das 92 funcionalidades por área, fase e prioridade.</td></tr>
+          <tr><th><code>docs/seguranca-estrutura.html</code></th><td>Segurança, estrutura e confiabilidade em detalhe.</td></tr>
+          <tr><th><code>docs/precos-mercado.md</code></th><td>Preços de mercado e modelo de cobrança.</td></tr>
+          <tr><th><code>docs/referencia-iprog.md</code></th><td>O iProg Pro (concorrente/ferramental) e checklist de completude.</td></tr>
+          <tr><th><code>docs/pendencias.md</code></th><td>Perguntas em aberto e o que trava cada etapa.</td></tr>
+        </tbody>
+      </table></div>
     </section>
 
   </main>

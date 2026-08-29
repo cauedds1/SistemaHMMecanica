@@ -306,3 +306,22 @@ branco), em vez de mostrar valores sem sentido.
 - `web/index.html` + `profiles/basalt-*.json` — primeira versão de teste.
 - Artifact do app de teste: https://claude.ai/code/artifact/7d33587b-0693-4271-80c9-95e3a0b57f6f
 - Artifact de segurança: https://claude.ai/code/artifact/138dbe02-4864-4879-8c8d-af8e0f812828
+
+### 28 ago 2026 (tarde) — inteligência sobre o iProg Pro
+
+Levantamento detalhado do iProg Pro (o programador que o mecânico usa).
+Documento próprio: `docs/referencia-iprog.md`. Pontos que mudam a estratégia:
+
+- **Arquitetura por scripts valida a nossa por perfis.** iProg cobre módulos
+  via scripts `.ipp`/Lua comprados/desenvolvidos à parte (IDE Emvima). Mesma
+  filosofia que os nossos perfis JSON.
+- **Não competimos com o hardware — complementamos.** iProg é quem lê/grava o
+  chip; nosso software é o cérebro do arquivo. O fluxo encaixa:
+  iProg lê → nosso software conserta o `.bin` → iProg grava.
+- **Cobertura do iProg depende de existir script para o módulo.** Para os PSA
+  novos o script pode não existir — reforça o nicho. Pergunta ao mecânico:
+  existe calculadora/script iProg que faz a KM do C3/Basalt novo?
+- **Checklist de completude** (funções do iProg × nosso escopo) em
+  `referencia-iprog.md`. Ideias novas possíveis: rádio/multimídia,
+  extração de PIN, conversão milhas→km. Flags mantidas (mesma linha da KM):
+  crash data sem reparo e DPF OFF ficam fora por segurança/lei.

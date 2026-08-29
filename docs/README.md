@@ -13,6 +13,7 @@ o escopo completo antes de construir.
   gravar. É a semente do primeiro perfil de módulo.
 - **`pendencias.md`** — perguntas em aberto e o que trava cada etapa.
 - **`precos-mercado.md`** — referência de preços do mercado e modelos de cobrança do desenvolvimento.
+- **`referencia-iprog.md`** — o programador iProg Pro (concorrente e ferramental) e checklist de completude de funções.
 
 ## Documentos de apresentação (HTML, para mostrar ao cliente)
 

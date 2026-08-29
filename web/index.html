@@ -262,24 +262,35 @@ function analisar(slot, buf){
     obs: estruturaOk ? perfil.modulo : "o arquivo não parece deste módulo"
   });
 
-  // 3. VIN
+  // 3. VIN — detecta módulo em branco (resetado): VIN só com 00 ou FF
+  const vinBytes = buf.slice(perfil.vin.offset, perfil.vin.offset + perfil.vin.tam);
+  const emBranco = vinBytes.every(b => b === 0x00) || vinBytes.every(b => b === 0xFF);
   const vin = lerAscii(buf, perfil.vin.offset, perfil.vin.tam).toUpperCase();
   const vinOk = VIN_RE.test(vin);
-  res.vin = vin || "—";
-  res.checks.push({
-    tipo: vinOk ? "ok" : "aviso",
-    txt: vinOk ? "Chassi (VIN) válido" : "Chassi não reconhecido",
-    obs: vinOk ? "" : "leitura fora do padrão de VIN"
-  });
+  res.resetado = emBranco;
+  res.vin = emBranco ? "(em branco)" : (vin || "—");
+  if (emBranco){
+    res.checks.push({ tipo: "aviso", txt: "Módulo resetado / virgem", obs: "chassi em branco — sem casamento" });
+  } else {
+    res.checks.push({
+      tipo: vinOk ? "ok" : "aviso",
+      txt: vinOk ? "Chassi (VIN) válido" : "Chassi não reconhecido",
+      obs: vinOk ? "" : "leitura fora do padrão de VIN"
+    });
+  }
 
-  // 4. KM
+  // 4. KM — 0xFFFF/valor cheio = campo em branco (resetado)
   let kmVal = null;
   if (estruturaOk){
     kmVal = Math.floor(lerIntLE(buf, perfil.km.offset, perfil.km.tam) / perfil.km.fator);
   }
-  res.km = kmVal;
+  const kmBranco = res.resetado || kmVal === 65535 || kmVal === null;
+  res.km = kmBranco ? null : kmVal;
   res.kmConfianca = perfil.kmConfianca;
   const kmPlausivel = kmVal !== null && kmVal >= 0 && kmVal < 2000000;
+  if (kmBranco){
+    res.checks.push({ tipo: "aviso", txt: "Quilometragem em branco", obs: "módulo resetado ou zerado" });
+  } else
   if (perfil.kmConfianca === "confirmado"){
     res.checks.push({
       tipo: kmPlausivel ? "ok" : "aviso",

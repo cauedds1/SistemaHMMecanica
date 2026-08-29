@@ -83,6 +83,40 @@ por registro.
   bancos espelhados) é típico de Stellantis/PSA e deve se repetir no C3 e no
   Aircross — a confirmar quando chegarem dumps desses.
 
+## Atualização 28 ago — C3, ataque ao checksum e ferramental
+
+### Ataque ao código de proteção (checksum-por-registro)
+- Estrutura do registro de KM confirmada (16 bytes):
+  `[KM×10 : 4b LE][código : 4b][00 00][contador : 2b][padding]`.
+- O código de 4 bytes depende de **KM e do contador** (dois registros com a
+  mesma KM e contadores diferentes têm códigos diferentes).
+- Testados ~11 variantes de CRC32 padrão + somas sobre 8 enquadramentos de
+  entrada → **nenhum bateu**. É checksum **próprio da PSA**, não padrão.
+- Pista nova (C3): registro com KM=0 e contador=0 tem código **não-nulo**
+  (`b1c2a1a3`). Um checksum simples de km+contador daria zero → o código cobre
+  **mais que km+contador** (provável região fixa maior, ou inclui o VIN).
+- **Faltam pares limpos.** Com poucos exemplos de KM conhecida não dá para
+  quebrar um checksum próprio de 32 bits. O que resolve: **antes/depois do
+  mesmo módulo com KM conhecida** gravada por ferramenta que funcione.
+
+### C3 vs Basalt — mesmo layout de painel
+- Painel C3 (`935CEFC2CRB551519`): VIN em `0x0B00`, mesma região de KM em
+  `0x4BA0`, mesmas constantes de configuração (ex.: `0x391E` = 3000 é
+  **constante de fábrica presente nos dois**, NÃO é a KM). Um mesmo perfil
+  cobre C3 + Basalt (e provavelmente Aircross).
+- Os dois arquivos de teste do C3 são **módulos resetados/virgens**: airbag
+  com VIN e KM em branco (`FF`), painel com odômetro zerado. Servem para
+  testar gravação e o estado "em branco" — não são um carro a 3.000 km.
+- O app passou a **reconhecer módulo resetado** (VIN/KM em branco).
+
+### Ferramental do mecânico (contexto)
+- Eles usam o programador de bancada **iProg Pro** com a IDE de script
+  **Emvima** (iprog.pro). Confirma o fluxo: leitura/gravação de EEPROM na
+  bancada, arquivos são dumps crus. Adaptadores EEPROM/CAN/BDM.
+- Ele pretende **ler também a ECU (motor)** e mandar mais arquivos com
+  **KM diferentes, já anotadas** (via Khauan) — exatamente o material que
+  falta para o ataque ao checksum.
+
 ## Próximos passos técnicos
 
 1. Quebrar o checksum de 4 bytes por registro (painel e airbag).

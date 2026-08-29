@@ -118,7 +118,6 @@
   .campos2{display:grid;grid-template-columns:1fr;gap:0 16px}@media(min-width:560px){.campos2{grid-template-columns:1fr 1fr}}
   .nota{font-size:.82rem;color:var(--tinta-fraca);line-height:1.5}
   .aviso{border:1px solid var(--ambar);background:var(--ambar-fundo);border-radius:var(--raio);padding:13px 16px;font-size:.85rem;line-height:1.5}.aviso b{color:var(--tinta)}
-  .info{border-left:3px solid var(--petroleo);background:var(--realce);border-radius:6px;padding:12px 16px;font-size:.88rem;line-height:1.55;color:var(--tinta-fraca)}.info b{color:var(--tinta)}
   .veto{border:1px solid var(--oxido);background:var(--oxido-fundo);border-radius:var(--raio);padding:13px 16px;font-size:.85rem;line-height:1.5}
   code{font-family:var(--mono);font-size:.85em;background:var(--realce);padding:1px 5px;border-radius:4px}
   .vazio{text-align:center;color:var(--tinta-fraca);padding:38px 18px;font-size:.9rem}.vazio .ic{font-size:34px;display:block;margin-bottom:8px;opacity:.5}
@@ -245,7 +244,7 @@
     <!-- RESTAURAR KM -->
     <section class="aba" id="aba-restaurar">
       <div class="card"><h2>🔢 Restaurar quilometragem</h2><div class="corpo">
-        <div class="info" style="margin-bottom:16px"><b>Restaurar a quilometragem comprovada numa troca de módulo.</b> O módulo novo vem zerado e o usado vem com a KM de outro carro — aqui você grava a quilometragem correta do veículo. Informe a KM comprovada, o motivo e vincule a OS; o serviço fica documentado, como todo o resto.</div>
+        <div class="aviso" style="margin-bottom:16px"><b>Operação restrita.</b> Única em que se digita a quilometragem. Existe para troca de módulo (novo vem zerado; usado vem com KM de outro carro). Exige a KM comprovada, o motivo e a OS vinculada. Tudo fica registrado — inclusive tentativas.</div>
         <div id="restDrop"><div class="drop" id="dropRest" tabindex="0"><span class="ic">📂</span><div class="h">Arquivo do módulo a corrigir</div><div class="s">painel (64 KB) ou airbag (32 KB)</div></div></div>
         <div id="restForm" hidden>
           <div class="linha"><span class="rot">Módulo</span><span class="val" id="restMod">—</span></div>

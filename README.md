@@ -1,63 +1,70 @@
-# Ferramenta de sincronismo BCCM / airbag
+# HM Módulos
 
-Aplicativo de bancada para leitura, diagnostico, reparo e sincronizacao de
-arquivos de memoria (dumps) dos modulos **BCCM** e **airbag** dos Citroen
-C3, Aircross e Basalt.
+Ferramenta de bancada para leitura, sincronização e reparo de arquivos de
+memória (dumps) dos módulos **BCCM (painel)** e **airbag** dos Citroën C3,
+Aircross e Basalt. Escrita para uma oficina que precisa provar o que fez, não
+apenas fazer.
 
-Nesses veiculos o BCCM (body computer + BSI + painel em um modulo so)
-trabalha casado com o modulo de airbag, e o casamento e feito por **VIN +
-quilometragem**. Quando um dos dois diverge — colisao, alagamento ou troca
-de modulo — o painel apaga a quilometragem e passa a exibir erro.
+> Nome do produto ainda a definir (pendência P3). "Enigma" é marca de terceiro
+> e não é usado.
 
-## Principio de projeto
+## Onde começar
 
-A ferramenta escreve quilometragem em modulo de veiculo. Isso e uma
-operacao legitima de reparo e e tambem o mecanismo da fraude de hodometro.
-A diferenca entre as duas esta no registro e na forma da operacao, nao na
-intencao do operador.
+- **Documento-mestre e plano:** `docs/escopo.html` (o quê) e
+  `docs/plano-construcao.html` (como e em que ordem).
+- **Memória técnica:** `docs/base-conhecimento.md` e `docs/descobertas-basalt.md`.
+- Índice completo dos documentos em `docs/README.md`.
 
-Por isso nao existe um campo generico de "definir quilometragem". Sao
-quatro operacoes distintas e, em tres delas, **o operador nao digita numero
-nenhum** — o valor e preservado ou copiado do outro modulo do mesmo carro:
+## Como funciona
 
-| Operacao | De onde vem o valor | Justificativa |
-| --- | --- | --- |
-| Diagnosticar | nao altera nada | nao |
-| Reparar arquivo | de lugar nenhum; preserva KM e VIN | nao |
-| Sincronizar modulos | do outro dump do mesmo veiculo | motivo |
-| Restaurar KM documentada | digitado pelo operador | completa |
+O software trabalha com **arquivos**, não com o carro. O mecânico lê o módulo
+com o programador de bancada (iProg Pro, Dash Tool, etc.), corrige o arquivo
+aqui, e grava de volta com o mesmo programador.
 
-A quarta e restrita ao responsavel tecnico e existe para o caso real de
-substituicao de modulo, onde nao ha um segundo modulo de onde copiar.
+```
+programador LÊ o chip → arquivo .bin → HM Módulos (diagnostica/corrige) → programador GRAVA
+```
 
-Escopo completo em [`docs/escopo.html`](docs/escopo.html).
+## Arquitetura
 
-## Estado atual
+Camadas separadas — o motor (a parte perigosa) fica isolado e testável, longe
+da interface.
 
-Fase 1 iniciada. O nucleo e JavaScript puro, sem dependencias, testavel
-fora da interface.
+| Pasta | O que é |
+| --- | --- |
+| `src/core/` | O **motor**, JavaScript puro e testável, sem interface: `codec.js` (ler/gravar campos), `checksum.js` (algoritmos), `perfil.js` (carrega e detecta perfis), `leitor.js` (diagnóstico), `registro.js` (caderninho encadeado por hash). |
+| `profiles/` | Os **perfis** (mapas) de cada módulo, declarativos em JSON. Módulo novo = perfil novo. Hoje: `psa-bccm` (cobre C3/Aircross/Basalt) e `psa-airbag`. |
+| `src/main/` | O **Electron**: `main.js` (processo principal + motor) e `preload.js` (ponte segura). Empacota o programa `.exe`. |
+| `web/` | A **interface** (renderer). Hoje roda também como versão de teste no navegador. |
+| `test/` | Os **testes automáticos** do motor. |
 
-- `src/core/codec.js` — leitura e escrita de campos no dump: endianness,
-  complemento de 1, XOR, BCD, fator de escala, replicas espelhadas e VIN.
-- `src/core/checksum.js` — sete algoritmos (`sum8`, `sum16`, `sum32`,
-  `sum16le`, `xor8`, `sum8_neg`, `crc16ccitt`, `crc16modbus`, `crc32`),
-  conferidos contra os vetores de teste padrao.
+## Segurança e confiabilidade
 
-Pendente: perfis de modulo, motor de dump, sincronizacao, registro de
-operacoes e interface.
-
-## Aviso
-
-Alterar quilometragem sem vinculo com reparo documentado e fraude. Toda
-operacao desta ferramenta gera registro encadeado por hash, e o registro
-nao e apagavel por nenhum perfil de usuario.
+- **Na dúvida, o software para** — nunca grava lixo. Perfil não reconhecido → recusa, não chuta.
+- **O original é sagrado** — nunca sobrescrito; toda saída é arquivo novo, com hash SHA-256.
+- **Registro em cadeia de hash**, não apagável.
+- **Electron isolado**: `contextIsolation` ligado, `nodeIntegration` desligado, sandbox — a interface não toca no sistema.
+- Detalhe em `docs/seguranca-estrutura.html`.
 
 ## Desenvolvimento
 
 ```sh
 npm install
-npm test      # testes do nucleo
-npm start     # aplicativo (Electron)
+npm test      # testes do motor (headless)
+npm start     # abre o programa (Electron) — precisa de ambiente com tela
+npm run dist  # gera o instalador .exe (electron-builder) — no Windows
 ```
 
-Dumps de veiculo nao entram no repositorio — ver `.gitignore`.
+Dumps de veículo **nunca** entram no repositório (dados reais de cliente:
+VIN, KM). Ver `.gitignore`.
+
+## Estado
+
+Etapa **E3** em andamento (ver `docs/plano-construcao.html`):
+
+- **E0 — base e leitura:** feito. Motor testado (27 testes), leitura de VIN e
+  KM do painel PSA confirmada.
+- **E1 — código de proteção:** aguardando material do mecânico (antes/depois
+  com KM conhecida). Trava a gravação.
+- **E3 — programa instalável:** em andamento. Motor virou módulo testado;
+  esqueleto Electron montado.

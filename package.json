@@ -1,16 +1,29 @@
 {
-  "name": "enigma-bccm-tool",
-  "version": "0.1.0",
+  "name": "hm-modulos",
+  "version": "0.2.0",
   "private": true,
-  "description": "Ferramenta de leitura, sincronizacao e recalculo de checksum de dumps de modulos automotivos (BCCM / airbag)",
+  "description": "Ferramenta de bancada para leitura, sincronizacao e reparo de dumps de modulos automotivos (BCCM / airbag) PSA. Nome do produto a definir (P3).",
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "node --test test/",
+    "test": "node --test test/*.test.js",
     "dist": "electron-builder"
   },
   "license": "UNLICENSED",
   "devDependencies": {
     "electron": "^33.4.11"
+  },
+  "build": {
+    "appId": "com.hmmecanica.modulos",
+    "productName": "HM Modulos",
+    "files": ["src/**/*", "profiles/**/*", "web/**/*"],
+    "win": {
+      "target": "nsis",
+      "artifactName": "HM-Modulos-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }

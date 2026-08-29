@@ -5,7 +5,7 @@
 > informação. **Estado atual: ESTUDO / MAPEAMENTO — nada de código sendo
 > construído até o escopo fechar.**
 
-Última atualização: 27 ago 2026
+Última atualização: 28 ago 2026 (ver diário de evolução na seção 8)
 
 ---
 
@@ -212,3 +212,97 @@ checksum e validar, e faltam dumps de C3 e Aircross.
 Artifacts publicados (apresentação):
 - Escopo: https://claude.ai/code/artifact/aaef9b40-16bd-4ee8-af63-24fd59da38d1
 - Funcionalidades: https://claude.ai/code/artifact/9e71f9ef-f3b1-407a-821b-4853b18340a3
+
+---
+
+## 8. Diário de evolução (aprendizados acumulados)
+
+> Seção aditiva — cada avanço entra aqui, nada é removido. Do mais recente ao
+> mais antigo.
+
+### 28 ago 2026 — arquivos do C3, ferramental e ataque ao checksum
+
+**Confirmações do mecânico (por WhatsApp, sobre o app de teste):**
+- Aprovou a leitura: "reconhecer o arquivo", "chassi e km" — já faz.
+- Pediu explicitamente a escrita: **"e também alterar os parâmetros"** = gravar
+  KM/VIN. É a função que falta (depende de quebrar o código de proteção).
+- Vai **ler também a ECU (motor)** e adicionar — hoje só painel e airbag.
+- Vai mandar **mais arquivos com KM diferentes, já anotadas** (via "Khauan").
+
+**Ferramental deles (contexto novo):**
+- Usam o programador de bancada **iProg Pro** + IDE de script **Emvima**
+  (iprog.pro). Confirma: leem/gravam EEPROM na bancada, arquivos são dumps
+  crus. Adaptadores EEPROM / CAN / BDM. No futuro nossa ferramenta pode até
+  gerar script pra esse programador.
+
+**Arquivos novos analisados (C3):**
+- Painel C3 (VIN 935CEFC2CRB5515**) e airbag C3 "RESET" → são **módulos de
+  teste resetados/virgens** (airbag em branco; painel com odômetro zerado).
+- O "3000" do nome do painel é **constante de fábrica** (offset 0x391E,
+  presente também no Basalt), **não é a quilometragem**.
+- **C3 e Basalt usam o MESMO layout de painel** → um perfil só cobre os dois
+  (e provavelmente o Aircross). Menos trabalho, mais cobertura.
+
+**Ataque ao código de proteção (checksum-por-registro) — status:**
+- Estrutura do registro de KM confirmada: `[KM×10 4b LE][código 4b][00 00]
+  [contador 2b]`.
+- O código de 4 bytes depende de **KM + contador** (mesma KM, contador
+  diferente → código diferente).
+- Testados ~11 CRC32 padrão + somas em 8 enquadramentos → **nenhum bate**. É
+  checksum **próprio da PSA**.
+- Pista: painel resetado com KM=0 e contador=0 tem código **não-nulo** → o
+  código cobre **mais que KM+contador** (região fixa maior ou inclui o VIN).
+- **Falta material** para quebrar: o ideal é **antes/depois do mesmo módulo
+  com KM conhecida** gravada por ferramenta que funcione. O mecânico já se
+  ofereceu para fornecer isso.
+- Detalhe técnico completo em `docs/descobertas-basalt.md`.
+
+**App de teste:** passou a **reconhecer módulo resetado/virgem** (VIN/KM em
+branco), em vez de mostrar valores sem sentido.
+
+### 27 ago 2026 — mercado, preço e forma de entrega
+
+**Escassez do sistema (pesquisa):**
+- Como categoria, calculadora automotiva **não é escassa** (CarroTec, Alpha
+  Calculator, Tael ProgMaster, UmGênio).
+- Para os **PSA novos** (C3/Basalt/Aircross geração atual) a cobertura
+  **parece escassa** — não achei suporte específico. É o nicho.
+- Por que é escasso: carro novo (ferramenta chega atrasada), módulo de tipo
+  novo (BCCM junta BSI+painel), volume ainda baixo (grandes despriorizam),
+  proteção maior nos módulos novos, PSA historicamente menos coberta no BR.
+- É uma **janela de oportunidade** que fecha em ~2-3 anos, quando os grandes
+  mapearem. Vantagem de quem entra agora com os arquivos.
+
+**Prova de viabilidade (honesto):**
+- Provado: dá para **ler** (nós fizemos, testável) e o todo é possível (a
+  Enigma, operador pequeno, já faz).
+- NÃO provado ainda: a **escrita** (depende de quebrar o código) e o eixo
+  **chave/imobilizador** (pode exigir hardware). Sem garantia de "perfeito em
+  tudo" — software desse tipo evolve por perfis, não é "pronto para sempre".
+
+**Preço (referência de mercado):**
+- Oficina cobra do cliente: R$ 150–250 (troca de painel) a R$ 600+ (serviço
+  complexo).
+- Concorrente CarroTec: **R$ 1.200/ano** de assinatura.
+- Cobrança do desenvolvimento: modelo recomendado = **entrada + mensalidade
+  menor** (mensalidade remunera perfis novos e sustenta com anti-cópia).
+- Ressalva do usuário (válida): sendo produto novo de dev solo, **não faz
+  sentido cobrar acima** de um concorrente consolidado — igualar ou ficar
+  abaixo, e cobrar pelo que a CarroTec não faz (os PSA novos). Detalhe em
+  `docs/precos-mercado.md`.
+
+**Forma de entrega (decisão):**
+- **Web = só para teste** (o app atual). **Produto final = programa instalado
+  (.exe, Windows)**. Motivos: arquivo do cliente não sai da máquina (LGPD),
+  funciona offline, banco local do registro/laudo, licenciamento anti-cópia,
+  e falar com hardware na fase OBD. Mesmo código do teste vira a tela do
+  programa instalado.
+- Confirmar com o usuário: oficina roda Windows (assumido).
+
+### Documentos relacionados criados neste período
+- `docs/seguranca-estrutura.html` — segurança, estrutura e confiabilidade.
+- `docs/precos-mercado.md` — preços e modelo de cobrança.
+- `docs/descobertas-basalt.md` — mapa técnico dos dumps (atualizado com C3).
+- `web/index.html` + `profiles/basalt-*.json` — primeira versão de teste.
+- Artifact do app de teste: https://claude.ai/code/artifact/7d33587b-0693-4271-80c9-95e3a0b57f6f
+- Artifact de segurança: https://claude.ai/code/artifact/138dbe02-4864-4879-8c8d-af8e0f812828

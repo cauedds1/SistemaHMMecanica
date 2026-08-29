@@ -1,0 +1,695 @@
+<title>Plano de Construção HM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --fundo:      #EEF1F0;
+    --papel:      #F9FBFA;
+    --tinta:      #131A1C;
+    --tinta-fraca:#5B686C;
+    --linha:      #DCE2E1;
+    --linha-forte:#C2CBCA;
+    --petroleo:   #0F5E68;
+    --petroleo-fr:#0B4750;
+    --ambar:      #9C5C08;
+    --ambar-fundo:#F6EDDF;
+    --oxido:      #8B2A20;
+    --oxido-fundo:#F4E6E3;
+    --verde:      #2C6543;
+    --realce:     #E3EBEA;
+
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --grot:  "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fundo:      #0D1315;
+      --papel:      #151D1F;
+      --tinta:      #E3E9E8;
+      --tinta-fraca:#94A3A5;
+      --linha:      #253032;
+      --linha-forte:#38474A;
+      --petroleo:   #57BDC8;
+      --petroleo-fr:#8AD4DC;
+      --ambar:      #DFA044;
+      --ambar-fundo:#2A2116;
+      --oxido:      #D97A6C;
+      --oxido-fundo:#2C1A18;
+      --verde:      #6FBF8E;
+      --realce:     #1C2628;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --fundo:      #0D1315;
+    --papel:      #151D1F;
+    --tinta:      #E3E9E8;
+    --tinta-fraca:#94A3A5;
+    --linha:      #253032;
+    --linha-forte:#38474A;
+    --petroleo:   #57BDC8;
+    --petroleo-fr:#8AD4DC;
+    --ambar:      #DFA044;
+    --ambar-fundo:#2A2116;
+    --oxido:      #D97A6C;
+    --oxido-fundo:#2C1A18;
+    --verde:      #6FBF8E;
+    --realce:     #1C2628;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--fundo);
+    color: var(--tinta);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .folha {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 46px 26px 120px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 56px;
+  }
+
+  @media (min-width: 1040px) {
+    .folha { grid-template-columns: 196px minmax(0, 1fr); }
+    .indice { grid-column: 1; grid-row: 2; }
+    .cabecalho, .corpo, .rodape { grid-column: 2; }
+  }
+
+  /* ---------- cabeçalho de controle do documento ---------- */
+
+  .cabecalho { border-top: 3px solid var(--tinta); padding-top: 20px; }
+
+  .selo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0 0 18px;
+  }
+
+  .linha-fina {
+    font-family: var(--serif);
+    font-size: 1.16rem;
+    line-height: 1.55;
+    color: var(--tinta-fraca);
+    max-width: 62ch;
+    margin: 0 0 34px;
+  }
+
+  .controle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+    border-top: 1px solid var(--linha-forte);
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .controle div {
+    padding: 12px 16px 13px 0;
+    border-right: 1px solid var(--linha);
+  }
+  .controle div:last-child { border-right: 0; }
+  .controle dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    margin: 0 0 5px;
+  }
+  .controle dd {
+    font-family: var(--grot);
+    font-size: .93rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ---------- índice lateral ---------- */
+
+  .indice { padding-top: 46px; }
+  @media (min-width: 1040px) {
+    .indice { position: sticky; top: 26px; align-self: start; padding-top: 8px; }
+  }
+  .indice h2 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    font-weight: 500;
+    margin: 0 0 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--linha-forte);
+  }
+  .indice ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .indice a {
+    font-family: var(--grot);
+    font-size: .81rem;
+    line-height: 1.35;
+    color: var(--tinta-fraca);
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 6px;
+  }
+  .indice a span { font-family: var(--mono); font-size: .72rem; color: var(--petroleo); }
+  .indice a:hover, .indice a:focus-visible { color: var(--tinta); }
+
+  /* ---------- corpo ---------- */
+
+  .corpo { padding-top: 8px; }
+
+  section { padding-top: 52px; scroll-margin-top: 22px; }
+
+  h2.secao {
+    font-family: var(--grot);
+    font-weight: 700;
+    font-size: 1.52rem;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0 0 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--linha-forte);
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 4px;
+  }
+  h2.secao em {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: .78rem;
+    font-weight: 400;
+    color: var(--petroleo);
+    letter-spacing: .04em;
+  }
+
+  h3 {
+    font-family: var(--grot);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.004em;
+    margin: 34px 0 10px;
+  }
+
+  p { margin: 0 0 15px; max-width: 68ch; }
+  .corpo > section > p { max-width: 68ch; }
+
+  strong { font-weight: 600; }
+  em.destaque { font-style: italic; color: var(--tinta); }
+
+  code {
+    font-family: var(--mono);
+    font-size: .84em;
+    background: var(--realce);
+    padding: 1px 5px;
+    color: var(--petroleo-fr);
+  }
+
+  ul.lista { margin: 0 0 16px; padding: 0; list-style: none; max-width: 68ch; display: flex; flex-direction: column; gap: 9px; }
+  ul.lista li { position: relative; padding-left: 22px; }
+  ul.lista li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--petroleo); font-family: var(--mono); font-size: .8rem; line-height: 1.62; }
+
+  /* ---------- blocos com legenda na borda ---------- */
+
+  .bloco {
+    position: relative;
+    border: 1px solid var(--linha-forte);
+    padding: 26px 24px 22px;
+    margin: 30px 0;
+    background: var(--papel);
+  }
+  .bloco > .legenda {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    transform: translateY(-50%);
+    background: var(--fundo);
+    padding: 0 9px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+  }
+  .bloco > :last-child { margin-bottom: 0; }
+
+  .bloco--op   { border-color: var(--petroleo); }
+  .bloco--op > .legenda { color: var(--petroleo); }
+  .bloco--restrito { border-color: var(--ambar); background: var(--ambar-fundo); }
+  .bloco--restrito > .legenda { color: var(--ambar); }
+  .bloco--veto { border-color: var(--oxido); background: var(--oxido-fundo); }
+  .bloco--veto > .legenda { color: var(--oxido); }
+
+  /* ---------- ficha de campos ---------- */
+
+  dl.ficha {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px 20px;
+    margin: 16px 0 0;
+  }
+  @media (min-width: 620px) {
+    dl.ficha { grid-template-columns: 126px minmax(0, 1fr); gap: 10px 20px; }
+  }
+  dl.ficha dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding-top: 6px;
+  }
+  dl.ficha dd { margin: 0; font-size: .96rem; line-height: 1.55; }
+  dl.ficha dd + dt { border-top: 1px solid var(--linha); }
+  dl.ficha dd { border-top: 1px solid var(--linha); padding-top: 6px; }
+  @media (max-width: 619px) {
+    dl.ficha dd { border-top: 0; padding-top: 0; padding-bottom: 12px; }
+    dl.ficha dt { border-top: 1px solid var(--linha); padding-top: 10px; }
+  }
+
+  /* ---------- tabelas ---------- */
+
+  .rolagem { overflow-x: auto; margin: 22px 0 26px; border-bottom: 1px solid var(--linha-forte); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-family: var(--grot);
+    font-size: .89rem;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--tinta-fraca);
+    padding: 0 14px 10px 0;
+    border-bottom: 2px solid var(--tinta);
+    vertical-align: bottom;
+  }
+  tbody td, tbody th {
+    text-align: left;
+    font-weight: 400;
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--linha);
+    vertical-align: top;
+  }
+  tbody th { font-weight: 600; }
+  td.marca, th.marca { text-align: center; padding-right: 0; }
+  .sim { color: var(--verde); font-weight: 700; }
+  .nao { color: var(--tinta-fraca); }
+  .cond { color: var(--ambar); font-weight: 700; }
+
+  .pilula {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    padding: 3px 8px 2px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .p-livre { color: var(--verde); }
+  .p-restrito { color: var(--ambar); }
+  .p-veto { color: var(--oxido); }
+  .p-cond { color: var(--tinta-fraca); }
+
+  /* ---------- fluxo ---------- */
+
+  .fluxo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0 8px;
+    font-family: var(--grot);
+  }
+  .fluxo .passo {
+    border: 1px solid var(--linha-forte);
+    background: var(--papel);
+    padding: 11px 14px;
+    min-width: 132px;
+    flex: 1 1 132px;
+  }
+  .fluxo .passo b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--petroleo);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .fluxo .passo span { font-size: .84rem; line-height: 1.4; display: block; }
+  .fluxo .seta {
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    color: var(--petroleo);
+    font-family: var(--mono);
+    font-size: .9rem;
+  }
+  @media (max-width: 700px) {
+    .fluxo { flex-direction: column; }
+    .fluxo .seta { padding: 5px 0 5px 16px; }
+  }
+
+  .nota {
+    font-size: .87rem;
+    color: var(--tinta-fraca);
+    font-family: var(--grot);
+    line-height: 1.55;
+    max-width: 66ch;
+    margin: 0 0 14px;
+  }
+
+  .rodape {
+    margin-top: 78px;
+    padding-top: 20px;
+    border-top: 3px solid var(--tinta);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--tinta-fraca);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+  }
+
+  a { color: var(--petroleo); }
+  a:focus-visible, .indice a:focus-visible {
+    outline: 2px solid var(--petroleo);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+<style>
+  #btnCopiar{
+    position:fixed; right:18px; bottom:18px; z-index:50;
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--grot); font-weight:600; font-size:.86rem;
+    padding:11px 16px; border-radius:999px; cursor:pointer;
+    color:#fff; background:var(--petroleo); border:1px solid var(--petroleo);
+    box-shadow:0 4px 14px rgba(0,0,0,.18); transition:background .15s,transform .1s;
+  }
+  #btnCopiar:hover{ background:var(--petroleo-fr); border-color:var(--petroleo-fr); }
+  #btnCopiar:active{ transform:translateY(1px); }
+  #btnCopiar:focus-visible{ outline:2px solid var(--tinta); outline-offset:2px; }
+  #btnCopiar .ic{ font-size:1.05rem; line-height:1; }
+  #btnCopiar.ok{ background:var(--verde); border-color:var(--verde); }
+  @media (prefers-reduced-motion:reduce){ #btnCopiar{ transition:none; } }
+  @media print{ #btnCopiar{ display:none; } }
+</style>
+<style>
+  /* --- específicos do plano de construção --- */
+  .etapa{position:relative;border:1px solid var(--linha-forte);border-radius:2px;background:var(--papel);margin:16px 0;padding:0;overflow:hidden}
+  .etapa > .cab{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--linha);flex-wrap:wrap}
+  .etapa .num{font-family:var(--mono);font-weight:600;font-size:12px;color:#fff;background:var(--petroleo);border-radius:4px;padding:3px 9px;white-space:nowrap}
+  .etapa .nome{font-family:var(--grot);font-weight:700;font-size:1.05rem}
+  .etapa .estado{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+  .e-feito{background:var(--verde-fundo,#E4EFE7);color:var(--verde)}
+  .e-agora{background:var(--ambar-fundo);color:var(--ambar)}
+  .e-espera{background:var(--realce);color:var(--tinta-fraca)}
+  .e-futuro{background:var(--realce);color:var(--tinta-fraca)}
+  .etapa.trava{border-color:var(--oxido)}
+  .etapa.trava .num{background:var(--oxido)}
+  .etapa .corpo2{padding:16px 18px}
+  .etapa dl{margin:0;display:grid;grid-template-columns:1fr;gap:0}
+  @media(min-width:600px){.etapa dl{grid-template-columns:132px minmax(0,1fr);gap:2px 18px}}
+  .etapa dt{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--tinta-fraca);padding-top:9px}
+  .etapa dd{margin:0;font-size:.94rem;line-height:1.5;padding-top:9px}
+  .etapa dd + dt{border-top:1px solid var(--linha)} .etapa dd{border-top:1px solid var(--linha)}
+  @media(max-width:599px){.etapa dd{border-top:0;padding-top:2px;padding-bottom:10px}.etapa dt{border-top:1px solid var(--linha);padding-top:12px}}
+  .verde{color:var(--verde);font-weight:600}.laranja{color:var(--ambar);font-weight:600}.vermelho{color:var(--oxido);font-weight:600}
+
+  .peca{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--linha);align-items:start}
+  .peca:last-child{border-bottom:0}
+  .peca .ic{font-size:26px;text-align:center}
+  .peca .pt{font-family:var(--grot);font-weight:700;font-size:1rem;margin:0 0 2px}
+  .peca .pd{font-size:.9rem;color:var(--tinta-fraca);line-height:1.5;margin:0}
+  .peca .pd b{color:var(--tinta)}
+
+  .quem{display:grid;grid-template-columns:1fr;gap:14px;margin:20px 0}
+  @media(min-width:680px){.quem{grid-template-columns:repeat(3,1fr)}}
+  .quem .q{border:1px solid var(--linha-forte);border-radius:2px;padding:16px;background:var(--papel)}
+  .quem .q h4{font-family:var(--grot);font-size:.95rem;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .quem .q ul{margin:0;padding-left:18px;font-size:.88rem;line-height:1.55;color:var(--tinta-fraca)}
+  .quem .q ul b{color:var(--tinta)}
+
+  dl.glo{margin:0} dl.glo dt{font-family:var(--grot);font-weight:700;font-size:.95rem;margin-top:14px}
+  dl.glo dd{margin:2px 0 0;font-size:.9rem;color:var(--tinta-fraca);line-height:1.55}
+</style>
+
+<div class="folha">
+  <header class="cabecalho">
+    <p class="selo">Plano de construção · versão 1.0 · como o sistema deve ser feito</p>
+    <h1>Como vamos construir, do começo ao fim</h1>
+    <p class="linha-fina">
+      Escrito para ser entendido sem saber nada de programação. Explica as peças do sistema, a ordem
+      exata de construir, o que cada etapa entrega, do que ela depende e como saber que ficou pronta.
+      É o mapa da obra.
+    </p>
+    <dl class="controle">
+      <div><dt>Etapas</dt><dd>7 (E0 a E6)</dd></div>
+      <div><dt>Feito</dt><dd>E0 — base e leitura</dd></div>
+      <div><dt>Trava tudo</dt><dd>E1 — o código de proteção</dd></div>
+      <div><dt>Entrega</dt><dd>Programa Windows (.exe)</dd></div>
+    </dl>
+  </header>
+
+  <nav class="indice" aria-label="Índice">
+    <h2>Seções</h2>
+    <ol>
+      <li><a href="#p1"><span>01</span>Como a gente constrói</a></li>
+      <li><a href="#p2"><span>02</span>As peças do sistema</a></li>
+      <li><a href="#p3"><span>03</span>As etapas, em ordem</a></li>
+      <li><a href="#p4"><span>04</span>O que trava o quê</a></li>
+      <li><a href="#p5"><span>05</span>Quem faz o quê</a></li>
+      <li><a href="#p6"><span>06</span>Palavras difíceis, em português</a></li>
+    </ol>
+  </nav>
+
+  <main class="corpo">
+
+    <section id="p1" style="padding-top:34px">
+      <h2 class="secao"><em>01</em>Como a gente constrói</h2>
+      <p>Seis regras que valem para a obra inteira. Elas existem para você poder confiar sem precisar entender o técnico.</p>
+      <ul class="lista">
+        <li><strong>Um pedaço de cada vez, testado.</strong> Nunca se constrói tudo de uma vez. Cada pedaço é feito, testado e só então segue o próximo. Assim, se algo quebra, a gente sabe exatamente onde.</li>
+        <li><strong>Nada de fingir que funciona.</strong> Se uma função ainda não está pronta ou não é confiável, ela aparece marcada — como a quilometragem do airbag hoje diz "preliminar". Você nunca vê um número falso como se fosse verdade.</li>
+        <li><strong>Desenho antes do código (mockup primeiro).</strong> Antes de programar cada tela, eu te mostro o desenho dela. Você aprova ou pede mudança. Só depois eu construo. Você comanda a aparência.</li>
+        <li><strong>Segurança embutida, não pedida.</strong> Proteção do arquivo, do dado do cliente e contra erro já vem de fábrica em cada pedaço. Você não precisa lembrar de pedir.</li>
+        <li><strong>Cada etapa entrega algo que serve.</strong> Nenhuma etapa é "só por dentro". Ao fim de cada uma existe algo que você consegue abrir, ver e testar.</li>
+        <li><strong>O original é sagrado.</strong> O arquivo lido do módulo nunca é sobrescrito. Toda correção é arquivo novo, com cópia de segurança e impressão digital.</li>
+      </ul>
+    </section>
+
+    <section id="p2">
+      <h2 class="secao"><em>02</em>As peças do sistema</h2>
+      <p>
+        Pensa no sistema como um carro: são peças separadas que trabalham juntas. Entender as peças é
+        entender o sistema. São seis.
+      </p>
+      <div class="bloco"><span class="legenda">As seis peças</span>
+        <div class="peca"><div class="ic">⚙️</div><div><p class="pt">1. O motor</p><p class="pd">O coração. É a parte que <b>lê e escreve dentro do arquivo</b> do módulo — acha a quilometragem, o chassi, refaz os cálculos de proteção. É a peça mais importante e a mais protegida. Não tem tela; é a máquina por trás.</p></div></div>
+        <div class="peca"><div class="ic">🗺️</div><div><p class="pt">2. Os perfis (os mapas)</p><p class="pd">Cada módulo de carro tem um <b>mapa</b> que diz "a quilometragem fica aqui, o chassi ali". O motor não sabe ler nada sozinho — ele lê o mapa. <b>Carro novo = mapa novo</b>, sem mexer no motor. É isso que deixa o sistema crescer para várias marcas.</p></div></div>
+        <div class="peca"><div class="ic">📓</div><div><p class="pt">3. O registro (o caderninho)</p><p class="pd">Anota <b>tudo o que foi feito</b> — data, quem, qual carro, o que mudou — de um jeito que ninguém consegue apagar. É o que protege o mecânico e vira o laudo do cliente.</p></div></div>
+        <div class="peca"><div class="ic">🖥️</div><div><p class="pt">4. A interface (as telas)</p><p class="pd">O que o mecânico vê e toca. Bonita, por abas, fácil. Ela só mostra e comanda — a parte perigosa fica no motor, longe do dedo do operador.</p></div></div>
+        <div class="peca"><div class="ic">🗄️</div><div><p class="pt">5. A memória (o banco de dados)</p><p class="pd">Onde ficam guardados o registro, os laudos e os operadores, <b>na máquina da oficina</b>. Sem internet, sem nuvem — o dado do cliente não sai dali.</p></div></div>
+        <div class="peca"><div class="ic">📦</div><div><p class="pt">6. O empacotamento (o .exe)</p><p class="pd">Junta tudo num <b>programa que instala no Windows</b>, como qualquer programa. É a última peça: transforma o protótipo em produto que o mecânico baixa e usa.</p></div></div>
+      </div>
+      <p class="nota">
+        Hoje (fim da E0), as peças 1, 2, 3 e 4 já existem em versão de teste (no navegador). Faltam a 5
+        (banco de verdade) e a 6 (virar .exe) — e o motor ainda não sabe <em>escrever</em>, só ler.
+      </p>
+    </section>
+
+    <section id="p3">
+      <h2 class="secao"><em>03</em>As etapas, em ordem</h2>
+      <p>
+        A ordem importa: cada etapa depende da anterior. Para cada uma: o <strong>objetivo</strong>, o que
+        ela <strong>entrega</strong>, do que <strong>depende</strong>, e como saber que <strong>terminou</strong>.
+      </p>
+
+      <div class="etapa">
+        <div class="cab"><span class="num">E0</span><span class="nome">Base e leitura</span><span class="estado e-feito">Feito</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Montar o esqueleto do produto e ler os módulos de verdade.</dd>
+          <dt>Entrega</dt><dd>App por abas (diagnóstico, sincronismo, restaurar KM, registro, laudo), login por papéis, vínculo com OS. Leitura de chassi e KM do painel PSA confirmada.</dd>
+          <dt>Depende de</dt><dd>Nada — já feito.</dd>
+          <dt>Pronto quando</dt><dd><span class="verde">✓ Concluído.</span> A ferramenta lê os arquivos reais do Basalt e C3 corretamente.</dd>
+        </dl></div>
+      </div>
+
+      <div class="etapa trava">
+        <div class="cab"><span class="num">E1</span><span class="nome">Quebrar o código de proteção</span><span class="estado e-espera">Aguardando material</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Descobrir como a PSA calcula o código que protege a quilometragem. <strong>É a etapa que trava todo o resto do valor.</strong></dd>
+          <dt>Entrega</dt><dd>A "fórmula" do código de proteção — o que permite o motor <em>escrever</em> uma KM que o módulo aceite.</dd>
+          <dt>Depende de</dt><dd><span class="vermelho">Material do mecânico:</span> o mesmo módulo <b>antes e depois</b> de uma KM conhecida gravada por ferramenta que já funcione, e/ou vários módulos com KM anotada.</dd>
+          <dt>Pronto quando</dt><dd>Eu conseguir gerar um arquivo com KM nova cujo código de proteção bate com o que o módulo espera — provado contra os arquivos reais.</dd>
+          <dt>Risco</dt><dd><span class="vermelho">É o único ponto sem garantia.</span> Pode cair rápido ou dar trabalho. Sem o material, não anda.</dd>
+        </dl></div>
+      </div>
+
+      <div class="etapa">
+        <div class="cab"><span class="num">E2</span><span class="nome">Gravar de verdade</span><span class="estado e-espera">Depende da E1</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Ligar os botões que hoje estão travados: sincronizar, restaurar KM e reparar arquivo.</dd>
+          <dt>Entrega</dt><dd>O serviço principal funcionando: abrir os dois módulos, corrigir, e <b>salvar o arquivo pronto para gravar</b> no carro.</dd>
+          <dt>Depende de</dt><dd>A E1 (o código de proteção).</dd>
+          <dt>Pronto quando</dt><dd>Um arquivo corrigido pela ferramenta é aceito pelo módulo na bancada, com a KM certa e sem erro no painel.</dd>
+        </dl></div>
+      </div>
+
+      <div class="etapa">
+        <div class="cab"><span class="num">E3</span><span class="nome">Virar programa instalável</span><span class="estado e-espera">Trabalho conhecido</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Transformar o protótipo de teste no programa de verdade que instala no Windows.</dd>
+          <dt>Entrega</dt><dd>Um <b>.exe</b> com banco de dados local de verdade, login com senha, backup e restauração. Funciona sem internet.</dd>
+          <dt>Depende de</dt><dd>Nada de fora — é trabalho meu, sem surpresa. Pode andar em paralelo à E1.</dd>
+          <dt>Pronto quando</dt><dd>O mecânico instala, entra com senha, e o registro/laudo ficam salvos mesmo fechando e reabrindo o programa.</dd>
+        </dl></div>
+      </div>
+
+      <div class="etapa">
+        <div class="cab"><span class="num">E4</span><span class="nome">Laudo final e Ordem de Serviço</span><span class="estado e-espera">Depende de decisão</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Deixar o laudo com a cara da oficina e ligar o sistema à Ordem de Serviço de verdade.</dd>
+          <dt>Entrega</dt><dd>Laudo em PDF com logo e dados da oficina, numerado; e a operação puxando placa/cliente/veículo da OS automaticamente.</dd>
+          <dt>Depende de</dt><dd>Você decidir: o SistemaHMMecanica existe em outro lugar (e me passa o formato dos dados) ou eu defino o modelo da OS aqui. É a pendência <code>P2</code>.</dd>
+          <dt>Pronto quando</dt><dd>Ao concluir um serviço, sai um laudo pronto para entregar ao cliente, com tudo preenchido.</dd>
+        </dl></div>
+      </div>
+
+      <div class="etapa">
+        <div class="cab"><span class="num">E5</span><span class="nome">Airbag confirmado e mais perfis PSA</span><span class="estado e-espera">Aguardando material</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Fechar a quilometragem do airbag (hoje "preliminar") e cobrir bem C3, Aircross e Basalt.</dd>
+          <dt>Entrega</dt><dd>KM do airbag confirmada; perfis PSA robustos, testados em vários carros.</dd>
+          <dt>Depende de</dt><dd>Mais dumps com KM anotada, principalmente de airbag.</dd>
+          <dt>Pronto quando</dt><dd>A ferramenta lê a KM do airbag com a mesma confiança do painel, em vários carros diferentes.</dd>
+        </dl></div>
+      </div>
+
+      <div class="etapa">
+        <div class="cab"><span class="num">E6</span><span class="nome">Fases futuras</span><span class="estado e-futuro">Depois</span></div>
+        <div class="corpo2"><dl>
+          <dt>Objetivo</dt><dd>Expandir para além do arquivo, quando o produto principal estiver de pé.</dd>
+          <dt>Entrega</dt><dd>Chave/imobilizador · leitura pela tomada do carro (OBD) · outras marcas, um perfil por vez, sob demanda.</dd>
+          <dt>Depende de</dt><dd>Cada uma tem seu material e sua decisão de negócio. Chave pode exigir hardware.</dd>
+          <dt>Pronto quando</dt><dd>Sem fim fixo — o produto cresce por perfis conforme houver demanda e material. É o que sustenta a mensalidade.</dd>
+        </dl></div>
+      </div>
+    </section>
+
+    <section id="p4">
+      <h2 class="secao"><em>04</em>O que trava o quê</h2>
+      <p>
+        A coisa mais importante de entender: o que depende de <strong>mim</strong> (trabalho garantido) e o
+        que depende de <strong>material do mecânico</strong> (fora do meu controle).
+      </p>
+      <div class="rolagem"><table>
+        <thead><tr><th style="min-width:150px">Etapa</th><th style="min-width:180px">Depende de</th><th style="min-width:130px">Tem garantia?</th></tr></thead>
+        <tbody>
+          <tr><th>E0 — base e leitura</th><td>Eu (feito)</td><td class="marca sim">✓ pronto</td></tr>
+          <tr><th>E1 — código de proteção</th><td class="laranja">Material do mecânico</td><td class="marca nao">sem garantia</td></tr>
+          <tr><th>E2 — gravar</th><td>A E1</td><td class="marca nao">depende da E1</td></tr>
+          <tr><th>E3 — virar .exe</th><td>Eu</td><td class="marca sim">✓ garantido</td></tr>
+          <tr><th>E4 — laudo e OS</th><td>Você (decisão P2) + eu</td><td class="marca cond">✓ após decisão</td></tr>
+          <tr><th>E5 — airbag e perfis</th><td class="laranja">Material do mecânico</td><td class="marca cond">quando vier material</td></tr>
+          <tr><th>E6 — futuro</th><td>Material + decisão</td><td class="marca nao">por fase</td></tr>
+        </tbody>
+      </table></div>
+      <div class="bloco bloco--veto"><span class="legenda">O nó do projeto</span>
+        <p style="margin:0">
+          <strong>E3 (virar .exe) pode andar agora, em paralelo</strong> — é trabalho garantido. Mas o
+          sistema só faz o serviço principal (gravar) depois da <strong>E1</strong>, que depende do
+          material do mecânico. Por isso, conseguir o antes/depois com KM conhecida é a coisa mais
+          valiosa que pode acontecer com o projeto hoje.
+        </p>
+      </div>
+    </section>
+
+    <section id="p5">
+      <h2 class="secao"><em>05</em>Quem faz o quê</h2>
+      <p>Três pessoas, três papéis. Cada um entrega uma parte; ninguém faz o do outro.</p>
+      <div class="quem">
+        <div class="q"><h4>👤 Você</h4><ul>
+          <li><b>Decide o negócio</b> — escopo, preço, o que entra.</li>
+          <li><b>Decide a aparência</b> — aprova os mockups.</li>
+          <li><b>Ponte com o mecânico</b> — traz arquivos e respostas.</li>
+          <li>Decide a <b>P2</b> (modelo da OS).</li>
+        </ul></div>
+        <div class="q"><h4>🔧 O mecânico</h4><ul>
+          <li><b>Fornece os arquivos</b> — dumps com KM anotada.</li>
+          <li>O <b>antes/depois</b> que destrava a E1.</li>
+          <li>Testa na bancada com o iProg.</li>
+          <li>Diz se o resultado funcionou no carro.</li>
+        </ul></div>
+        <div class="q"><h4>💻 O desenvolvimento</h4><ul>
+          <li><b>Constrói tudo</b> — motor, telas, banco, .exe.</li>
+          <li><b>Decifra</b> os módulos e o código de proteção.</li>
+          <li><b>Segurança e qualidade</b> por padrão.</li>
+          <li>Mostra mockups e explica em português.</li>
+        </ul></div>
+      </div>
+    </section>
+
+    <section id="p6">
+      <h2 class="secao"><em>06</em>Palavras difíceis, em português</h2>
+      <p>Um dicionário rápido dos termos que aparecem no projeto.</p>
+      <dl class="glo">
+        <dt>Dump (arquivo .bin)</dt><dd>A cópia do conteúdo da memória de um módulo. É o "documento interno" da peça, que o programador tira e coloca de volta.</dd>
+        <dt>Módulo</dt><dd>Uma peça eletrônica do carro. Aqui: o painel (BCCM) e o airbag.</dd>
+        <dt>BCCM</dt><dd>O módulo que junta body computer + BSI + painel num só, nos PSA novos.</dd>
+        <dt>VIN / chassi</dt><dd>O número de identificação do veículo, 17 caracteres.</dd>
+        <dt>Checksum / código de proteção</dt><dd>Um número de conferência que o módulo usa para saber se o arquivo é válido. Se você muda a KM e não refaz esse número, o módulo rejeita. Descobrir como ele é calculado é a etapa E1.</dd>
+        <dt>Casamento (sincronismo)</dt><dd>Fazer painel e airbag concordarem no chassi e na quilometragem. Quando discordam, o painel dá erro.</dd>
+        <dt>Perfil</dt><dd>O mapa de um módulo: onde cada informação está guardada dentro do arquivo.</dd>
+        <dt>iProg Pro</dt><dd>O programador de bancada que o mecânico usa para ler e gravar os módulos.</dd>
+        <dt>.exe</dt><dd>O programa instalável para Windows — a forma final do produto.</dd>
+        <dt>Mockup</dt><dd>O desenho de uma tela, feito antes de programá-la, para você aprovar.</dd>
+      </dl>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <span>HM Módulos</span><span>Plano de construção v1.0</span><span>28 ago 2026</span><span>Guia da obra</span>
+  </footer>
+</div>

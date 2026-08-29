@@ -14,6 +14,7 @@ o escopo completo antes de construir.
 - **`pendencias.md`** — perguntas em aberto e o que trava cada etapa.
 - **`precos-mercado.md`** — referência de preços do mercado e modelos de cobrança do desenvolvimento.
 - **`referencia-iprog.md`** — o programador iProg Pro (concorrente e ferramental) e checklist de completude de funções.
+- **`plano-construcao.html`** — o guia da obra em linguagem simples: peças, etapas E0-E6, o que trava cada uma, quem faz o quê e glossário.
 
 ## Documentos de apresentação (HTML, para mostrar ao cliente)
 
